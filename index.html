@@ -52,7 +52,6 @@
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Estilos de botones y textos */
         h1 { font-family: 'Urbanist', sans-serif; font-size: 100px; letter-spacing: 5px; }
         .btn-main { background: var(--accent); color: #fff; padding: 20px 40px; border-radius: 50px; border: none; font-weight: 700; font-size: 20px; cursor: pointer; text-transform: uppercase; margin-top: 30px; }
         
@@ -72,12 +71,12 @@
         .main-photo { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
         .blur .main-photo { filter: blur(10px) brightness(0.3); }
         
-        .hotspot { position: absolute; width: 50px; height: 50px; background: rgba(0,122,255,0.5); border: 2px solid var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; }
+        .hotspot { position: absolute; width: 50px; height: 50px; background: rgba(0,122,255,0.5); border: 2px solid var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 10; }
         
         .side-panel { 
             position: absolute; top: 0; right: -500px; width: 450px; height: 100%; 
             background: rgba(10,10,10,0.9); backdrop-filter: blur(15px); padding: 60px 40px; 
-            transition: 0.5s; border-left: 1px solid var(--border); 
+            transition: 0.5s; border-left: 1px solid var(--border); z-index: 20;
         }
         .side-panel.open { right: 0; }
     </style>
@@ -86,24 +85,24 @@
 
     <div class="app-container">
 
-        <div class="slide active" id="home">
+        <div class="slide active" id="home" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('fondo.jpeg'); background-size: cover; background-position: center;">
             <h1>AERCOM</h1>
-            <p style="letter-spacing: 8px; opacity: 0.6;">SOLUCIONES DE ENERGÍA</p>
+            <p style="letter-spacing: 8px; opacity: 0.9; font-weight: 600;">SOLUCIONES DE ENERGÍA</p>
             <button class="btn-main" onclick="nav('selector')">Entrar</button>
         </div>
 
         <div class="slide" id="selector" style="padding:0;">
             <div class="grid-selector">
                 <div class="card" onclick="nav('ge-intro')">
-                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=1280">
+                    <img src="grupoelectrogeno.jpeg">
                     <div class="card-info"><h3>Grupos Electrógenos</h3></div>
                 </div>
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80&w=1280">
-                    <div class="card-info"><h3>Compresores de Aire</h3></div>
+                    <img src="Electrocompresor.jpg">
+                    <div class="card-info"><h3>Electrocompresores</h3></div>
                 </div>
                 <div class="card">
-                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&q=80&w=1280">
+                    <img src="todoslosequipo.jpg">
                     <div class="card-info"><h3>Todos los Equipos</h3></div>
                 </div>
             </div>
@@ -114,17 +113,17 @@
             <p style="font-size: 24px; font-weight: 300;">¿Su operación está preparada para evitar paradas críticas?</p>
             <button class="triangle-btn" onclick="nav('diagnostico')">
                 <div class="triangle"></div>
-                <span style="font-size: 10px; letter-spacing: 3px; opacity: 0.5;">DESAFÍOS</span>
+                <span style="font-size: 10px; letter-spacing: 3px; opacity: 0.5;">VER DESAFÍOS</span>
             </button>
         </div>
 
         <div class="slide" id="diagnostico">
             <h2 style="font-weight: 300; margin-bottom: 50px;">Desafíos Operativos</h2>
             <div style="text-align: left; width: 600px; font-size: 22px; line-height: 2;">
-                <p>• Cortes de energía frecuentes</p>
-                <p>• Falta de respaldo confiable</p>
-                <p>• Necesidad de operación continua</p>
-                <p>• Picos de demanda energética</p>
+                <p><i class="fa-solid fa-bolt" style="color:var(--accent); margin-right:15px;"></i> Cortes de energía frecuentes</p>
+                <p><i class="fa-solid fa-triangle-exclamation" style="color:var(--accent); margin-right:15px;"></i> Falta de respaldo confiable</p>
+                <p><i class="fa-solid fa-infinity" style="color:var(--accent); margin-right:15px;"></i> Necesidad de operación continua</p>
+                <p><i class="fa-solid fa-chart-line" style="color:var(--accent); margin-right:15px;"></i> Picos de demanda energética</p>
             </div>
             <button class="triangle-btn" onclick="nav('explorador')">
                 <div class="triangle"></div>
@@ -134,34 +133,35 @@
 
         <div class="slide" id="explorador" style="padding:0;">
             <div class="explorer-box" id="expBox">
-                <img src="https://i.ibb.co/Vv30fWw/equipo-aercom.jpg" class="main-photo">
+                <img src="grupoelectrogenoabierto.jpeg" class="main-photo">
                 
-                <div class="hotspot" style="top: 50%; left: 35%;" onclick="openDetail('alternador')"><i class="fa-solid fa-bolt"></i></div>
-                <div class="hotspot" style="top: 40%; left: 55%;" onclick="openPart('motor')"><i class="fa-solid fa-gear"></i></div>
+                <div class="hotspot" style="top: 55%; left: 35%;" onclick="openPart('alternador')"><i class="fa-solid fa-bolt"></i></div>
+                <div class="hotspot" style="top: 45%; left: 55%;" onclick="openPart('motor')"><i class="fa-solid fa-gear"></i></div>
+                <div class="hotspot" style="top: 35%; left: 78%;" onclick="openPart('control')"><i class="fa-solid fa-microchip"></i></div>
                 
                 <div class="side-panel" id="panel">
                     <h3 id="pTitle" style="font-size: 35px; margin-bottom: 30px;">Pieza</h3>
-                    <p style="color: #ff453a; font-size: 12px; font-weight: 700; letter-spacing: 2px;">FALLA COMÚN</p>
+                    <p style="color: #ff453a; font-size: 11px; font-weight: 700; letter-spacing: 2px;">FALLA COMÚN</p>
                     <p id="pFalla" style="font-size: 18px; margin-bottom: 30px;"></p>
                     <p style="color: var(--accent); font-size: 12px; font-weight: 700; letter-spacing: 2px;">SOLUCIÓN AERCOM</p>
                     <p id="pSol" style="font-size: 18px;"></p>
-                    <button onclick="closePart()" style="margin-top: 40px; padding: 15px; width: 100%; background: #222; border: none; color: #fff; cursor: pointer;">Cerrar</button>
+                    <button onclick="closePart()" style="margin-top: 40px; padding: 15px; width: 100%; background: #222; border: none; color: #fff; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;">Cerrar</button>
                 </div>
             </div>
-            <button onclick="nav('contacto')" style="position:absolute; bottom:30px; right:30px; padding:15px 30px; border-radius:50px; background:var(--accent); border:none; color:#fff; font-weight:700; cursor:pointer;">FINALIZAR</button>
+            <button onclick="nav('contacto')" style="position:absolute; bottom:30px; right:30px; padding:15px 30px; border-radius:50px; background:var(--accent); border:none; color:#fff; font-weight:700; cursor:pointer; text-transform:uppercase; letter-spacing:2px;">FINALIZAR</button>
         </div>
 
         <div class="slide" id="contacto">
-            <div style="display: flex; gap: 60px; align-items: center;">
-                <div style="text-align: left;">
+            <div style="display: flex; gap: 80px; align-items: center;">
+                <div style="text-align: left; max-width: 500px;">
                     <h2 style="font-size: 60px;">Hablemos.</h2>
-                    <p style="opacity: 0.6;">Escanee el código para contactar a un asesor.</p>
+                    <p style="opacity: 0.6; font-size: 20px;">Escanee el código para contactar a un asesor especializado de Aercom.</p>
                 </div>
-                <div style="background: #fff; padding: 20px; border-radius: 20px;">
-                    <i class="fa-solid fa-qrcode" style="color:#000; font-size: 150px;"></i>
+                <div style="background: #fff; padding: 30px; border-radius: 25px; box-shadow: 0 0 30px rgba(255,255,255,0.1);">
+                    <i class="fa-solid fa-qrcode" style="color:#000; font-size: 180px;"></i>
                 </div>
             </div>
-            <button onclick="nav('home')" style="margin-top: 50px; background: none; border: 1px solid var(--border); color: #444; padding: 10px 20px; border-radius: 50px; cursor: pointer;">Reiniciar</button>
+            <button onclick="nav('home')" style="margin-top: 50px; background: none; border: 1px solid var(--border); color: #555; padding: 10px 25px; border-radius: 50px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px;">Reiniciar Recorrido</button>
         </div>
 
     </div>
@@ -173,8 +173,9 @@
         }
 
         const info = {
-            alternador: { t: 'Alternador', f: 'Sobrecalentamiento crítico.', s: 'Limpieza y barnizado especializado.' },
-            motor: { t: 'Motor Industrial', f: 'Desgaste por lubricación.', s: 'Plan preventivo Aercom.' }
+            alternador: { t: 'Alternador de Potencia', f: 'Pérdida de aislamiento y sobrecalentamiento crítico.', s: 'Limpieza criogénica, barnizado y pruebas de megado.' },
+            motor: { t: 'Motor Industrial', f: 'Desgaste prematuro por lubricación ineficiente.', s: 'Plan preventivo Aercom con repuestos originales.' },
+            control: { t: 'Panel de Control', f: 'Alarmas falsas y fallos en la transferencia.', s: 'Actualización de firmware y calibración técnica.' }
         };
 
         function openPart(key) {
