@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Aercom - Experiencia Premium</title>
+    <title>Aercom - Experiencia Profesional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
@@ -11,11 +11,12 @@
         :root {
             --accent: #007aff;
             --bg: #000;
-            --glass: rgba(0, 0, 0, 0.7);
-            --border: rgba(255, 255, 255, 0.12);
+            --glass: rgba(0, 0, 0, 0.85); /* Más oscuro para mejor contraste */
+            --border: rgba(255, 255, 255, 0.2);
+            --text-dim: rgba(255, 255, 255, 0.7);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
             background-color: #000;
@@ -29,16 +30,13 @@
             align-items: center;
         }
 
-        /* Contenedor Adaptable */
         .app-container {
             width: 100%;
             max-width: 1280px;
             height: 100%;
             max-height: 720px;
             position: relative;
-            background: #000;
             overflow: hidden;
-            box-shadow: 0 0 100px rgba(0,0,0,0.5);
         }
 
         .slide {
@@ -51,195 +49,147 @@
             padding: 40px;
             background-size: cover;
             background-position: center;
-            animation: slideIn 0.4s ease-out;
         }
 
         .slide.active { display: flex; }
 
-        @keyframes slideIn { from { opacity: 0; transform: scale(1.05); } to { opacity: 1; transform: scale(1); } }
-
-        /* Estética de Cristal */
+        /* Tarjetas de Cristal */
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            padding: 40px 60px;
-            border-radius: 24px;
-            max-width: 850px;
+            padding: 45px;
+            border-radius: 28px;
             width: 90%;
+            max-width: 800px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centra todo el contenido internamente */
         }
 
-        h1 { font-size: 80px; font-weight: 900; letter-spacing: -2px; margin-bottom: 10px; }
-        h2 { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; color: #fff; }
-        
-        .btn-main { 
-            background: var(--accent); 
-            color: #fff; 
-            padding: 18px 40px; 
-            border-radius: 50px; 
-            border: none; 
-            font-weight: 700; 
-            font-size: 18px; 
-            cursor: pointer; 
-            text-transform: uppercase; 
+        h2 { font-size: 48px; font-weight: 800; margin-bottom: 15px; color: #fff; letter-spacing: -1px; }
+        .sub-text { font-size: 22px; color: var(--text-dim); font-weight: 300; margin-bottom: 30px; }
+
+        /* Botón de navegación (Flecha) */
+        .nav-down {
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-top: 20px;
-            transition: transform 0.2s;
+            transition: 0.3s;
         }
-        
-        .btn-back {
-            position: absolute; top: 30px; left: 30px; z-index: 100;
-            background: rgba(255,255,255,0.1); border: 1px solid var(--border);
-            color: #fff; padding: 10px 18px; border-radius: 50px; cursor: pointer;
-            font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
-            backdrop-filter: blur(5px);
-        }
+        .nav-down:active { transform: translateY(5px); opacity: 0.7; }
+        .nav-down i { font-size: 32px; margin-bottom: 8px; }
+        .nav-down span { font-size: 10px; letter-spacing: 3px; font-weight: 700; color: var(--accent); }
 
-        /* Grid de tarjetas */
+        /* Grid de Equipos Ajustado */
         .grid-selector { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; 
+            gap: 25px; 
             width: 100%; 
             height: 80%; 
             padding: 40px; 
         }
         .card { 
             position: relative; 
-            border-radius: 20px; 
+            border-radius: 24px; 
             overflow: hidden; 
             border: 1px solid var(--border); 
-            cursor: pointer; 
-            background: #111;
+            background: #0a0a0a;
+            cursor: pointer;
         }
-        .card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.3s; }
-        .card:active img { opacity: 0.9; }
+        .card img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; /* Ajusta la imagen sin cortarla */
+            padding: 20px;
+            opacity: 0.8; 
+            transition: 0.4s; 
+        }
+        .card:active img { transform: scale(1.05); opacity: 1; }
+        
         .card-info { 
             position: absolute; bottom: 0; width: 100%; 
-            padding: 25px; background: linear-gradient(transparent, rgba(0,0,0,0.9)); 
-            text-align: center; 
+            padding: 20px; background: linear-gradient(transparent, #000); 
+            text-align: center; font-weight: 700;
         }
 
-        /* Desafíos */
-        .challenge-box { text-align: left; margin: 30px 0; }
+        /* Desafíos con mejor contraste */
+        .challenge-list { width: 100%; text-align: left; margin-bottom: 20px; }
         .challenge-item { 
-            display: flex; align-items: center; gap: 15px; 
-            font-size: 20px; padding: 15px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.08); 
+            display: flex; align-items: center; gap: 20px; 
+            font-size: 20px; padding: 18px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            color: #fff;
         }
-        .challenge-item i { color: var(--accent); width: 25px; }
+        .challenge-item i { color: var(--accent); font-size: 22px; filter: drop-shadow(0 0 5px var(--accent)); }
 
-        /* Panel Lateral Explorador */
-        .side-panel { 
-            position: absolute; top: 0; right: -450px; width: 400px; height: 100%; 
-            background: rgba(0,0,0,0.95); padding: 50px 30px; 
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-            border-left: 1px solid var(--border); z-index: 200; 
+        .btn-back {
+            position: absolute; top: 30px; left: 30px; z-index: 100;
+            background: rgba(255,255,255,0.1); border: 1px solid var(--border);
+            color: #fff; padding: 10px 20px; border-radius: 50px; cursor: pointer;
+            font-size: 12px; font-weight: 700;
         }
-        .side-panel.open { right: 0; }
-        
-        .hotspot { 
-            position: absolute; width: 45px; height: 45px; 
-            background: rgba(0,122,255,0.4); border: 2px solid #fff; 
-            border-radius: 50%; display: flex; justify-content: center; 
-            align-items: center; color: #fff; cursor: pointer;
-            box-shadow: 0 0 20px rgba(0,122,255,0.6);
-        }
-
-        .qr-area { background: #fff; padding: 25px; border-radius: 20px; display: inline-block; }
-
     </style>
 </head>
 <body>
 
     <div class="app-container">
 
-        <div class="slide active" id="home" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('./fondo.jpeg');">
-            <h1 style="font-family: 'Inter', sans-serif; font-weight: 900;">AERCOM</h1>
-            <p style="letter-spacing: 10px; opacity: 0.7; font-size: 14px; margin-bottom: 30px;">SOLUCIONES INDUSTRIALES</p>
-            <button class="btn-main" onclick="nav('selector')">Comenzar</button>
-        </div>
-
-        <div class="slide" id="selector" style="background: #000; padding: 20px;">
-            <button class="btn-back" onclick="nav('home')">← Inicio</button>
+        <div class="slide active" id="selector" style="background: #000;">
             <div class="grid-selector">
                 <div class="card" onclick="nav('ge-intro')">
                     <img src="./grupoelectrogeno.jpeg">
-                    <div class="card-info"><h3>Grupos Electrógenos</h3></div>
+                    <div class="card-info">GRUPOS ELECTRÓGENOS</div>
                 </div>
                 <div class="card">
                     <img src="./Electrocompresor.jpg">
-                    <div class="card-info"><h3>Electrocompresores</h3></div>
+                    <div class="card-info">COMPRESORES DE AIRE</div>
                 </div>
                 <div class="card">
                     <img src="./todoslosequipo.jpg">
-                    <div class="card-info"><h3>Todos los Equipos</h3></div>
+                    <div class="card-info">TODOS LOS EQUIPOS</div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" id="ge-intro" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('./grupoelectrogeno.jpeg');">
-            <button class="btn-back" onclick="nav('selector')">← Equipos</button>
+        <div class="slide" id="ge-intro" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('./grupoelectrogeno.jpeg');">
+            <button class="btn-back" onclick="nav('selector')">VOLVER</button>
             <div class="glass-card">
-                <p style="color: var(--accent); font-weight: 700; font-size: 12px; letter-spacing: 4px; margin-bottom: 10px;">DIVISIÓN ENERGÍA</p>
+                <p style="color: var(--accent); font-weight: 900; font-size: 13px; letter-spacing: 5px; margin-bottom: 15px;">DIVISIÓN ENERGÍA</p>
                 <h2>GRUPO ELECTRÓGENO</h2>
-                <p style="font-size: 22px; font-weight: 300; opacity: 0.9;">¿Su operación está preparada para evitar paradas críticas?</p>
-                <button class="btn-main" onclick="nav('diagnostico')">Analizar Desafíos</button>
+                <p class="sub-text">¿Su operación está preparada para evitar paradas críticas?</p>
+                
+                <button class="nav-down" onclick="nav('diagnostico')">
+                    <i class="fa-solid fa-caret-down"></i>
+                    <span>DESCUBRIR DESAFÍOS</span>
+                </button>
             </div>
         </div>
 
-        <div class="slide" id="diagnostico" style="background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('./grupoelectrogeno.jpeg');">
-            <button class="btn-back" onclick="nav('ge-intro')">← Volver</button>
-            <div class="glass-card" style="text-align: left;">
-                <h2 style="font-size: 32px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">Desafíos Operativos</h2>
-                <div class="challenge-box">
-                    <div class="challenge-item"><i class="fa-solid fa-bolt"></i> Cortes de energía frecuentes</div>
-                    <div class="challenge-item"><i class="fa-solid fa-circle-exclamation"></i> Falta de respaldo confiable</div>
-                    <div class="challenge-item"><i class="fa-solid fa- उद्योग"></i> Necesidad de operación continua</div>
+        <div class="slide" id="diagnostico" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('./grupoelectrogeno.jpeg');">
+            <button class="btn-back" onclick="nav('ge-intro')">VOLVER</button>
+            <div class="glass-card">
+                <h2 style="font-size: 36px; align-self: flex-start;">Desafíos Operativos</h2>
+                <div class="challenge-list">
+                    <div class="challenge-item"><i class="fa-solid fa-bolt-lightning"></i> Cortes de energía frecuentes</div>
+                    <div class="challenge-item"><i class="fa-solid fa-triangle-exclamation"></i> Falta de respaldo confiable</div>
+                    <div class="challenge-item"><i class="fa-solid fa-infinity"></i> Necesidad de operación continua</div>
                     <div class="challenge-item"><i class="fa-solid fa-chart-line"></i> Picos de demanda energética</div>
                 </div>
-                <button class="btn-main" style="width: 100%;" onclick="nav('explorador')">Ver Solución Técnica</button>
-            </div>
-        </div>
-
-        <div class="slide" id="explorador" style="padding:0;">
-            <button class="btn-back" onclick="nav('diagnostico')">← Desafíos</button>
-            <div style="position:relative; width:100%; height:100%;" id="expContainer">
-                <img src="./grupoelectrogenoabierto.jpeg" style="width:100%; height:100%; object-fit:cover;" id="mainImg">
                 
-                <div class="hotspot" style="top: 50%; left: 35%;" onclick="openPart('alternador')"><i class="fa-solid fa-plus"></i></div>
-                <div class="hotspot" style="top: 45%; left: 55%;" onclick="openPart('motor')"><i class="fa-solid fa-plus"></i></div>
-                <div class="hotspot" style="top: 35%; left: 75%;" onclick="openPart('control')"><i class="fa-solid fa-plus"></i></div>
-                
-                <div class="side-panel" id="panel">
-                    <h3 id="pTitle" style="font-size: 32px; margin-bottom: 30px;">Pieza</h3>
-                    <div style="margin-bottom: 30px;">
-                        <p style="color: #ff453a; font-size: 10px; font-weight: 700; letter-spacing: 2px;">FALLA COMÚN</p>
-                        <p id="pFalla" style="font-size: 17px; margin-top: 5px; opacity: 0.9;"></p>
-                    </div>
-                    <div style="margin-bottom: 40px;">
-                        <p style="color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: 2px;">SOLUCIÓN AERCOM</p>
-                        <p id="pSol" style="font-size: 18px; margin-top: 5px; font-weight: 300; line-height: 1.4;"></p>
-                    </div>
-                    <button onclick="closePart()" style="padding: 15px; width: 100%; background: #222; color: #fff; border: 1px solid var(--border); border-radius: 10px; cursor: pointer;">CERRAR</button>
-                </div>
+                <button class="nav-down" onclick="nav('explorador')">
+                    <i class="fa-solid fa-caret-down"></i>
+                    <span>VER SOLUCIÓN TÉCNICA</span>
+                </button>
             </div>
-            <button onclick="nav('contacto')" style="position:absolute; bottom:30px; right:30px; padding:15px 30px; border-radius:50px; background:var(--accent); border:none; color:#fff; font-weight:700; cursor:pointer;">FINALIZAR</button>
-        </div>
-
-        <div class="slide" id="contacto" style="background: #000;">
-            <button class="btn-back" onclick="nav('explorador')">← Volver</button>
-            <div style="display: flex; gap: 60px; align-items: center; max-width: 1000px;">
-                <div style="text-align: left;">
-                    <h2 style="font-size: 60px;">Hablemos.</h2>
-                    <p style="opacity: 0.6; font-size: 20px; line-height: 1.5;">Escanee el código para contactar a nuestro equipo de ingeniería.</p>
-                </div>
-                <div class="qr-area">
-                    <i class="fa-solid fa-qrcode" style="color:#000; font-size: 160px;"></i>
-                </div>
-            </div>
-            <button onclick="nav('home')" style="margin-top: 60px; color: #444; background: none; border: 1px solid #222; padding: 10px 20px; border-radius: 50px; cursor: pointer;">Reiniciar Experiencia</button>
         </div>
 
     </div>
@@ -248,27 +198,6 @@
         function nav(id) {
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            closePart();
-        }
-
-        const info = {
-            alternador: { t: 'Alternador', f: 'Sobrecalentamiento por suciedad acumulada.', s: 'Servicio de limpieza criogénica y barnizado de protección industrial.' },
-            motor: { t: 'Motor Diésel', f: 'Desgaste por uso de lubricantes genéricos.', s: 'Mantenimiento preventivo con repuestos originales y aceites de alta gama.' },
-            control: { t: 'Panel de Control', f: 'Errores de lógica en la transferencia.', s: 'Calibración de módulos electrónicos y actualización de sistema.' }
-        };
-
-        function openPart(key) {
-            const p = info[key];
-            document.getElementById('pTitle').innerText = p.t;
-            document.getElementById('pFalla').innerText = p.f;
-            document.getElementById('pSol').innerText = p.s;
-            document.getElementById('panel').classList.add('open');
-            document.getElementById('mainImg').style.filter = "blur(8px) brightness(0.4)";
-        }
-
-        function closePart() {
-            document.getElementById('panel').classList.remove('open');
-            document.getElementById('mainImg').style.filter = "none";
         }
     </script>
 </body>
