@@ -8,319 +8,402 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
 
+        /* --- VARIABLES GLOBALES (TOKENS) --- */
         :root {
-            --accent: #007aff;
-            --glass: rgba(10, 10, 10, 0.9);
-            --border: rgba(255, 255, 255, 0.15);
-            --bg-dark: #050505;
+            --primary-blue: #007aff;
+            --bg-dark: #000000;
+            --glass-bg: rgba(10, 10, 10, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --transition-smooth: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            --text-main: #ffffff;
+            --font-main: 'Inter', sans-serif;
         }
 
+        /* --- RESET Y BASE --- */
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
         
         body, html { 
-            background: #000; color: #fff; font-family: 'Inter', sans-serif; 
-            width: 100%; height: 100%; overflow: hidden; 
+            background: var(--bg-dark); 
+            color: var(--text-main); 
+            font-family: var(--font-main); 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
         }
 
         .app-container { width: 100vw; height: 100vh; position: relative; }
 
+        /* --- SISTEMA DE NAVEGACIÓN (SLIDES) --- */
         .slide {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: none; flex-direction: column; justify-content: center; align-items: center;
-            background-size: cover; background-position: center;
+            background-size: cover; background-position: center; background-repeat: no-repeat;
             will-change: transform, opacity;
-            animation: fadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: fadeIn var(--transition-smooth);
+            overflow-y: auto; /* Permite scroll interno si el contenido excede la pantalla */
         }
         
         .slide.active { display: flex; }
+        .slide-dark { background: var(--bg-dark); }
+        .slide-no-padding { padding: 0; }
         
         @keyframes fadeIn { 
-            from { opacity: 0; transform: scale(1.01); } 
+            from { opacity: 0; transform: scale(1.02); } 
             to { opacity: 1; transform: scale(1); } 
         }
 
-        /* --- CAMBIOS SOLO EN EL MENU PRINCIPAL --- */
-        .menu-grid { display: flex; width: 100%; height: 100%; background: #000; }
+        /* --- FONDOS ESPECÍFICOS DE SLIDES --- */
+        #home { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./fondo.jpeg'); }
+        #comp-intro { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)), url('./electrocompresor.jpg'); }
+        #comp-diagnostico { background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('./electrocompresor.jpg'); }
+        #ge-intro { background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)), url('./grupoelectrogeno.jpeg'); }
+        #ge-diagnostico { background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('./grupoelectrogeno.jpeg'); }
+
+        /* --- TIPOGRAFÍA Y TEXTOS --- */
+        .hero-title { font-size: clamp(3rem, 8vw, 110px); font-weight: 900; letter-spacing: 12px; text-align: center; }
+        .hero-subtitle { font-size: clamp(0.8rem, 2vw, 1rem); letter-spacing: 15px; margin-bottom: 45px; opacity: 0.5; text-align: center; }
+        .section-title { font-size: clamp(2rem, 5vw, 60px); margin-bottom: 15px; font-weight: 900; }
+        .section-subtitle { font-size: clamp(1.2rem, 3vw, 24px); opacity: 0.8; }
+        .accent-label { color: var(--primary-blue); font-weight: 900; letter-spacing: 5px; margin-bottom: 10px; text-transform: uppercase; font-size: 0.85rem; }
+
+        /* --- BOTONES --- */
+        .btn-primary {
+            padding: 22px 65px; border-radius: 100px; background: var(--primary-blue); 
+            color: #fff; border: none; font-weight: 900; cursor: pointer; 
+            font-family: var(--font-main); transition: 0.3s; letter-spacing: 2px;
+        }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(0, 122, 255, 0.6); transform: translateY(-2px); }
+        
+        .btn-back { 
+            position: absolute; top: 40px; left: 40px; z-index: 150;
+            background: rgba(255,255,255,0.06); border: 1px solid var(--glass-border);
+            color: #fff; padding: 12px 28px; border-radius: 50px; cursor: pointer;
+            font-weight: 700; font-size: 12px; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-back:hover { background: rgba(255,255,255,0.15); }
+
+        .btn-nav { background: none; border: none; color: #fff; cursor: pointer; margin-top: 30px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .btn-nav i { font-size: 45px; color: var(--primary-blue); animation: float 2.5s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
+
+        /* --- MENU PRINCIPAL --- */
+        .menu-grid { display: flex; width: 100%; height: 100%; background: var(--bg-dark); }
         .menu-item { 
             flex: 1; position: relative; overflow: hidden; cursor: pointer;
-            transition: 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            border-right: 1px solid rgba(0, 122, 255, 0.2); /* Línea divisoria azul tenue */
+            transition: var(--transition-smooth); border-right: 1px solid rgba(0, 122, 255, 0.2); 
             display: flex; flex-direction: column; justify-content: flex-end; padding: 60px 40px;
         }
-        
-        /* Luz azul tenue de fondo */
         .menu-item::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(180deg, transparent 60%, rgba(0, 122, 255, 0.15) 100%);
             z-index: 2; pointer-events: none;
         }
-
         .menu-item:hover { flex: 1.4; }
         .menu-item img { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            object-fit: cover; z-index: 1; opacity: 0.4; transition: 0.8s;
+            object-fit: cover; z-index: 1; opacity: 0.4; transition: var(--transition-smooth);
         }
         .menu-item:hover img { opacity: 0.7; transform: scale(1.08); }
-        
         .menu-item-content { position: relative; z-index: 3; }
-        .menu-item h3 { 
-            font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 4px; line-height: 1.2;
-            text-shadow: 0 0 15px rgba(0, 122, 255, 0.4); /* Brillo suave en texto */
-        }
-        /* ----------------------------------------- */
+        .menu-item h3 { font-size: clamp(1.5rem, 3vw, 28px); font-weight: 900; text-transform: uppercase; letter-spacing: 4px; line-height: 1.2; text-shadow: 0 0 15px rgba(0, 122, 255, 0.4); }
 
-        /* TARJETAS DE CRISTAL */
+        /* --- TARJETAS DE CRISTAL (GLASSMORPHISM) --- */
         .glass-card {
-            background: var(--glass); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
-            padding: 50px; border-radius: 45px; border: 1px solid var(--border);
+            background: var(--glass-bg); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: clamp(30px, 5vw, 50px); 
+            border-radius: 45px; 
+            border: 1px solid var(--glass-border);
             width: 90%; max-width: 1050px; text-align: center;
             box-shadow: 0 40px 80px rgba(0,0,0,0.9);
         }
+        .glass-card.transparent { background: transparent; border: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 0; }
 
+        /* --- LISTAS DE DESAFÍOS --- */
         .challenge-item { 
-            display: flex; align-items: center; gap: 25px; font-size: 22px; font-weight: 300;
+            display: flex; align-items: center; gap: 25px; font-size: clamp(1rem, 2vw, 22px); font-weight: 300;
             padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left;
         }
-        .challenge-item i { color: var(--accent); font-size: 24px; filter: drop-shadow(0 0 10px rgba(0,122,255,0.6)); width: 30px; text-align: center; }
+        .challenge-item i { color: var(--primary-blue); font-size: 24px; filter: drop-shadow(0 0 10px rgba(0,122,255,0.6)); width: 30px; text-align: center; }
 
-        /* CATEGORIAS */
-        .category-grid { display: flex; gap: 25px; margin-top: 40px; width: 100%; perspective: 1000px; }
+        /* --- CATEGORIAS --- */
+        .category-grid { display: flex; flex-wrap: wrap; gap: 25px; margin-top: 40px; width: 100%; justify-content: center; }
         .category-card { 
-            flex: 1; position: relative; border-radius: 24px; overflow: hidden; 
-            height: 450px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-            background: #111;
+            flex: 1; min-width: 280px; position: relative; border-radius: 24px; overflow: hidden; 
+            height: clamp(300px, 40vh, 450px); cursor: pointer; border: 1px solid var(--glass-border);
+            transition: var(--transition-smooth); background: #111;
         }
+        .category-card.max-w { max-width: 450px; }
         .category-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: transform 0.8s, opacity 0.5s; }
-        .category-card:hover { transform: translateY(-15px) scale(1.02); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0, 122, 255, 0.2); }
-        .category-card:hover img { opacity: 1; transform: scale(1.1); }
+        .category-card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary-blue); 
+            box-shadow: 0 15px 35px rgba(0, 122, 255, 0.3), 0 0 15px rgba(0, 122, 255, 0.2) inset; 
+        }
+        .category-card:hover img { opacity: 1; transform: scale(1.08); }
         .category-label { 
             position: absolute; bottom: 25px; left: 20px; right: 20px; padding: 20px; 
             background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: 0.4s;
+            border-radius: 18px; border: 1px solid var(--glass-border); text-align: center; transition: 0.4s;
         }
-        .category-card:hover .category-label { background: var(--accent); border-color: transparent; transform: translateY(-5px); }
+        .category-card:hover .category-label { background: var(--primary-blue); border-color: transparent; transform: translateY(-5px); }
         .category-label h4 { font-size: 16px; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; margin: 0; }
 
-        /* HOTSPOTS */
+        /* --- EXPLORADOR Y HOTSPOTS --- */
+        .explorer-container { position: relative; width: 100%; height: 100%; }
+        .explorer-bg { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        
         .hotspot { 
-            position: absolute; width: 45px; height: 45px; background: var(--accent);
+            position: absolute; width: 45px; height: 45px; background: var(--primary-blue);
             border: 3px solid #fff; border-radius: 50%; display: flex; 
             justify-content: center; align-items: center; cursor: pointer; z-index: 10;
-            box-shadow: 0 0 20px var(--accent); transition: 0.3s;
+            box-shadow: 0 0 20px var(--primary-blue); transition: 0.3s;
+            animation: pulse 2s infinite;
         }
-
-        /* PANEL LATERAL */
-        .side-panel { 
-            position: absolute; top: 0; right: -600px; width: 550px; height: 100%; 
-            background: rgba(5,5,5,0.98); padding: 80px 60px; 
-            transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1); border-left: 1px solid var(--border); z-index: 200;
-        }
-        .side-panel.open { right: 0; }
-
-        /* BOTONES */
-        .btn-nav { background: none; border: none; color: #fff; cursor: pointer; margin-top: 30px; display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .btn-nav i { font-size: 45px; color: var(--accent); animation: float 2.5s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
+        .hotspot:hover { transform: scale(1.2); }
         
-        .btn-back { 
-            position: absolute; top: 40px; left: 40px; z-index: 150;
-            background: rgba(255,255,255,0.06); border: 1px solid var(--border);
-            color: #fff; padding: 12px 28px; border-radius: 50px; cursor: pointer;
-            font-weight: 700; font-size: 12px; text-transform: uppercase;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 122, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 122, 255, 0); }
         }
 
-        .interactive-photo {
-            width: 100%; max-width: 850px; height: 400px; border-radius: 30px;
-            overflow: hidden; border: 1px solid var(--border); cursor: pointer;
-            position: relative; margin: 20px auto;
+        .btn-floating {
+            position: absolute; bottom: 40px; right: 40px; padding: 20px 45px; 
+            background: var(--primary-blue); color: #fff; border: none; border-radius: 100px; 
+            font-weight: 900; cursor: pointer; letter-spacing: 2px; transition: 0.3s;
         }
-        .interactive-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .btn-floating:hover { box-shadow: 0 0 20px rgba(0, 122, 255, 0.6); transform: scale(1.05); }
+
+        /* --- PANEL LATERAL Y OVERLAY --- */
+        .panel-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            z-index: 190; opacity: 0; pointer-events: none; transition: opacity var(--transition-smooth);
+        }
+        .panel-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .side-panel { 
+            position: fixed; top: 0; right: -600px; width: 100%; max-width: 550px; height: 100%; 
+            background: rgba(5,5,5,0.98); padding: clamp(40px, 5vw, 80px) clamp(30px, 4vw, 60px); 
+            transition: var(--transition-smooth); border-left: 1px solid var(--glass-border); 
+            z-index: 200; display: flex; flex-direction: column; overflow-y: auto;
+        }
+        .side-panel.open { right: 0; box-shadow: -20px 0 50px rgba(0,0,0,0.8); }
+
+        .panel-title { font-size: clamp(1.8rem, 3vw, 35px); margin-bottom: 35px; font-weight: 900; line-height: 1.1; }
+        .panel-section { margin-bottom: 35px; }
+        .panel-label-crit { color: #ff453a; font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px; display: block; }
+        .panel-desc { font-size: 18px; line-height: 1.6; opacity: 0.8; }
+        .panel-label-sol { color: var(--primary-blue); font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px; display: block; }
+        .panel-sol { font-size: 20px; line-height: 1.6; font-weight: 300; }
+        
+        .btn-close-panel {
+            padding: 20px; width: 100%; background: #222; border: 1px solid var(--glass-border); 
+            color: #fff; border-radius: 15px; cursor: pointer; font-weight: 900; 
+            margin-top: auto; transition: 0.3s;
+        }
+        .btn-close-panel:hover { background: #333; border-color: #fff; }
+
+        /* --- CONTACTO --- */
+        .contact-layout { display: flex; gap: clamp(30px, 5vw, 80px); align-items: center; text-align: left; flex-wrap: wrap; justify-content: center; }
+        .contact-title { font-size: clamp(3rem, 8vw, 80px); font-weight: 900; line-height: 1; }
+        .contact-desc { font-size: clamp(1rem, 2vw, 20px); opacity: 0.5; margin-top: 20px; max-width: 400px; }
+        .qr-box { background: #fff; padding: 40px; border-radius: 40px; }
+        .qr-icon { color: #000; font-size: clamp(100px, 15vw, 150px); }
+        .btn-reset { margin-top: 50px; opacity: 0.4; background: none; border: none; color: #fff; cursor: pointer; font-size: 10px; letter-spacing: 2px; transition: 0.3s; }
+        .btn-reset:hover { opacity: 1; }
+
+        /* --- RESPONSIVIDAD (TABLETS E INDUSTRIAL FORMATS) --- */
+        @media (max-width: 900px) {
+            .menu-grid { flex-direction: column; }
+            .menu-item { padding: 40px 20px; min-height: 25vh; border-right: none; border-bottom: 1px solid rgba(0, 122, 255, 0.2); }
+            .glass-card { padding: 30px; }
+        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
 
-        <div class="slide active" id="home" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('./fondo.jpeg');">
-            <h1 style="font-size: 110px; font-weight: 900; letter-spacing: 12px;">AERCOM</h1>
-            <p style="letter-spacing: 15px; margin-bottom: 45px; opacity: 0.5;">ENERGÍA PARA TODAS LAS INDUSTRIAS</p>
-            <button onclick="nav('selector')" style="padding: 22px 65px; border-radius: 100px; background: var(--accent); color: #fff; border: none; font-weight: 900; cursor: pointer;">EXPLORAR</button>
+        <div class="panel-overlay" id="panelOverlay" onclick="closePart()"></div>
+
+        <div class="slide active" id="home">
+            <h1 class="hero-title">AERCOM</h1>
+            <p class="hero-subtitle">ENERGÍA PARA TODAS LAS INDUSTRIAS</p>
+            <button class="btn-primary" onclick="nav('selector')">EXPLORAR</button>
         </div>
 
-        <div class="slide" id="selector" style="padding:0;">
+        <div class="slide slide-no-padding" id="selector">
             <div class="menu-grid">
                 <div class="menu-item" onclick="nav('ge-intro')">
-                    <img src="./grupoelectrogeno.jpeg">
+                    <img src="./grupoelectrogeno.jpeg" alt="Grupos Electrógenos" loading="lazy">
                     <div class="menu-item-content"><h3>Grupos<br>Electrógenos</h3></div>
                 </div>
                 <div class="menu-item" onclick="nav('comp-intro')">
-                    <img src="./electrocompresor.jpg">
+                    <img src="./electrocompresor.jpg" alt="Compresores" loading="lazy">
                     <div class="menu-item-content"><h3>Compresores<br>de Aire</h3></div>
                 </div>
-                <div class="menu-item" onclick="alert('Módulo en desarrollo')">
-                    <img src="./todoslosequipo.jpg">
+                <div class="menu-item" onclick="nav('otros-equipos')">
+                    <img src="./todoslosequipo.jpg" alt="Todos los Equipos" loading="lazy">
                     <div class="menu-item-content"><h3>Todos los<br>Equipos</h3></div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" id="comp-intro" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)), url('./electrocompresor.jpg');">
+        <div class="slide slide-dark" id="otros-equipos">
             <button class="btn-back" onclick="nav('selector')">VOLVER</button>
-            <div class="glass-card">
-                <h2 style="font-size: 60px; margin-bottom: 15px;">COMPRESORES DE AIRE</h2>
-                <p style="font-size: 24px; opacity: 0.8;">¿Tu línea de aire está preparada para evitar paradas críticas?</p>
-                <button class="btn-nav" onclick="nav('comp-diagnostico')"><i class="fa-solid fa-chevron-down"></i></button>
+            <div class="glass-card transparent">
+                <p class="accent-label">CATÁLOGO COMPLEMENTARIO</p>
+                <h2 class="section-title">Otros Equipos Industriales</h2>
+                
+                <div class="category-grid">
+                    <div class="category-card max-w" onclick="openDetail('torres')">
+                        <img src="./torres.jpg" alt="Torres de Iluminación" loading="lazy">
+                        <div class="category-label"><h4>Torres de Iluminación</h4></div>
+                    </div>
+                    <div class="category-card max-w" onclick="openDetail('vru')">
+                        <img src="./vru.jpg" alt="VRU" loading="lazy">
+                        <div class="category-label"><h4>Vapor Recovery Units (VRU)</h4></div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="slide" id="comp-diagnostico" style="background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('./electrocompresor.jpg');">
+        <div class="slide" id="comp-intro">
+            <button class="btn-back" onclick="nav('selector')">VOLVER</button>
+            <div class="glass-card">
+                <h2 class="section-title">COMPRESORES DE AIRE</h2>
+                <p class="section-subtitle">¿Tu línea de aire está preparada para evitar paradas críticas?</p>
+                <button class="btn-nav" onclick="nav('comp-diagnostico')" aria-label="Siguiente"><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+        </div>
+
+        <div class="slide" id="comp-diagnostico">
             <button class="btn-back" onclick="nav('comp-intro')">VOLVER</button>
             <div class="glass-card">
-                <h2 style="text-align: left; margin-bottom: 30px; font-size: 40px;">¿Qué desafíos enfrentas hoy?</h2>
+                <h2 class="section-title" style="text-align: left;">¿Qué desafíos enfrentas hoy?</h2>
                 <div class="challenge-item"><i class="fa-solid fa-shield-halved"></i> Falta de respaldo confiable</div>
                 <div class="challenge-item"><i class="fa-solid fa-filter"></i> Mala calidad de aire</div>
                 <div class="challenge-item"><i class="fa-solid fa-bolt"></i> Equipos poco eficientes</div>
                 <div class="challenge-item"><i class="fa-solid fa-cubes"></i> Falta de soluciones integrales</div>   
                 <div class="challenge-item"><i class="fa-solid fa-droplet-slash"></i> Agua en la línea</div>
-                <button class="btn-nav" onclick="nav('comp-soluciones')"><i class="fa-solid fa-chevron-down"></i></button>
+                <button class="btn-nav" onclick="nav('comp-soluciones')" aria-label="Soluciones"><i class="fa-solid fa-chevron-down"></i></button>
             </div>
         </div>
 
-        <div class="slide" id="comp-soluciones" style="background: var(--bg-dark);">
+        <div class="slide slide-dark" id="comp-soluciones">
             <button class="btn-back" onclick="nav('comp-diagnostico')">VOLVER</button>
-            <div class="glass-card" style="background: transparent; border: none; box-shadow: none;">
-                <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-bottom: 10px;">SOLUCIONES A MEDIDA</p>
-                <h2 style="font-size: 40px; margin-bottom: 40px; font-weight: 900;">Infraestructura de Aire Comprimido</h2>
+            <div class="glass-card transparent">
+                <p class="accent-label">SOLUCIONES A MEDIDA</p>
+                <h2 class="section-title">Infraestructura de Aire Comprimido</h2>
                 <div class="category-grid">
                     <div class="category-card" onclick="nav('comp-subcat')">
-                        <img src="./electrocompresor.jpg">
+                        <img src="./electrocompresor.jpg" alt="Compresores" loading="lazy">
                         <div class="category-label"><h4>Compresores</h4></div>
                     </div>
-                    <div class="category-card" onclick="nav('view-secadora')">
-                        <img src="secadora.jpg">
+                    <div class="category-card" onclick="openDetail('secadora')">
+                        <img src="secadora.jpg" alt="Tratamiento" loading="lazy">
                         <div class="category-label"><h4>Tratamiento</h4></div>
                     </div>
-                    <div class="category-card" onclick="nav('view-shelter')">
-                        <img src="sheltercerrado.jpg">
+                    <div class="category-card" onclick="openDetail('shelter')">
+                        <img src="sheltercerrado.jpg" alt="Shelter" loading="lazy">
                         <div class="category-label"><h4>Shelter</h4></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" id="ge-intro" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.75)), url('./grupoelectrogeno.jpeg');">
-            <button class="btn-back" onclick="nav('selector')">VOLVER</button>
-            <div class="glass-card">
-                <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-bottom: 15px;">DIVISIÓN POTENCIA</p>
-                <h2 style="font-size: 60px; margin-bottom: 15px;">GRUPO ELECTRÓGENO</h2>
-                <p style="font-size: 24px; opacity: 0.8;">¿Su operación está preparada para evitar paradas críticas?</p>
-                <button class="btn-nav" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-chevron-down"></i></button>
-            </div>
-        </div>
-
-        <div class="slide" id="ge-diagnostico" style="background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('./grupoelectrogeno.jpeg');">
-            <button class="btn-back" onclick="nav('ge-intro')">VOLVER</button>
-            <div class="glass-card">
-                <h2 style="text-align: left; margin-bottom: 30px; font-size: 40px;">Desafíos Operativos</h2>
-                <div class="challenge-item"><i class="fa-solid fa-bolt-lightning"></i> Cortes de energía frecuentes</div>
-                <div class="challenge-item"><i class="fa-solid fa-shield-virus"></i> Falta de respaldo confiable</div>
-                <div class="challenge-item"><i class="fa-solid fa-gears"></i> Necesidad de operación continua</div>
-                <button class="btn-nav" onclick="nav('ge-explorador')"><i class="fa-solid fa-chevron-down"></i></button>
-            </div>
-        </div>
-
-        <div class="slide" id="ge-explorador" style="padding:0; background:#000;">
-            <button class="btn-back" onclick="nav('ge-diagnostico')">VOLVER</button>
-            <div style="position:relative; width:100%; height:100%;">
-                <img src="./grupoelectrogenoabierto.jpeg" style="width:100%; height:100%; object-fit:cover; opacity:0.8;">
-                <div class="hotspot" style="top: 55%; left: 35%;" onclick="openDetail('alternador')"><i class="fa-solid fa-plus"></i></div>
-                <div class="hotspot" style="top: 45%; left: 55%;" onclick="openDetail('motor')"><i class="fa-solid fa-plus"></i></div>
-                <div class="hotspot" style="top: 35%; left: 78%;" onclick="openDetail('control')"><i class="fa-solid fa-plus"></i></div>
-                <button onclick="nav('contacto')" style="position:absolute; bottom:40px; right:40px; padding:20px 45px; background:var(--accent); color:#fff; border:none; border-radius:100px; font-weight:900; cursor:pointer; letter-spacing: 2px;">SOLICITAR COTIZACIÓN</button>
-            </div>
-        </div>
-
-        <div class="slide" id="comp-subcat" style="background: var(--bg-dark);">
+        <div class="slide slide-dark" id="comp-subcat">
             <button class="btn-back" onclick="nav('comp-soluciones')">VOLVER</button>
             <div class="glass-card">
-                <h2 style="font-size: 32px; margin-bottom: 25px;">Seleccione la tecnología</h2>
-                <div class="category-grid" style="justify-content: center;">
-                    <div class="category-card" style="max-width: 400px;" onclick="openDetail('motocompresor')">
-                        <img src="motocompresores.jpg">
+                <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 32px);">Seleccione la tecnología</h2>
+                <div class="category-grid">
+                    <div class="category-card max-w" onclick="openDetail('motocompresor')">
+                        <img src="motocompresores.jpg" alt="Motocompresores" loading="lazy">
                         <div class="category-label"><h4>MOTOCOMPRESORES</h4></div>
                     </div>
-                    <div class="category-card" style="max-width: 400px;" onclick="openDetail('electrocompresor')">
-                        <img src="./electrocompresor.jpg">
+                    <div class="category-card max-w" onclick="openDetail('electrocompresor')">
+                        <img src="./electrocompresor.jpg" alt="Electrocompresores" loading="lazy">
                         <div class="category-label"><h4>ELECTROCOMPRESORES</h4></div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="slide" id="view-shelter" style="background: var(--bg-dark);">
-            <button class="btn-back" onclick="nav('comp-soluciones')">VOLVER</button>
-            <div class="glass-card">
-                <h2 style="font-size: 45px; margin-bottom: 10px;">SHELTER</h2>
-                <div class="interactive-photo" onclick="openDetail('shelter')">
-                    <img src="shelterabierto.jpg">
-                    <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:var(--accent); padding:10px 25px; border-radius:50px; font-size:12px; font-weight:900;">VER FICHA TÉCNICA</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="view-secadora" style="background: var(--bg-dark);">
-            <button class="btn-back" onclick="nav('comp-soluciones')">VOLVER</button>
-            <div class="glass-card">
-                <h2 style="font-size: 45px; margin-bottom: 10px;">SECADORAS</h2>
-                <div class="interactive-photo" onclick="openDetail('secadora')">
-                    <img src="secadora.jpg">
-                    <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:var(--accent); padding:10px 25px; border-radius:50px; font-size:12px; font-weight:900;">VER FICHA TÉCNICA</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="side-panel" id="panel">
-            <h3 id="pTitle" style="font-size: 35px; margin-bottom: 35px; font-weight: 900; line-height: 1.1;">TÍTULO</h3>
-            <div style="margin-bottom: 35px;">
-                <p style="color: #ff453a; font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">FALLA CRÍTICA / ESPECIFICACIÓN</p>
-                <p id="pDesc" style="font-size: 18px; line-height: 1.6; opacity: 0.8;"></p>
-            </div>
-            <div style="margin-bottom: 45px;">
-                <p style="color: var(--accent); font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">VENTAJA AERCOM / SOLUCIÓN</p>
-                <p id="pSol" style="font-size: 20px; line-height: 1.6; font-weight: 300;"></p>
-            </div>
-            <button onclick="closePart()" style="padding: 20px; width: 100%; background: #222; border: 1px solid var(--border); color: #fff; border-radius: 15px; cursor: pointer; font-weight: 900;">CERRAR</button>
-        </div>
-
-        <div class="slide" id="contacto" style="background:#000;">
+        <div class="slide" id="ge-intro">
             <button class="btn-back" onclick="nav('selector')">VOLVER</button>
-            <div style="display: flex; gap: 80px; align-items: center; text-align: left;">
-                <div>
-                    <h2 style="font-size: 80px; font-weight: 900; line-height: 1;">Hablemos.</h2>
-                    <p style="font-size: 20px; opacity: 0.5; margin-top: 20px; max-width: 400px;">Nuestro departamento técnico está a su disposición.</p>
-                </div>
-                <div style="background: #fff; padding: 40px; border-radius: 40px;"><i class="fa-solid fa-qrcode" style="color:#000; font-size: 150px;"></i></div>
+            <div class="glass-card">
+                <p class="accent-label">DIVISIÓN POTENCIA</p>
+                <h2 class="section-title">GRUPO ELECTRÓGENO</h2>
+                <p class="section-subtitle">¿Su operación está preparada para evitar paradas críticas?</p>
+                <button class="btn-nav" onclick="nav('ge-diagnostico')" aria-label="Siguiente"><i class="fa-solid fa-chevron-down"></i></button>
             </div>
-            <button onclick="nav('home')" style="margin-top: 50px; opacity: 0.4; background:none; border:none; color:#fff; cursor:pointer; font-size: 10px; letter-spacing: 2px;">REINICIAR SISTEMA</button>
+        </div>
+
+        <div class="slide" id="ge-diagnostico">
+            <button class="btn-back" onclick="nav('ge-intro')">VOLVER</button>
+            <div class="glass-card">
+                <h2 class="section-title" style="text-align: left;">Desafíos Operativos</h2>
+                <div class="challenge-item"><i class="fa-solid fa-bolt-lightning"></i> Cortes de energía frecuentes</div>
+                <div class="challenge-item"><i class="fa-solid fa-shield-virus"></i> Falta de respaldo confiable</div>
+                <div class="challenge-item"><i class="fa-solid fa-gears"></i> Necesidad de operación continua</div>
+                <button class="btn-nav" onclick="nav('ge-explorador')" aria-label="Explorar"><i class="fa-solid fa-chevron-down"></i></button>
+            </div>
+        </div>
+
+        <div class="slide slide-no-padding slide-dark" id="ge-explorador">
+            <button class="btn-back" onclick="nav('ge-diagnostico')">VOLVER</button>
+            <div class="explorer-container">
+                <img src="./grupoelectrogenoabierto.jpeg" class="explorer-bg" alt="Despiece de Grupo Electrógeno" loading="lazy">
+                <div class="hotspot" style="top: 55%; left: 35%;" onclick="openDetail('alternador')" aria-label="Ver Alternador"><i class="fa-solid fa-plus"></i></div>
+                <div class="hotspot" style="top: 45%; left: 55%;" onclick="openDetail('motor')" aria-label="Ver Motor"><i class="fa-solid fa-plus"></i></div>
+                <div class="hotspot" style="top: 35%; left: 78%;" onclick="openDetail('control')" aria-label="Ver Control"><i class="fa-solid fa-plus"></i></div>
+                <button class="btn-floating" onclick="nav('contacto')">SOLICITAR COTIZACIÓN</button>
+            </div>
+        </div>
+
+        <div class="slide slide-dark" id="contacto">
+            <button class="btn-back" onclick="nav('selector')">VOLVER</button>
+            <div class="contact-layout">
+                <div>
+                    <h2 class="contact-title">Hablemos.</h2>
+                    <p class="contact-desc">Nuestro departamento técnico está a su disposición.</p>
+                </div>
+                <div class="qr-box"><i class="fa-solid fa-qrcode qr-icon"></i></div>
+            </div>
+            <button class="btn-reset" onclick="nav('home')">REINICIAR SISTEMA</button>
+        </div>
+
+        <div class="side-panel" id="panel" role="dialog" aria-labelledby="pTitle" aria-hidden="true">
+            <h3 class="panel-title" id="pTitle">TÍTULO</h3>
+            <div class="panel-section">
+                <span class="panel-label-crit">FALLA CRÍTICA / ESPECIFICACIÓN</span>
+                <p class="panel-desc" id="pDesc"></p>
+            </div>
+            <div class="panel-section">
+                <span class="panel-label-sol">VENTAJA AERCOM / SOLUCIÓN</span>
+                <p class="panel-sol" id="pSol"></p>
+            </div>
+            <button class="btn-close-panel" onclick="closePart()">CERRAR</button>
         </div>
 
     </div>
 
     <script>
+        /**
+         * Core Engine - Aercom Experience
+         * Optimizaciones: Integridad de navegación, gestión de eventos y base de datos robusta.
+         */
+
+        // 1. Precarga de assets críticos
         function preloadImages() {
-            const imgs = ['./electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg'];
+            const imgs = ['./electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg', './torres.jpg', './vru.jpg'];
             imgs.forEach(src => { const i = new Image(); i.src = src; });
         }
-        window.onload = preloadImages;
+        window.addEventListener('load', preloadImages);
 
-        function nav(id) {
-            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) target.classList.add('active');
-            closePart();
-        }
-
+        // 2. Base de Datos Centralizada (JSON)
         const info = {
             alternador: { t: 'Alternador', d: 'Pérdida de aislamiento por partículas.', s: 'Servicio de limpieza criogénica y certificación.' },
             motor: { t: 'Motor Diésel', d: 'Fallas por lubricantes fuera de especificación.', s: 'Mantenimiento preventivo con repuestos legítimos.' },
@@ -328,20 +411,65 @@
             motocompresor: { t: 'Motocompresor Diesel', d: 'Equipos autónomos para minería y petróleo.', s: 'Servicio en campo especializado.' },
             electrocompresor: { t: 'Electrocompresor', d: 'Tornillo lubricado con VSD para ahorro energético.', s: 'Reducción de costos de hasta un 35%.' },
             shelter: { t: 'Shelter Industrial', d: 'Sala de máquinas completa en contenedor ISO.', s: 'Instalación inmediata Plug & Play.' },
-            secadora: { t: 'Secadora de Aire', d: 'Eliminación de condensados en la red.', s: 'Garantía de aire Grado Técnico certificado.' }
+            secadora: { t: 'Secadora de Aire', d: 'Eliminación de condensados en la red.', s: 'Garantía de aire Grado Técnico certificado.' },
+            torres: { t: 'Torres de Iluminación', d: 'Mástiles telescópicos con proyectores LED de alta potencia para trabajos nocturnos.', s: 'Equipos autónomos con motor diésel y bajo consumo de combustible.' },
+            vru: { t: 'Vapor Recovery Units', d: 'Recuperación de gases y vapores para evitar emisiones contaminantes a la atmósfera.', s: 'Sistemas certificados para Oil & Gas con alta eficiencia de captura.' }
         };
 
-        function openDetail(key) {
-            const data = info[key];
-            if(data) {
-                document.getElementById('pTitle').innerText = data.t;
-                document.getElementById('pDesc').innerText = data.d;
-                document.getElementById('pSol').innerText = data.s;
-                document.getElementById('panel').classList.add('open');
+        // 3. Sistema de Navegación
+        function nav(id) {
+            // Cierra el panel lateral si estuviese abierto
+            closePart();
+
+            // Limpia estados y resetea el scroll para asegurar una entrada limpia
+            document.querySelectorAll('.slide').forEach(s => {
+                s.classList.remove('active');
+                s.scrollTop = 0; 
+            });
+
+            // Activa el nuevo slide
+            const target = document.getElementById(id);
+            if(target) {
+                target.classList.add('active');
+            } else {
+                console.error(`[Aercom Core] Slide ID '${id}' no encontrado.`);
             }
         }
 
-        function closePart() { document.getElementById('panel').classList.remove('open'); }
+        // 4. Lógica de Panel de Especificaciones
+        function openDetail(key) {
+            const data = info[key];
+            
+            // Manejo de errores para claves inexistentes (Evita fallos de consola)
+            if(!data) {
+                console.warn(`[Aercom Core] El equipo '${key}' no existe en la base de datos.`);
+                return;
+            }
+
+            // Inyección de datos
+            document.getElementById('pTitle').innerText = data.t;
+            document.getElementById('pDesc').innerText = data.d;
+            document.getElementById('pSol').innerText = data.s;
+            
+            // Animación de entrada
+            document.getElementById('panel').classList.add('open');
+            document.getElementById('panel').setAttribute('aria-hidden', 'false');
+            document.getElementById('panelOverlay').classList.add('active');
+        }
+
+        function closePart() { 
+            document.getElementById('panel').classList.remove('open'); 
+            document.getElementById('panel').setAttribute('aria-hidden', 'true');
+            document.getElementById('panelOverlay').classList.remove('active');
+        }
+
+        // 5. Interacciones de Teclado (Accesibilidad y UX)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const panel = document.getElementById('panel');
+                if (panel.classList.contains('open')) closePart();
+            }
+        });
     </script>
 </body>
 </html>
