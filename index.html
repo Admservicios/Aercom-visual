@@ -11,73 +11,17 @@
 
 :root{
   --accent:#2f7cff;
-  --bg:#f8fafc;
-  --card:#ffffff;
-  --text:#0f172a;
-  --muted:#64748b;
+  --bg:#0f172a;
+  --text:#ffffff;
+  --muted:#cbd5f5;
 }
 
 /* BASE */
 body{
   margin:0;
   font-family:'DM Sans',sans-serif;
-  background:linear-gradient(180deg,#eaf2ff,#f8fafc);
+  background:var(--bg);
   color:var(--text);
-}
-
-/* PANTALLAS */
-.screen{
-  display:none;
-  min-height:100vh;
-  padding:20px;
-}
-.active{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  animation:fade .3s ease;
-}
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1}
-}
-
-/* TITULOS */
-h1,h2,h3{
-  font-family:'Rajdhani',sans-serif;
-  text-align:center;
-}
-
-p{
-  text-align:center;
-  color:var(--muted);
-}
-
-/* BOTONES */
-button{
-  padding:14px 30px;
-  border:none;
-  border-radius:12px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-  transition:.2s;
-}
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(47,124,255,.3);
-}
-
-/* BACK */
-.back{
-  position:fixed;
-  top:15px;
-  left:15px;
-  background:#fff;
-  border:1px solid #e2e8f0;
-  color:#0f172a;
 }
 
 /* HERO */
@@ -85,80 +29,73 @@ button:hover{
   height:100vh;
   width:100%;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
   align-items:center;
-  background:url("img/inicio.jpeg") center/cover no-repeat;
+  justify-content:center;
+  text-align:center;
   position:relative;
+  background:url("img/inicio.jpeg") center/cover no-repeat;
 }
+
+/* 👇 overlay corregido */
 .hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background:rgba(255,255,255,.75);
-}
-.hero *{
-  position:relative;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.55));
 }
 
-/* TARJETAS MENU */
-.card{
-  width:100%;
-  max-width:700px;
-  height:230px;
-  border-radius:18px;
-  overflow:hidden;
-  margin:15px 0;
+/* CONTENIDO */
+.hero-content{
   position:relative;
+  max-width:700px;
+  padding:20px;
+}
+
+/* TITULO */
+.hero h1{
+  font-family:'Rajdhani',sans-serif;
+  font-size:56px;
+  margin-bottom:10px;
+  letter-spacing:1px;
+}
+
+/* SUB */
+.hero-sub{
+  font-size:18px;
+  color:var(--muted);
+  margin-bottom:30px;
+}
+
+/* CTA */
+.btn{
+  background:var(--accent);
+  border:none;
+  padding:14px 30px;
+  border-radius:12px;
+  color:#fff;
+  font-weight:600;
   cursor:pointer;
-  background:#fff;
-  border:1px solid #e2e8f0;
   transition:.25s;
 }
-.card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 15px 35px rgba(0,0,0,.1);
+
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(47,124,255,.4);
 }
 
-.card img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.overlay{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  padding:18px;
-  font-size:20px;
-  font-weight:600;
-  background:linear-gradient(transparent,rgba(0,0,0,.6));
-  color:#fff;
-  text-align:center;
-}
-
-/* DETALLE */
-.detalle-img{
-  width:100%;
-  max-width:700px;
-  height:260px;
-  object-fit:cover;
-  border-radius:18px;
-  margin:15px 0;
-}
-
-.block{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
-  margin:10px 0;
-  border-left:4px solid var(--accent);
+/* CONTINUAR */
+.continuar{
+  margin-top:40px;
+  color:var(--accent);
+  font-size:14px;
+  opacity:1;
 }
 
 /* RESPONSIVE */
 @media(max-width:600px){
-  .card{height:180px}
+  .hero h1{
+    font-size:36px;
+  }
 }
 
 </style>
@@ -166,130 +103,27 @@ button:hover{
 
 <body>
 
-<!-- INICIO -->
-<div id="inicio" class="screen active">
-  <div class="hero">
-    <h1>AERCOM</h1>
-    <p>Soluciones en energía y aire comprimido</p>
-    <button onclick="ir('menu')">Explorar</button>
-  </div>
-</div>
+<section class="hero">
 
-<!-- MENU -->
-<div id="menu" class="screen">
-  <button class="back" onclick="ir('inicio')">←</button>
+  <div class="hero-content">
+    
+    <div style="color:#3b82f6; font-size:12px; letter-spacing:3px; margin-bottom:10px;">
+      DIVISIÓN AIRE COMPRIMIDO
+    </div>
 
-  <h2>Seleccioná un equipo</h2>
+    <h1>Compresores de Aire</h1>
 
-  <div class="card" onclick="verEquipo('grupo')">
-    <img src="img/grupoelectrogeno.jpeg">
-    <div class="overlay">Grupo electrógeno</div>
-  </div>
+    <p class="hero-sub">
+      ¿Tu línea de aire está preparada para evitar paradas críticas?
+    </p>
 
-  <div class="card" onclick="verEquipo('moto')">
-    <img src="img/moto.jpg">
-    <div class="overlay">Motocompresor</div>
+    <button class="btn">Explorar</button>
+
+    <div class="continuar">CONTINUAR ↓</div>
+
   </div>
 
-  <div class="card" onclick="verEquipo('electro')">
-    <img src="img/electro.jpg">
-    <div class="overlay">Electrocompresor</div>
-  </div>
-
-  <div class="card" onclick="verEquipo('torre')">
-    <img src="img/torre.jpg">
-    <div class="overlay">Torre iluminación</div>
-  </div>
-</div>
-
-<!-- DETALLE -->
-<div id="detalle" class="screen">
-  <button class="back" onclick="ir('menu')">←</button>
-
-  <h2 id="titulo"></h2>
-  <img id="imagen" class="detalle-img">
-  <p id="descripcion"></p>
-
-  <div id="contenido"></div>
-</div>
-
-<script>
-
-function ir(p){
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'))
-  document.getElementById(p).classList.add('active')
-}
-
-function verEquipo(n){
-
-let data={
-grupo:{
-titulo:"Grupo electrógeno",
-img:"img/grupoelectrogeno.jpeg",
-desc:"Equipos diseñados para garantizar suministro eléctrico continuo.",
-problemas:["Sobrecalentamiento","Bajo rendimiento","Fallas eléctricas"],
-soluciones:["Mantenimiento","Cambio de filtros","Diagnóstico completo"],
-servicios:["Service","Repuestos","Control operativo"]
-},
-
-moto:{
-titulo:"Motocompresor",
-img:"img/moto.jpg",
-desc:"Compresión de aire para industria.",
-problemas:["Baja presión","Ruido"],
-soluciones:["Ajuste","Revisión"],
-servicios:["Mantenimiento","Control"]
-},
-
-electro:{
-titulo:"Electrocompresor",
-img:"img/electro.jpg",
-desc:"Equipos eléctricos eficientes.",
-problemas:["Paradas","Fallas"],
-soluciones:["Diagnóstico","Reparación"],
-servicios:["Service","Control"]
-},
-
-torre:{
-titulo:"Torre iluminación",
-img:"img/torre.jpg",
-desc:"Iluminación para obras.",
-problemas:["Falla luz"],
-soluciones:["Cambio lámparas"],
-servicios:["Mantenimiento"]
-}
-}
-
-let eq=data[n]
-
-titulo.innerText=eq.titulo
-descripcion.innerText=eq.desc
-imagen.src=eq.img
-
-let cont=document.getElementById("contenido")
-cont.innerHTML=""
-
-function bloque(t,l){
-let h=document.createElement("h3")
-h.innerText=t
-cont.appendChild(h)
-
-l.forEach(i=>{
-let d=document.createElement("div")
-d.className="block"
-d.innerText=i
-cont.appendChild(d)
-})
-}
-
-bloque("Problemas",eq.problemas)
-bloque("Soluciones",eq.soluciones)
-bloque("Servicios",eq.servicios)
-
-ir("detalle")
-}
-
-</script>
+</section>
 
 </body>
 </html>
