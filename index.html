@@ -63,7 +63,7 @@
         .menu-item-content { position: relative; z-index: 3; }
         .menu-item h3 { font-size: 28px; font-weight: 900; text-transform: uppercase; letter-spacing: 4px; line-height: 1.2; text-shadow: 0 0 15px rgba(0, 122, 255, 0.4); }
 
-        /* TARJETAS DE CRISTAL */
+        /* GLASS CARDS */
         .glass-card {
             background: var(--glass); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
             padding: 50px; border-radius: 45px; border: 1px solid var(--border);
@@ -93,7 +93,7 @@
             border-radius: 18px; border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: 0.4s;
         }
         .category-card:hover .category-label { background: var(--accent); border-color: transparent; transform: translateY(-5px); }
-        .category-label h4 { font-size: 16px; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; margin: 0; }
+        .category-label h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; font-weight: 900; margin: 0; }
 
         /* PANEL LATERAL */
         .side-panel { 
@@ -103,7 +103,7 @@
         }
         .side-panel.open { right: 0; }
 
-        /* BOTONES Y OTROS */
+        /* NAV BUTTONS */
         .btn-nav { background: none; border: none; color: #fff; cursor: pointer; margin-top: 30px; display: flex; flex-direction: column; align-items: center; width: 100%; }
         .btn-nav i { font-size: 45px; color: var(--accent); animation: float 2.5s infinite ease-in-out; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(12px); } }
@@ -120,7 +120,6 @@
             overflow: hidden; border: 1px solid var(--border); cursor: pointer;
             position: relative; margin: 20px auto; transition: 0.3s;
         }
-        .interactive-photo:hover { border-color: var(--accent); transform: scale(1.01); }
         .interactive-photo img { width: 100%; height: 100%; object-fit: cover; }
 
         .hotspot { 
@@ -151,9 +150,9 @@
                     <img src="./electrocompresor.jpg">
                     <div class="menu-item-content"><h3>Compresores<br>de Aire</h3></div>
                 </div>
-                <div class="menu-item" onclick="alert('Módulo en desarrollo')">
+                <div class="menu-item" onclick="nav('otros-intro')">
                     <img src="./todoslosequipo.jpg">
-                    <div class="menu-item-content"><h3>Todos los<br>Equipos</h3></div>
+                    <div class="menu-item-content"><h3>Otros<br>Equipos</h3></div>
                 </div>
             </div>
         </div>
@@ -182,8 +181,7 @@
         <div class="slide" id="comp-soluciones" style="background: var(--bg-dark);">
             <button class="btn-back" onclick="nav('comp-diagnostico')">VOLVER</button>
             <div class="glass-card" style="background: transparent; border: none; box-shadow: none;">
-                <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-bottom: 10px;">SOLUCIONES A MEDIDA</p>
-                <h2 style="font-size: 40px; margin-bottom: 40px; font-weight: 900;">Infraestructura de Aire Comprimido</h2>
+                <h2 style="font-size: 40px; margin-bottom: 40px; font-weight: 900;">Infraestructura de Aire</h2>
                 <div class="category-grid">
                     <div class="category-card" onclick="nav('comp-subcat')">
                         <img src="./electrocompresor.jpg">
@@ -223,18 +221,23 @@
             </div>
         </div>
 
-        <div class="slide" id="comp-subcat" style="background: var(--bg-dark);">
-            <button class="btn-back" onclick="nav('comp-soluciones')">VOLVER</button>
-            <div class="glass-card">
-                <h2 style="font-size: 32px; margin-bottom: 25px;">Seleccione la tecnología</h2>
-                <div class="category-grid" style="justify-content: center;">
-                    <div class="category-card" style="max-width: 400px;" onclick="openDetail('motocompresor')">
-                        <img src="motocompresores.jpg">
-                        <div class="category-label"><h4>MOTOCOMPRESORES</h4></div>
+        <div class="slide" id="otros-intro" style="background: var(--bg-dark);">
+            <button class="btn-back" onclick="nav('selector')">VOLVER</button>
+            <div class="glass-card" style="background: transparent; border: none; box-shadow: none;">
+                <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-bottom: 10px;">EQUIPAMIENTO COMPLEMENTARIO</p>
+                <h2 style="font-size: 40px; margin-bottom: 40px; font-weight: 900;">Soluciones Integrales</h2>
+                <div class="category-grid">
+                    <div class="category-card" onclick="openDetail('torre')">
+                        <img src="torreiluminacion.jpg">
+                        <div class="category-label"><h4>Torres de Luz</h4></div>
                     </div>
-                    <div class="category-card" style="max-width: 400px;" onclick="openDetail('electrocompresor')">
-                        <img src="./electrocompresor.jpg">
-                        <div class="category-label"><h4>ELECTROCOMPRESORES</h4></div>
+                    <div class="category-card" onclick="openDetail('plataforma')">
+                        <img src="plataforma.jpg">
+                        <div class="category-label"><h4>Plataformas</h4></div>
+                    </div>
+                    <div class="category-card" onclick="openDetail('manipulador')">
+                        <img src="manipulador.jpg">
+                        <div class="category-label"><h4>Manipuladores</h4></div>
                     </div>
                 </div>
             </div>
@@ -245,67 +248,45 @@
             <div class="glass-card">
                 <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-bottom: 15px;">DIVISIÓN POTENCIA</p>
                 <h2 style="font-size: 60px; margin-bottom: 15px;">GRUPO ELECTRÓGENO</h2>
-                <p style="font-size: 24px; opacity: 0.8;">¿Su operación está preparada para evitar paradas críticas?</p>
                 <button class="btn-nav" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-chevron-down"></i></button>
             </div>
         </div>
 
-        <div class="slide" id="ge-diagnostico" style="background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), url('./grupoelectrogeno.jpeg');">
-            <button class="btn-back" onclick="nav('ge-intro')">VOLVER</button>
-            <div class="glass-card">
-                <h2 style="text-align: left; margin-bottom: 30px; font-size: 40px;">Desafíos Operativos</h2>
-                <div class="challenge-item"><i class="fa-solid fa-bolt-lightning"></i> Cortes de energía frecuentes</div>
-                <div class="challenge-item"><i class="fa-solid fa-shield-virus"></i> Falta de respaldo confiable</div>
-                <div class="challenge-item"><i class="fa-solid fa-gears"></i> Necesidad de operación continua</div>
-                <button class="btn-nav" onclick="nav('ge-explorador')"><i class="fa-solid fa-chevron-down"></i></button>
-            </div>
-        </div>
-
         <div class="slide" id="ge-explorador" style="padding:0; background:#000;">
-            <button class="btn-back" onclick="nav('ge-diagnostico')">VOLVER</button>
+            <button class="btn-back" onclick="nav('ge-intro')">VOLVER</button>
             <div style="position:relative; width:100%; height:100%;">
                 <img src="./grupoelectrogenoabierto.jpeg" style="width:100%; height:100%; object-fit:cover; opacity:0.8;">
                 <div class="hotspot" style="top: 55%; left: 35%;" onclick="openDetail('alternador')"><i class="fa-solid fa-plus"></i></div>
                 <div class="hotspot" style="top: 45%; left: 55%;" onclick="openDetail('motor')"><i class="fa-solid fa-plus"></i></div>
                 <div class="hotspot" style="top: 35%; left: 78%;" onclick="openDetail('control')"><i class="fa-solid fa-plus"></i></div>
-                <button onclick="nav('contacto')" style="position:absolute; bottom:40px; right:40px; padding:20px 45px; background:var(--accent); color:#fff; border:none; border-radius:100px; font-weight:900; cursor:pointer; letter-spacing: 2px;">SOLICITAR COTIZACIÓN</button>
+                <button onclick="nav('contacto')" style="position:absolute; bottom:40px; right:40px; padding:20px 45px; background:var(--accent); color:#fff; border:none; border-radius:100px; font-weight:900; cursor:pointer;">COTIZAR</button>
             </div>
         </div>
 
         <div class="side-panel" id="panel">
-            <h3 id="pTitle" style="font-size: 35px; margin-bottom: 35px; font-weight: 900; line-height: 1.1;">TÍTULO</h3>
+            <h3 id="pTitle" style="font-size: 35px; margin-bottom: 35px; font-weight: 900;">TÍTULO</h3>
             <div style="margin-bottom: 35px;">
-                <p style="color: #ff453a; font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">FALLA CRÍTICA / ESPECIFICACIÓN</p>
-                <p id="pDesc" style="font-size: 18px; line-height: 1.6; opacity: 0.8;"></p>
+                <p style="color: #ff453a; font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">ESPECIFICACIÓN</p>
+                <p id="pDesc" style="font-size: 18px; opacity: 0.8;"></p>
             </div>
             <div style="margin-bottom: 45px;">
-                <p style="color: var(--accent); font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">VENTAJA AERCOM / SOLUCIÓN</p>
-                <p id="pSol" style="font-size: 20px; line-height: 1.6; font-weight: 300;"></p>
+                <p style="color: var(--accent); font-size: 11px; font-weight: 900; letter-spacing: 3px; margin-bottom: 10px;">SOLUCIÓN AERCOM</p>
+                <p id="pSol" style="font-size: 20px; font-weight: 300;"></p>
             </div>
             <button onclick="closePart()" style="padding: 20px; width: 100%; background: #222; border: 1px solid var(--border); color: #fff; border-radius: 15px; cursor: pointer; font-weight: 900;">CERRAR</button>
         </div>
 
         <div class="slide" id="contacto" style="background:#000;">
             <button class="btn-back" onclick="nav('selector')">VOLVER</button>
-            <div style="display: flex; gap: 80px; align-items: center; text-align: left;">
-                <div>
-                    <h2 style="font-size: 80px; font-weight: 900; line-height: 1;">Hablemos.</h2>
-                    <p style="font-size: 20px; opacity: 0.5; margin-top: 20px; max-width: 400px;">Nuestro departamento técnico está a su disposición.</p>
-                </div>
+            <div style="display: flex; gap: 80px; align-items: center;">
+                <h2 style="font-size: 80px; font-weight: 900;">Hablemos.</h2>
                 <div style="background: #fff; padding: 40px; border-radius: 40px;"><i class="fa-solid fa-qrcode" style="color:#000; font-size: 150px;"></i></div>
             </div>
-            <button onclick="nav('home')" style="margin-top: 50px; opacity: 0.4; background:none; border:none; color:#fff; cursor:pointer; font-size: 10px; letter-spacing: 2px;">REINICIAR SISTEMA</button>
         </div>
 
     </div>
 
     <script>
-        function preloadImages() {
-            const imgs = ['./electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg', 'sheltercerrado.jpg', 'shelterabierto.jpg', 'secadora.jpg'];
-            imgs.forEach(src => { const i = new Image(); i.src = src; });
-        }
-        window.onload = preloadImages;
-
         function nav(id) {
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
             const target = document.getElementById(id);
@@ -314,13 +295,14 @@
         }
 
         const info = {
-            alternador: { t: 'Alternador', d: 'Pérdida de aislamiento por partículas.', s: 'Servicio de limpieza criogénica y certificación.' },
-            motor: { t: 'Motor Diésel', d: 'Fallas por lubricantes fuera de especificación.', s: 'Mantenimiento preventivo con repuestos legítimos.' },
-            control: { t: 'Sincronismo', d: 'Desfase en la lógica de transferencia.', s: 'Configuración con escáner oficial de última generación.' },
-            motocompresor: { t: 'Motocompresor Diesel', d: 'Equipos autónomos para minería y petróleo.', s: 'Servicio en campo especializado.' },
-            electrocompresor: { t: 'Electrocompresor', d: 'Tornillo lubricado con VSD para ahorro energético.', s: 'Reducción de costos de hasta un 35%.' },
-            shelter: { t: 'Shelter Industrial', d: 'Sala de máquinas completa en contenedor ISO.', s: 'Instalación inmediata Plug & Play con aislamiento térmico y acústico.' },
-            secadora: { t: 'Secadora de Aire', d: 'Eliminación de condensados en la red que dañan herramientas.', s: 'Garantía de aire Grado Técnico certificado con punto de rocío estable.' }
+            alternador: { t: 'Alternador', d: 'Pérdida de aislamiento.', s: 'Servicio de limpieza y certificación.' },
+            motor: { t: 'Motor Diésel', d: 'Fallas por lubricantes.', s: 'Mantenimiento preventivo oficial.' },
+            control: { t: 'Sincronismo', d: 'Fallas de transferencia.', s: 'Configuración con escáner oficial.' },
+            shelter: { t: 'Shelter Industrial', d: 'Sistemas Plug & Play.', s: 'Instalación inmediata para intemperie.' },
+            secadora: { t: 'Secadora de Aire', d: 'Agua en la línea de producción.', s: 'Punto de rocío estable certificado.' },
+            torre: { t: 'Torres de Luz', d: 'Falta de visibilidad nocturna.', s: 'Equipos LED de alta eficiencia y autonomía.' },
+            plataforma: { t: 'Plataformas Elevadoras', d: 'Trabajos en altura riesgosos.', s: 'Seguridad garantizada bajo normas internacionales.' },
+            manipulador: { t: 'Manipuladores', d: 'Carga pesada en terrenos difíciles.', s: 'Versatilidad total para logística industrial.' }
         };
 
         function openDetail(key) {
