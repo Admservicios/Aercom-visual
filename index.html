@@ -155,7 +155,7 @@
                     <div class="menu-item-content"><h3>Grupos<br>Electrógenos</h3></div>
                 </div>
                 <div class="menu-item" onclick="nav('comp-intro')">
-                    <img src="./Electrocompresor.jpg">
+                    <img src="./electrocompresor.jpg">
                     <div class="menu-item-content"><h3>Compresores<br>de Aire</h3></div>
                 </div>
                 <div class="menu-item" onclick="alert('Módulo en desarrollo')">
@@ -194,15 +194,15 @@
                 <h2 style="font-size: 40px; margin-bottom: 40px; font-weight: 900;">Infraestructura de Aire Comprimido</h2>
                 <div class="category-grid">
                     <div class="category-card" onclick="nav('comp-subcat')">
-                        <img src="./Electrocompresor.jpg">
+                        <img src="./electrocompresor.jpg">
                         <div class="category-label"><h4>Compresores</h4></div>
                     </div>
                     <div class="category-card" onclick="nav('view-secadora')">
-                        <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80">
+                        <img src="secadora.jpg">
                         <div class="category-label"><h4>Tratamiento</h4></div>
                     </div>
                     <div class="category-card" onclick="nav('view-shelter')">
-                        <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&q=80">
+                        <img src="sheltercerrado.jpg">
                         <div class="category-label"><h4>Shelter ISO</h4></div>
                     </div>
                 </div>
@@ -247,7 +247,7 @@
                 <h2 style="font-size: 32px; margin-bottom: 25px;">Seleccione la tecnología</h2>
                 <div class="category-grid" style="justify-content: center;">
                     <div class="category-card" style="max-width: 400px;" onclick="openDetail('motocompresor')">
-                        <img src="https://images.unsplash.com/photo-1597435480027-9615a6b0906b?auto=format&fit=crop&q=80">
+                        <img src="motocompresores.jpg">
                         <div class="category-label"><h4>MOTOCOMPRESORES</h4></div>
                     </div>
                     <div class="category-card" style="max-width: 400px;" onclick="openDetail('electrocompresor')">
@@ -263,7 +263,7 @@
             <div class="glass-card">
                 <h2 style="font-size: 45px; margin-bottom: 10px;">SHELTER</h2>
                 <div class="interactive-photo" onclick="openDetail('shelter')">
-                    <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?auto=format&fit=crop&q=80">
+                    <img src="electrocompresor.jpg">
                     <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:var(--accent); padding:10px 25px; border-radius:50px; font-size:12px; font-weight:900;">VER FICHA TÉCNICA</div>
                 </div>
             </div>
@@ -274,7 +274,7 @@
             <div class="glass-card">
                 <h2 style="font-size: 45px; margin-bottom: 10px;">SECADORAS</h2>
                 <div class="interactive-photo" onclick="openDetail('secadora')">
-                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80">
+                    <img src="secadora.jpg">
                     <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); background:var(--accent); padding:10px 25px; border-radius:50px; font-size:12px; font-weight:900;">VER FICHA TÉCNICA</div>
                 </div>
             </div>
@@ -309,7 +309,7 @@
 
     <script>
         function preloadImages() {
-            const imgs = ['./Electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg'];
+            const imgs = ['./electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg'];
             imgs.forEach(src => { const i = new Image(); i.src = src; });
         }
         window.onload = preloadImages;
