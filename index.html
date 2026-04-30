@@ -151,9 +151,31 @@
                     <img src="./electrocompresor.jpg">
                     <div class="menu-item-content"><h3>Compresores<br>de Aire</h3></div>
                 </div>
-                <div class="menu-item" onclick="alert('Módulo en desarrollo')">
+                <div class="menu-item" onclick="nav('otros-intro')">
                     <img src="./todoslosequipo.jpg">
-                    <div class="menu-item-content"><h3>Todos los<br>Equipos</h3></div>
+                    <div class="menu-item-content"><h3>Otros<br>Equipos</h3></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="otros-intro" style="background: var(--bg-dark);">
+            <button class="btn-back" onclick="nav('selector')">VOLVER</button>
+            <div class="glass-card" style="background: transparent; border: none; box-shadow: none;">
+                <p style="color: var(--accent); font-weight: 900; letter-spacing: 5px; margin-bottom: 10px;">SOLUCIONES COMPLEMENTARIAS</p>
+                <h2 style="font-size: 40px; margin-bottom: 40px; font-weight: 900;">Equipamiento Industrial Premium</h2>
+                <div class="category-grid">
+                    <div class="category-card" onclick="openDetail('torre')">
+                        <img src="torredeiluminacion.jpg">
+                        <div class="category-label"><h4>Torres de Iluminación</h4></div>
+                    </div>
+                    <div class="category-card" onclick="openDetail('vru')">
+                        <img src="vru.JPG">
+                        <div class="category-label"><h4>Vapor Recovery (VRU)</h4></div>
+                    </div>
+                    <div class="category-card" onclick="openDetail('manipulador')">
+                        <img src="manipulador.jpg">
+                        <div class="category-label"><h4>Manipuladores</h4></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -301,7 +323,7 @@
 
     <script>
         function preloadImages() {
-            const imgs = ['./electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg', 'sheltercerrado.jpg', 'shelterabierto.jpg', 'secadora.jpg'];
+            const imgs = ['./electrocompresor.jpg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg', 'sheltercerrado.jpg', 'shelterabierto.jpg', 'secadora.jpg', 'torredeiluminacion.jpg', 'vru.JPG', 'manipulador.jpg'];
             imgs.forEach(src => { const i = new Image(); i.src = src; });
         }
         window.onload = preloadImages;
@@ -320,7 +342,10 @@
             motocompresor: { t: 'Motocompresor Diesel', d: 'Equipos autónomos para minería y petróleo.', s: 'Servicio en campo especializado.' },
             electrocompresor: { t: 'Electrocompresor', d: 'Tornillo lubricado con VSD para ahorro energético.', s: 'Reducción de costos de hasta un 35%.' },
             shelter: { t: 'Shelter Industrial', d: 'Sala de máquinas completa en contenedor ISO.', s: 'Instalación inmediata Plug & Play con aislamiento térmico y acústico.' },
-            secadora: { t: 'Secadora de Aire', d: 'Eliminación de condensados en la red que dañan herramientas.', s: 'Garantía de aire Grado Técnico certificado con punto de rocío estable.' }
+            secadora: { t: 'Secadora de Aire', d: 'Eliminación de condensados en la red que dañan herramientas.', s: 'Garantía de aire Grado Técnico certificado con punto de rocío estable.' },
+            torre: { t: 'Torre de Iluminación', d: 'Falta de visibilidad en turnos nocturnos o áreas remotas.', s: 'Equipos LED de alta eficiencia con mástil hidráulico y gran autonomía.' },
+            vru: { t: 'Vapor Recovery Units', d: 'Emisiones fugitivas de gas y desperdicio de recursos.', s: 'Recuperación eficiente de hidrocarburos livianos bajo normas ambientales.' },
+            manipulador: { t: 'Manipulador Telescópico', d: 'Necesidad de elevar cargas pesadas en terrenos irregulares.', s: 'Máxima versatilidad logística con diversos accesorios de carga.' }
         };
 
         function openDetail(key) {
