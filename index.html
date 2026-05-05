@@ -616,6 +616,18 @@ html, body {
 /* Mantener compatibilidad con .hs-label antiguo (no se usa en nuevos exploradores) */
 .hs-label { display: none; }
 
+@media (max-width: 900px), (max-height: 800px) {
+  .hs-btn { width: 36px; height: 36px; font-size: 14px; }
+  .hs-card { min-width: 100px; padding: 6px 10px 5px; }
+  .hs-card-title { font-size: 11px; }
+  .hs-card-sub { font-size: 9px; }
+  @keyframes hsPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(0,102,255,0.7); }
+    60%  { box-shadow: 0 0 0 10px rgba(0,102,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,102,255,0); }
+  }
+}
+
 /* ════════════════════════════════════════════════════════════
    CTA FLOTANTE — franja inferior derecha de la tarjeta
 ════════════════════════════════════════════════════════════ */
@@ -642,7 +654,7 @@ html, body {
 /* Etiqueta inferior — dentro de explorer-wrap, sobre el degradé */
 .explorer-badge {
   position: absolute; z-index: 15;
-  bottom: clamp(60px,9vh,90px); left: clamp(24px,3vw,44px);
+  bottom: clamp(16px, 3vh, 32px); left: clamp(16px, 3vw, 32px);
   display: flex; flex-direction: column; gap: 4px;
   pointer-events: none;
 }
@@ -1135,7 +1147,7 @@ html, body {
     </div>
 
     <!-- Alternador — izquierda (cuerpo azul del alternador) -->
-    <div class="hotspot" style="top:60%;left:28%;" onclick="openPanel('ge-alternador')">
+    <div class="hotspot" style="top:65%;left:22%;" onclick="openPanel('ge-alternador')">
       <div class="hs-card">
         <span class="hs-card-title">Alternador</span>
         <span class="hs-card-sub">Leroy Somer · Sin escobillas</span>
@@ -1145,7 +1157,7 @@ html, body {
     </div>
 
     <!-- Motor — centro (motor Baudouin azul) -->
-    <div class="hotspot" style="top:45%;left:54%;" onclick="openPanel('ge-motor')">
+    <div class="hotspot" style="top:40%;left:54%;" onclick="openPanel('ge-motor')">
       <div class="hs-card">
         <span class="hs-card-title">Motor</span>
         <span class="hs-card-sub">Baudouin · Diésel / Gas</span>
@@ -1155,7 +1167,7 @@ html, body {
     </div>
 
     <!-- Cabina — derecha (panel/carcasa lateral) -->
-    <div class="hotspot" style="top:30%;left:78%;" onclick="openPanel('ge-cabina')">
+    <div class="hotspot" style="top:22%;left:82%;" onclick="openPanel('ge-cabina')">
       <div class="hs-card">
         <span class="hs-card-title">Cabina</span>
         <span class="hs-card-sub">Insonorizada · Intemperie</span>
@@ -1298,7 +1310,7 @@ html, body {
     </div>
 
     <!-- Motor Diésel — lado izquierdo del equipo -->
-    <div class="hotspot" style="top:56%;left:22%;" onclick="openPanel('mc-motor')">
+    <div class="hotspot" style="top:52%;left:16%;" onclick="openPanel('mc-motor')">
       <div class="hs-card">
         <span class="hs-card-title">Motor Diésel</span>
         <span class="hs-card-sub">Kubota · Alta autonomía</span>
@@ -1308,7 +1320,7 @@ html, body {
     </div>
 
     <!-- Unidad Compresora — zona central, filtro blanco alto -->
-    <div class="hotspot" style="top:38%;left:50%;" onclick="openPanel('mc-unidad')">
+    <div class="hotspot" style="top:25%;left:55%;" onclick="openPanel('mc-unidad')">
       <div class="hs-card">
         <span class="hs-card-title">Unidad Compresora</span>
         <span class="hs-card-sub">Fabricación europea</span>
@@ -1318,7 +1330,7 @@ html, body {
     </div>
 
     <!-- Panel de Control — frente inferior, instrumentos y válvulas -->
-    <div class="hotspot" style="top:68%;left:36%;" onclick="openPanel('mc-panel')">
+    <div class="hotspot" style="top:75%;left:45%;" onclick="openPanel('mc-panel')">
       <div class="hs-card">
         <span class="hs-card-title">Panel de Control</span>
         <span class="hs-card-sub">Presión · Temperatura</span>
@@ -1348,7 +1360,7 @@ html, body {
     </div>
 
     <!-- Motor Eléctrico — lado izquierdo (radiador/rejilla lateral) -->
-    <div class="hotspot" style="top:62%;left:16%;" onclick="openPanel('ec-motor')">
+    <div class="hotspot" style="top:70%;left:22%;" onclick="openPanel('ec-motor')">
       <div class="hs-card">
         <span class="hs-card-title">Motor Eléctrico</span>
         <span class="hs-card-sub">Fijo o VSD · Origen alemán</span>
@@ -1358,7 +1370,7 @@ html, body {
     </div>
 
     <!-- Cabezal de Tornillo — centro (filtros blancos y tuberías azules) -->
-    <div class="hotspot" style="top:38%;left:52%;" onclick="openPanel('ec-tornillo')">
+    <div class="hotspot" style="top:32%;left:52%;" onclick="openPanel('ec-tornillo')">
       <div class="hs-card">
         <span class="hs-card-title">Cabezal de Tornillo</span>
         <span class="hs-card-sub">Oil free o lubricado</span>
@@ -1368,7 +1380,7 @@ html, body {
     </div>
 
     <!-- Panel de Control — derecha (display digital + botón rojo) -->
-    <div class="hotspot" style="top:28%;left:82%;" onclick="openPanel('ec-vsd')">
+    <div class="hotspot" style="top:22%;left:85%;" onclick="openPanel('ec-vsd')">
       <div class="hs-card">
         <span class="hs-card-title">Panel de Control</span>
         <span class="hs-card-sub">Display · Sistema VSD</span>
