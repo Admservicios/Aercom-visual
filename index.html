@@ -54,28 +54,16 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   CURSOR
+   CURSOR — punto simple, sin anillo (tablet de baja gama)
 ════════════════════════════════════════════════════════════ */
 #cursor-dot {
   position: fixed; pointer-events: none; z-index: 9999;
-  width: 6px; height: 6px;
+  width: 8px; height: 8px;
   background: var(--blue);
   border-radius: 50%;
   transform: translate(-50%,-50%);
 }
-#cursor-ring {
-  position: fixed; pointer-events: none; z-index: 9998;
-  width: 36px; height: 36px;
-  border: 2px solid var(--blue);
-  border-radius: 50%;
-  transform: translate(-50%,-50%);
-  transition: width 0.15s var(--ease), height 0.15s var(--ease),
-              border-color 0.15s var(--ease), opacity 0.15s;
-}
-body.hovering #cursor-ring {
-  width: 54px; height: 54px;
-  border-color: rgba(0,102,255,0.7);
-}
+#cursor-ring { display: none; }
 
 /* ════════════════════════════════════════════════════════════
    APP SHELL
@@ -306,19 +294,19 @@ body.hovering #cursor-ring {
 .sel-bg {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
-  opacity: 0.45;
-  transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  opacity: 0.70;
+  /* Sin transition en tablet — rendimiento */
 }
-.sel-col:hover .sel-bg { opacity: 0.65; transform: scale(1.04); }
+/* Sin hover sobre imagen — solo flex animado */
 
 /* Gradiente */
 .sel-col::before {
   content: ''; position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(
     180deg,
-    rgba(5,5,5,0.2) 0%,
-    rgba(5,5,5,0.0) 30%,
-    rgba(5,5,5,0.85) 100%
+    rgba(5,5,5,0.10) 0%,
+    rgba(5,5,5,0.0) 25%,
+    rgba(5,5,5,0.75) 100%
   );
 }
 
@@ -632,36 +620,36 @@ body.hovering #cursor-ring {
 }
 .cat-card img {
   width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.72;
-  transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
+  opacity: 0.82;
   display: block;
+  /* Sin transition en tablet */
 }
 .cat-card::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent 35%, rgba(5,5,5,0.88) 100%);
+  background: linear-gradient(180deg, transparent 30%, rgba(5,5,5,0.82) 100%);
 }
 .cat-card:hover {
   transform: translateY(-8px);
   border-color: var(--blue-border);
 }
-.cat-card:hover img { opacity: 0.92; transform: scale(1.06); }
+/* Sin hover en imagen — rendimiento tablet */
 
 .cat-label {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: clamp(16px,2.5vw,28px) clamp(18px,2.8vw,28px);
+  padding: clamp(18px,2.8vw,32px) clamp(18px,2.8vw,28px);
   z-index: 5;
   border-top: 2px solid transparent;
-  transition: border-color 0.25s, background 0.25s;
+  transition: border-color 0.2s, background 0.2s;
 }
 .cat-card:hover .cat-label { border-color: var(--blue); background: rgba(0,102,255,0.10); }
 .cat-label h4 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(18px,2.2vw,28px);
-  text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
-  color: #fff; margin-bottom: 5px;
+  font-size: clamp(20px,2.6vw,32px);
+  text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
+  color: #fff; margin-bottom: 6px;
 }
 .cat-label p {
-  font-size: clamp(11px,1.1vw,13px); color: var(--text-dim); letter-spacing: 0.06em;
+  font-size: clamp(12px,1.2vw,14px); color: var(--text-dim); letter-spacing: 0.05em;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1082,17 +1070,20 @@ body.hovering #cursor-ring {
     <span class="explorer-badge-name">Grupo Electrógeno</span>
   </div>
 
-  <div class="hotspot" style="top:55%;left:34%;" onclick="openPanel('ge-cabina')">
-    <div class="hs-label">Cabina</div>
+  <!-- Hotspot ALTERNADOR — izquierda (parte azul del equipo) -->
+  <div class="hotspot" style="top:55%;left:34%;" onclick="openPanel('ge-alternador')">
+    <div class="hs-label">Alternador</div>
     <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
   </div>
+  <!-- Hotspot MOTOR — centro -->
   <div class="hotspot" style="top:43%;left:56%;" onclick="openPanel('ge-motor')">
     <div class="hs-label">Motor</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+    <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
   </div>
-  <div class="hotspot" style="top:32%;left:77%;" onclick="openPanel('ge-alternador')">
-    <div class="hs-label">Alternador</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+  <!-- Hotspot CABINA — derecha (panel/carcasa) -->
+  <div class="hotspot" style="top:32%;left:77%;" onclick="openPanel('ge-cabina')">
+    <div class="hs-label">Cabina</div>
+    <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
   </div>
 
   <button class="cta-float" onclick="nav('contacto')">
@@ -1415,33 +1406,20 @@ body.hovering #cursor-ring {
      JAVASCRIPT
 ══════════════════════════════════════════════════════════ -->
 <script>
-/* ─── CURSOR ─────────────────────────────────────────────── */
-const curDot  = document.getElementById('cursor-dot');
-const curRing = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-
+/* ════════════════════════════════════════════════════════════
+   CURSOR — solo dot, sin anillo (optimizado tablet)
+════════════════════════════════════════════════════════════ */
+const curDot = document.getElementById('cursor-dot');
 document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
+  curDot.style.left = e.clientX + 'px';
+  curDot.style.top  = e.clientY + 'px';
 }, { passive: true });
+document.addEventListener('mouseleave', () => { curDot.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { curDot.style.opacity = '1'; });
 
-(function animateCursor() {
-  curDot.style.left  = mx + 'px';
-  curDot.style.top   = my + 'px';
-  rx += (mx - rx) * 0.26;
-  ry += (my - ry) * 0.26;
-  curRing.style.left = rx + 'px';
-  curRing.style.top  = ry + 'px';
-  requestAnimationFrame(animateCursor);
-})();
-
-document.addEventListener('mouseleave', () => {
-  curDot.style.opacity = '0'; curRing.style.opacity = '0';
-});
-document.addEventListener('mouseenter', () => {
-  curDot.style.opacity = '1'; curRing.style.opacity = '1';
-});
-
-/* ─── NAVEGACIÓN ─────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   NAVEGACIÓN
+════════════════════════════════════════════════════════════ */
 function nav(id) {
   const prev = document.querySelector('.slide.active');
   const next = document.getElementById(id);
@@ -1449,44 +1427,22 @@ function nav(id) {
   if (prev) prev.classList.remove('active');
   next.classList.add('active');
   closePanel();
-  bindHover();
 }
 
-/* ─── BASE DE DATOS DE PANELES ───────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   ╔══════════════════════════════════════════════════════╗
+   ║  BASE DE DATOS DE CONTENIDO — EDITAR AQUÍ           ║
+   ║  Cada entrada tiene:                                 ║
+   ║    div  → subtítulo del panel (arriba del título)    ║
+   ║    t    → título principal del panel                 ║
+   ║    d[]  → lista ROJA: problemas / especificaciones   ║
+   ║    s[]  → lista AZUL: ventajas Aercom                ║
+   ╚══════════════════════════════════════════════════════╝
+════════════════════════════════════════════════════════════ */
 const panelData = {
 
-  /* GRUPOS ELECTRÓGENOS */
-  'ge-cabina': {
-    div: 'Grupo Electrógeno',
-    t: 'Cabina',
-    d: [
-      'Exposición a intemperie, ingreso de agua y polvo fino',
-      'Alto nivel de ruido en entornos residenciales o sensibles',
-      'Dificultad de acceso para operación y mantenimiento en campo',
-    ],
-    s: [
-      'Cabina insonorizada apta para intemperie con batea antiderrame integrada',
-      'Tanque de combustible extraíble para limpieza sencilla',
-      'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente interior',
-      'Carga externa con reloj analógico de control de nivel',
-      'Cáncamos de izaje y guías para autoelevador según modelo',
-    ]
-  },
-  'ge-motor': {
-    div: 'Grupo Electrógeno',
-    t: 'Motor',
-    d: [
-      'Fallas por uso de lubricantes o combustible fuera de especificación',
-      'Paradas inesperadas por falta de stock de repuestos críticos',
-      'Incompatibilidad con suministro de gas natural o GLP disponible en planta',
-    ],
-    s: [
-      'Motores Baudouin / Weichai: Diésel, Gas Natural o GLP según necesidad',
-      'Línea industrial diseñada para uso estacionario y generación continua',
-      'Control electrónico de velocidad de alta precisión',
-      'Stock permanente de repuestos garantizado en Argentina',
-    ]
-  },
+  /* ── GRUPOS ELECTRÓGENOS ─────────────────────────────────
+     Hotspot ALTERNADOR (izquierda — parte azul del equipo)  */
   'ge-alternador': {
     div: 'Grupo Electrógeno',
     t: 'Alternador',
@@ -1504,7 +1460,43 @@ const panelData = {
     ]
   },
 
-  /* MOTOCOMPRESORES */
+  /* Hotspot MOTOR (centro) */
+  'ge-motor': {
+    div: 'Grupo Electrógeno',
+    t: 'Motor',
+    d: [
+      'Fallas por uso de lubricantes o combustible fuera de especificación',
+      'Paradas inesperadas por falta de stock de repuestos críticos',
+      'Incompatibilidad con suministro de gas natural o GLP disponible en planta',
+    ],
+    s: [
+      'Motores Baudouin / Weichai: Diésel, Gas Natural o GLP según necesidad',
+      'Línea industrial diseñada para uso estacionario y generación continua',
+      'Control electrónico de velocidad de alta precisión',
+      'Stock permanente de repuestos garantizado en Argentina',
+    ]
+  },
+
+  /* Hotspot CABINA (derecha — panel/carcasa) */
+  'ge-cabina': {
+    div: 'Grupo Electrógeno',
+    t: 'Cabina',
+    d: [
+      'Exposición a intemperie, ingreso de agua y polvo fino',
+      'Alto nivel de ruido en entornos residenciales o sensibles',
+      'Dificultad de acceso para operación y mantenimiento en campo',
+    ],
+    s: [
+      'Cabina insonorizada apta para intemperie con batea antiderrame integrada',
+      'Tanque de combustible extraíble para limpieza sencilla',
+      'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente interior',
+      'Carga externa con reloj analógico de control de nivel',
+      'Cáncamos de izaje y guías para autoelevador según modelo',
+    ]
+  },
+
+  /* ── MOTOCOMPRESORES DIÉSEL ──────────────────────────────
+     Hotspot MOTOR DIÉSEL (izquierda)                        */
   'mc-motor': {
     div: 'Motocompresor Diésel',
     t: 'Motor Kubota',
@@ -1518,6 +1510,8 @@ const panelData = {
       'Ideal para minería, oil & gas, construcción y emergencias',
     ]
   },
+
+  /* Hotspot UNIDAD COMPRESORA (centro) */
   'mc-unidad': {
     div: 'Motocompresor Diésel',
     t: 'Unidad Compresora',
@@ -1531,6 +1525,8 @@ const panelData = {
       'Eje simple y lanza de altura regulable para fácil maniobra en campo',
     ]
   },
+
+  /* Hotspot PANEL DE CONTROL (derecha) */
   'mc-panel': {
     div: 'Motocompresor Diésel',
     t: 'Panel de Control',
@@ -1545,7 +1541,8 @@ const panelData = {
     ]
   },
 
-  /* ELECTROCOMPRESORES */
+  /* ── ELECTROCOMPRESORES ──────────────────────────────────
+     Hotspot MOTOR ELÉCTRICO (izquierda)                     */
   'ec-motor': {
     div: 'Electrocompresor',
     t: 'Motor Eléctrico',
@@ -1559,6 +1556,8 @@ const panelData = {
       'Tecnología de origen alemán homologada en la Unión Europea',
     ]
   },
+
+  /* Hotspot CABEZAL DE TORNILLO (centro) */
   'ec-tornillo': {
     div: 'Electrocompresor',
     t: 'Cabezal de Tornillo',
@@ -1573,6 +1572,8 @@ const panelData = {
       'Modelos específicos para mesas de corte láser y procesos especiales',
     ]
   },
+
+  /* Hotspot SISTEMA VSD (derecha) */
   'ec-vsd': {
     div: 'Electrocompresor',
     t: 'Sistema y Tecnología',
@@ -1588,7 +1589,8 @@ const panelData = {
     ]
   },
 
-  /* TRATAMIENTO DE AIRE */
+  /* ── TRATAMIENTO DE AIRE ─────────────────────────────────
+     Panel de Secadoras (click en foto)                      */
   'secadora': {
     div: 'Tratamiento de Aire',
     t: 'Secadores de Aire',
@@ -1606,7 +1608,8 @@ const panelData = {
     ]
   },
 
-  /* SHELTER */
+  /* ── SHELTER INDUSTRIAL ──────────────────────────────────
+     Panel de Shelter (click en foto)                        */
   'shelter': {
     div: 'Infraestructura de Campo',
     t: 'Shelter Industrial',
@@ -1624,7 +1627,8 @@ const panelData = {
     ]
   },
 
-  /* OTROS */
+  /* ── OTROS EQUIPOS ───────────────────────────────────────
+     Panel Torres de Iluminación (click en tarjeta)          */
   'torre': {
     div: 'Equipamiento Especial',
     t: 'Torres de Iluminación',
@@ -1641,6 +1645,8 @@ const panelData = {
       'Lanza de remolque para fácil traslado y patas desplegables estabilizadoras',
     ]
   },
+
+  /* Panel Unidades VRU (click en tarjeta) */
   'vru': {
     div: 'Equipamiento Especial',
     t: 'Unidades VRU',
@@ -1654,10 +1660,13 @@ const panelData = {
       'Sistemas diseñados a medida para cada instalación y proceso',
     ]
   }
-};
 
-/* ─── PANEL ──────────────────────────────────────────────── */
-function buildItems(arr, cls) {
+}; /* ─── fin panelData ─── */
+
+/* ════════════════════════════════════════════════════════════
+   PANEL LATERAL
+════════════════════════════════════════════════════════════ */
+function buildItems(arr) {
   if (!arr || !arr.length) return '';
   return arr.map(item =>
     `<li><span class="pdot"></span><span>${item}</span></li>`
@@ -1667,20 +1676,24 @@ function buildItems(arr, cls) {
 function openPanel(key) {
   const d = panelData[key];
   if (!d) return;
-  document.getElementById('panelDiv').innerText   = d.div || '';
-  document.getElementById('panelTitle').innerText = d.t;
-  document.getElementById('panelDesc').innerHTML  = buildItems(d.d, 'danger-list');
-  document.getElementById('panelSol').innerHTML   = buildItems(d.s, 'info-list');
+  document.getElementById('panelDiv').textContent   = d.div || '';
+  document.getElementById('panelTitle').textContent = d.t;
+  document.getElementById('panelDesc').innerHTML    = buildItems(d.d);
+  document.getElementById('panelSol').innerHTML     = buildItems(d.s);
   document.getElementById('sidePanel').classList.add('open');
   document.getElementById('panelOverlay').classList.add('open');
 }
+
 function closePanel() {
   document.getElementById('sidePanel').classList.remove('open');
   document.getElementById('panelOverlay').classList.remove('open');
 }
+
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
-/* ─── RELOJ ──────────────────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   RELOJ
+════════════════════════════════════════════════════════════ */
 (function tick() {
   const n = new Date(), p = v => String(v).padStart(2,'0');
   const el = document.getElementById('clock');
@@ -1688,17 +1701,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
   setTimeout(tick, 1000);
 })();
 
-/* ─── CURSOR HOVER ───────────────────────────────────────── */
-function bindHover() {
-  document.querySelectorAll('button, [onclick], .sel-col, .cat-card, .hotspot, .iPhoto')
-    .forEach(el => {
-      el.onmouseenter = () => document.body.classList.add('hovering');
-      el.onmouseleave = () => document.body.classList.remove('hovering');
-    });
-}
-bindHover();
-
-/* ─── PRELOAD IMÁGENES ───────────────────────────────────── */
+/* ════════════════════════════════════════════════════════════
+   PRELOAD IMÁGENES (tablet: reduce tiempos de carga)
+════════════════════════════════════════════════════════════ */
 [
   './fondo.jpeg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg',
   './electrocompresor.jpg', './motocompresores.jpg', 'sheltercerrado.jpg',
@@ -1706,13 +1711,13 @@ bindHover();
   'vru.JPG', './todoslosequipo.jpg'
 ].forEach(src => { const img = new Image(); img.src = src; });
 
-/* ─── SWIPE TÁCTIL (cerrar panel) ───────────────────────── */
-let touchStartX = 0;
-document.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-}, { passive: true });
-document.addEventListener('touchend', e => {
-  if (e.changedTouches[0].clientX - touchStartX > 70) closePanel();
+/* ════════════════════════════════════════════════════════════
+   SWIPE TÁCTIL — cerrar panel deslizando a la derecha
+════════════════════════════════════════════════════════════ */
+let _tx = 0;
+document.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend',   e => {
+  if (e.changedTouches[0].clientX - _tx > 70) closePanel();
 }, { passive: true });
 </script>
 </body>
