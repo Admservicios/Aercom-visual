@@ -54,7 +54,7 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   CURSOR — punto simple, sin anillo (tablet de baja gama)
+   CURSOR
 ════════════════════════════════════════════════════════════ */
 #cursor-dot {
   position: fixed; pointer-events: none; z-index: 9999;
@@ -136,23 +136,18 @@ html, body {
   background: var(--bg);
   overflow: hidden;
 }
-
-/* Foto de fondo */
 #home-bg-img {
   position: absolute; inset: 0;
   background: url('./fondo.jpeg') center / cover no-repeat;
   opacity: 0.32;
   z-index: 0;
 }
-
 .home-content {
   position: relative; z-index: 2;
   text-align: center;
   display: flex; flex-direction: column;
   align-items: center;
 }
-
-/* Etiqueta superior */
 .home-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 7px 18px;
@@ -170,8 +165,6 @@ html, body {
   animation: blink 2s infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-/* Título principal */
 .home-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(80px, 14vw, 180px);
@@ -186,8 +179,6 @@ html, body {
   from { opacity:0; transform: translateY(30px) scaleY(0.9); }
   to   { opacity:1; transform: translateY(0) scaleY(1); }
 }
-
-/* Línea divisoria */
 .home-rule {
   display: flex; align-items: center; gap: 16px;
   width: 100%; max-width: 540px;
@@ -203,8 +194,6 @@ html, body {
   text-transform: uppercase; color: var(--text-muted);
   white-space: nowrap;
 }
-
-/* Subtítulo */
 .home-sub {
   font-size: clamp(13px, 1.6vw, 16px);
   font-weight: 300;
@@ -213,8 +202,6 @@ html, body {
   margin-bottom: 48px;
   animation: fadeUp 0.7s var(--swift) 0.65s both;
 }
-
-/* Botón primario */
 .btn-primary {
   display: inline-flex; align-items: center; gap: 14px;
   padding: clamp(16px, 2.2vh, 22px) clamp(44px, 5.5vw, 72px);
@@ -242,8 +229,6 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   font-size: 9px;
 }
-
-/* Indicadores de stats */
 .home-stats {
   position: absolute; bottom: 48px;
   display: flex; gap: clamp(28px, 5vw, 72px);
@@ -267,7 +252,6 @@ html, body {
   width: 1.5px; background: var(--border-hi);
   align-self: stretch; margin: 8px 0;
 }
-
 @keyframes fadeUp {
   from { opacity:0; transform: translateY(16px); }
   to   { opacity:1; transform: translateY(0); }
@@ -280,7 +264,6 @@ html, body {
 .selector-grid {
   display: flex; width: 100%; height: 100%;
 }
-
 .sel-col {
   flex: 1; position: relative; overflow: hidden;
   cursor: none;
@@ -289,15 +272,11 @@ html, body {
 }
 .sel-col:last-child { border-right: none; }
 .sel-col:hover { flex: 1.6; }
-
-/* Imagen de fondo */
 .sel-bg {
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
-  opacity: 0.85; /* más brillante, sin niebla */
+  opacity: 0.85;
 }
-
-/* Gradiente — solo en la franja inferior para que se lea el título */
 .sel-col::before {
   content: ''; position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(
@@ -308,8 +287,6 @@ html, body {
     rgba(5,5,5,0.92) 100%
   );
 }
-
-/* Barra lateral activa */
 .sel-col::after {
   content: ''; position: absolute;
   top: 0; left: 0; width: 3px; height: 100%;
@@ -319,8 +296,6 @@ html, body {
   z-index: 3;
 }
 .sel-col:hover::after { transform: scaleY(1); }
-
-/* Número de sección */
 .sel-num {
   position: absolute; top: 28px; left: 28px; z-index: 5;
   font-family: 'Barlow Condensed', sans-serif;
@@ -330,15 +305,11 @@ html, body {
   transition: opacity 0.25s;
 }
 .sel-col:hover .sel-num { opacity: 1; }
-
-/* Contenido inferior */
 .sel-content {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: clamp(24px,4vh,56px) clamp(20px,3vw,44px);
   z-index: 4;
 }
-
-/* Etiqueta */
 .sel-tag {
   font-size: 10px; font-weight: 600; letter-spacing: 0.35em;
   text-transform: uppercase; color: var(--blue);
@@ -347,16 +318,12 @@ html, body {
   transition: opacity 0.25s, transform 0.25s var(--swift);
 }
 .sel-col:hover .sel-tag { opacity: 1; transform: translateY(0); }
-
-/* Título columna */
 .sel-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(26px, 3.5vw, 48px);
   font-weight: 800; text-transform: uppercase;
   letter-spacing: 0.04em; line-height: 1.05; color: #fff;
 }
-
-/* CTA flecha */
 .sel-cta {
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 14px;
@@ -366,8 +333,6 @@ html, body {
   transition: opacity 0.25s 0.05s, transform 0.25s 0.05s var(--swift);
 }
 .sel-col:hover .sel-cta { opacity: 1; transform: translateX(0); }
-
-/* Header del selector */
 .sel-header {
   position: absolute; top: 0; left: 0; right: 0;
   padding: 22px 32px;
@@ -421,7 +386,6 @@ html, body {
   content: ''; flex: 0 0 24px; height: 1.5px;
   background: var(--blue-border);
 }
-
 .slide-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(38px, 6vw, 80px);
@@ -429,7 +393,6 @@ html, body {
   line-height: 0.9; text-transform: uppercase; color: #fff;
   margin-bottom: 16px;
 }
-
 .slide-sub {
   font-size: clamp(14px,1.8vw,18px);
   font-weight: 300; color: var(--text-dim);
@@ -502,110 +465,234 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   ─── SLIDE: EXPLORADOR — Tarjeta que respeta el ratio de la foto
+   ─── SLIDE: EXPLORADOR — NUEVO LAYOUT CON SIDEBAR ───────
+   Layout: [Sidebar izquierdo 280px] + [Imagen ocupa el resto]
+   CTA debajo de la imagen, separado
 ════════════════════════════════════════════════════════════ */
 .explorer-slide {
-  padding: 60px 16px 36px; /* top: btn-back | bottom: status bar */
   background: var(--bg);
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Tarjeta — se dimensiona según el ratio de la imagen */
-.explorer-wrap {
-  position: relative;
-  /* Ancho máximo que entre en pantalla con sus márgenes */
-  max-width: min(96vw, 1360px);
-  /* Alto máximo disponible después del padding del slide */
-  max-height: calc(100vh - 100px);
-  width: auto;
-  height: auto;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid var(--border-hi);
-  background: #1a1a1a;
-  /* La imagen dicta el tamaño — display block para que el wrapper lo envuelva */
-  display: block;
-  line-height: 0;
-}
-
-/* Imagen — tamaño natural respetando el wrapper */
-.explorer-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: calc(100vh - 100px);
-  object-fit: contain;
-  opacity: 1;
-}
-
-/* Degradé solo en la franja inferior */
-.explorer-wrap::after {
-  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 52%,
-    rgba(5,5,5,0.55) 72%,
-    rgba(5,5,5,0.92) 100%
-  );
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  padding: 0;
 }
 
 /* Sin ::before en explorer-slide */
 .explorer-slide::before { display: none; }
 
+/* Contenedor principal del explorador */
+.explorer-layout {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 32px); /* descontar status bar */
+  overflow: hidden;
+}
+
+/* ─── SIDEBAR IZQUIERDO ─── */
+.explorer-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: #0a0a0a;
+  border-right: 1.5px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+/* Cabecera del sidebar */
+.esb-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 72px;
+}
+.esb-back {
+  width: 34px; height: 34px;
+  background: var(--surface2);
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-size: 11px;
+  cursor: none; flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+.esb-back:hover { border-color: var(--blue-border); color: var(--blue); }
+.esb-title-wrap { flex: 1; min-width: 0; }
+.esb-division {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--blue);
+  display: block; margin-bottom: 2px;
+}
+.esb-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px; font-weight: 800;
+  text-transform: uppercase; color: #fff;
+  line-height: 1; display: block;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Lista de componentes del sidebar */
+.esb-component-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 0;
+}
+.esb-component {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 24px;
+  cursor: none;
+  border-left: 2.5px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+  position: relative;
+}
+.esb-component:hover,
+.esb-component.active {
+  background: rgba(0,102,255,0.06);
+  border-left-color: var(--blue);
+}
+.esb-comp-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: rgba(0,102,255,0.10);
+  border: 1.5px solid var(--blue-border);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--blue); font-size: 14px;
+  transition: background 0.15s;
+}
+.esb-component.active .esb-comp-icon,
+.esb-component:hover .esb-comp-icon {
+  background: rgba(0,102,255,0.20);
+}
+.esb-comp-text { flex: 1; min-width: 0; }
+.esb-comp-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: #fff; display: block; line-height: 1.1;
+}
+.esb-comp-sub {
+  font-size: 10px; color: var(--text-muted);
+  letter-spacing: 0.04em; display: block; margin-top: 2px;
+}
+.esb-comp-arrow {
+  font-size: 9px; color: var(--blue);
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.esb-component:hover .esb-comp-arrow,
+.esb-component.active .esb-comp-arrow {
+  opacity: 1; transform: translateX(3px);
+}
+
+/* Área de detalle activo en sidebar */
+.esb-detail {
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s var(--swift), padding 0.3s;
+  background: rgba(0,102,255,0.04);
+}
+.esb-detail.open {
+  max-height: 300px;
+  padding: 16px 24px 20px;
+}
+.esb-detail-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 8px; display: block;
+}
+.esb-detail-text {
+  font-size: 12px; color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* CTA en la parte inferior del sidebar */
+.esb-cta {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  flex-shrink: 0;
+}
+.esb-cta-btn {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 20px;
+  background: var(--blue);
+  border: 2px solid var(--blue);
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  cursor: none;
+  transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s;
+}
+.esb-cta-btn:hover {
+  background: var(--blue-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(0,102,255,0.40);
+}
+.esb-cta-btn:active { transform: scale(0.97); }
+
+/* ─── ÁREA DE IMAGEN ─── */
+.explorer-image-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d0d0d;
+}
+
+/* Imagen principal */
+.explorer-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Degradé sutil en bordes */
+.explorer-image-area::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background:
+    linear-gradient(180deg, rgba(5,5,5,0.30) 0%, transparent 18%, transparent 75%, rgba(5,5,5,0.55) 100%);
+}
+
 /* ════════════════════════════════════════════════════════════
-   HOTSPOTS — Estilo tarjeta, siempre visible (tablet táctil)
+   HOTSPOTS — Solo botón circular, sin tarjeta encima.
+   Al hacer clic activan el componente en el sidebar.
 ════════════════════════════════════════════════════════════ */
 .hotspot {
   position: absolute; z-index: 10;
   transform: translate(-50%, -50%);
   cursor: none;
-  display: flex; flex-direction: column; align-items: center; gap: 0;
 }
 
-/* Tarjeta de etiqueta — siempre visible, encima del botón */
-.hs-card {
-  background: rgba(8,8,8,0.92);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 4px;
-  padding: 8px 14px 7px;
-  text-align: center;
-  min-width: 120px;
-  pointer-events: none;
-  margin-bottom: 6px;
-}
-.hs-card-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: #fff; white-space: nowrap; display: block;
-  line-height: 1.2;
-}
-.hs-card-sub {
-  font-size: 10px; font-weight: 400;
-  color: var(--text-dim); letter-spacing: 0.06em;
-  display: block; margin-top: 2px;
-}
-
-/* Conector vertical entre tarjeta y botón */
-.hs-connector {
-  width: 2px; height: 10px;
-  background: var(--blue-border);
-}
-
-/* Botón circular */
+/* Botón circular — único elemento visible */
 .hs-btn {
-  width: 48px; height: 48px;
+  width: 44px; height: 44px;
   background: var(--blue);
   border: 2.5px solid rgba(255,255,255,0.9);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px; color: #fff;
+  font-size: 17px; color: #fff;
   animation: hsPulse 3.5s ease-in-out infinite;
   will-change: box-shadow;
-  flex-shrink: 0;
+  transition: transform 0.2s var(--bounce), background 0.15s;
+}
+.hotspot:hover .hs-btn,
+.hotspot.active .hs-btn {
+  transform: scale(1.15);
+  background: var(--blue-dark);
 }
 @keyframes hsPulse {
   0%   { box-shadow: 0 0 0 0 rgba(0,102,255,0.7); }
@@ -613,51 +700,24 @@ html, body {
   100% { box-shadow: 0 0 0 0 rgba(0,102,255,0); }
 }
 
-/* Mantener compatibilidad con .hs-label antiguo (no se usa en nuevos exploradores) */
-.hs-label { display: none; }
+/* Número de índice sobre el botón */
+.hs-index {
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 18px; height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+}
+
+/* Ocultar elementos viejos de hotspot si quedaran */
+.hs-card, .hs-connector, .hs-label { display: none; }
 
 /* ════════════════════════════════════════════════════════════
-   CTA FLOTANTE — franja inferior derecha de la tarjeta
-════════════════════════════════════════════════════════════ */
-.cta-float {
-  position: absolute; z-index: 20;
-  bottom: clamp(24px,4.5vh,48px); right: clamp(24px,3vw,44px);
-  display: inline-flex; align-items: center; gap: 12px;
-  padding: clamp(14px,2vh,20px) clamp(28px,3.5vw,48px);
-  background: var(--blue); color: #fff;
-  border: 2px solid var(--blue); border-radius: 3px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(14px,1.6vw,17px); font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s;
-}
-.cta-float:hover {
-  background: var(--blue-dark);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0,102,255,0.40);
-}
-.cta-float:active { transform: scale(0.97); }
-
-/* Etiqueta inferior — dentro de explorer-wrap, sobre el degradé */
-.explorer-badge {
-  position: absolute; z-index: 15;
-  bottom: clamp(60px,9vh,90px); left: clamp(24px,3vw,44px);
-  display: flex; flex-direction: column; gap: 4px;
-  pointer-events: none;
-}
-.explorer-badge-div {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--blue);
-}
-.explorer-badge-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(28px,4vw,52px); font-weight: 800;
-  text-transform: uppercase; color: #fff; line-height: 1;
-}
-
-/* ════════════════════════════════════════════════════════════
-   ─── GRID DE CATEGORÍAS ──────────────────────────────────
+   GRID DE CATEGORÍAS
 ════════════════════════════════════════════════════════════ */
 .cat-grid {
   display: flex; gap: clamp(12px,1.8vw,24px);
@@ -675,7 +735,6 @@ html, body {
   width: 100%; height: 100%; object-fit: cover;
   opacity: 0.82;
   display: block;
-  /* Sin transition en tablet */
 }
 .cat-card::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -685,8 +744,6 @@ html, body {
   transform: translateY(-8px);
   border-color: var(--blue-border);
 }
-/* Sin hover en imagen — rendimiento tablet */
-
 .cat-label {
   position: absolute; bottom: 0; left: 0; right: 0;
   padding: clamp(18px,2.8vw,32px) clamp(18px,2.8vw,28px);
@@ -731,7 +788,7 @@ html, body {
 .iPhoto:hover .iPhoto-cta { transform: translateX(-50%) translateY(-4px); }
 
 /* ════════════════════════════════════════════════════════════
-   PANEL LATERAL
+   PANEL LATERAL (para hotspots en vistas no-explorer)
 ════════════════════════════════════════════════════════════ */
 .panel-overlay {
   position: fixed; inset: 0;
@@ -741,7 +798,6 @@ html, body {
   cursor: none;
 }
 .panel-overlay.open { opacity: 1; visibility: visible; }
-
 .side-panel {
   position: fixed; top: 0; right: 0;
   width: min(540px, 94vw); height: 100%;
@@ -753,8 +809,6 @@ html, body {
   z-index: 200; overflow-y: auto;
 }
 .side-panel.open { transform: translateX(0); }
-
-/* Panel: cabecera */
 .panel-head { margin-bottom: 28px; }
 .panel-div {
   font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
@@ -769,8 +823,6 @@ html, body {
   width: 36px; height: 2.5px; background: var(--blue);
   margin-top: 14px; border-radius: 2px;
 }
-
-/* Panel: sección */
 .panel-section { margin-bottom: 22px; }
 .panel-section-label {
   display: flex; align-items: center; gap: 10px;
@@ -804,7 +856,6 @@ html, body {
 }
 .panel-list.danger-list li .pdot { background: var(--danger); }
 .panel-list.info-list   li .pdot { background: var(--info); }
-
 .btn-close {
   width: 100%; margin-top: 24px;
   padding: clamp(13px,1.8vh,17px);
@@ -843,7 +894,6 @@ html, body {
   gap: clamp(48px,8vw,120px);
   flex-wrap: wrap; justify-content: center;
 }
-.contact-text {}
 .contact-eyebrow {
   font-size: 10px; font-weight: 600; letter-spacing: 0.45em;
   text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
@@ -875,7 +925,6 @@ html, body {
   display: flex; align-items: center; justify-content: center;
   font-size: 13px; color: var(--blue);
 }
-
 .qr-box {
   background: #fff;
   padding: clamp(20px,3vw,36px);
@@ -888,7 +937,6 @@ html, body {
   font-size: 10px; font-weight: 700; letter-spacing: 0.3em;
   text-transform: uppercase; color: #333;
 }
-
 .btn-reset {
   position: absolute; bottom: 44px;
   background: none; border: none; color: var(--text-muted);
@@ -929,6 +977,26 @@ html, body {
 /* ════════════════════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .explorer-sidebar { width: 220px; }
+  .esb-comp-name { font-size: 13px; }
+}
+@media (max-width: 640px) {
+  .explorer-layout { flex-direction: column; }
+  .explorer-sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1.5px solid var(--border); }
+  .esb-component-list { display: flex; flex-direction: row; overflow-x: auto; padding: 8px 12px; gap: 8px; }
+  .esb-component { padding: 10px 14px; border-left: none; border-bottom: 2px solid transparent; flex-shrink: 0; }
+  .esb-component:hover, .esb-component.active { border-left-color: transparent; border-bottom-color: var(--blue); }
+  .esb-detail { display: none; }
+  .esb-cta { padding: 10px 14px; }
+  .cat-grid { flex-direction: column; }
+  .cat-card { height: 190px; }
+  .selector-grid { flex-direction: column; }
+  .contact-wrap { flex-direction: column; text-align: center; gap: 32px; }
+  .contact-desc { margin: 12px auto 0; }
+  .status-bar { display: none; }
+  .home-stats { display: none; }
+}
 @media (max-width:1100px) {
   .cat-card { height: clamp(280px,40vh,480px); }
   .card { padding: 24px 26px; }
@@ -946,16 +1014,6 @@ html, body {
   .cat-card { height: 200px; }
   .card { padding: 16px 18px; }
   .challenge-item { font-size: 13px; padding: 9px 0; }
-}
-@media (max-width:640px) {
-  .cat-grid { flex-direction: column; }
-  .cat-card { height: 190px; }
-  .selector-grid { flex-direction: column; }
-  .contact-wrap { flex-direction: column; text-align: center; gap: 32px; }
-  .contact-desc { margin: 12px auto 0; }
-  .status-bar { display: none; }
-  .cta-float { bottom: 16px; right: 14px; padding: 12px 22px; }
-  .home-stats { display: none; }
 }
 @media (min-width:2400px) {
   .home-title { font-size: 220px; }
@@ -981,7 +1039,6 @@ html, body {
 ───────────────────────────────────── -->
 <div class="slide active" id="home">
   <div id="home-bg-img"></div>
-
   <div class="home-content">
     <h1 class="home-title">AERCOM</h1>
     <div class="home-rule">
@@ -995,7 +1052,6 @@ html, body {
       Explorar Equipos
     </button>
   </div>
-
   <div class="home-stats">
     <div class="stat-item">
       <span class="stat-num">+25<span>años</span></span>
@@ -1018,7 +1074,6 @@ html, body {
      SLIDE: SELECTOR
 ───────────────────────────────────── -->
 <div class="slide" id="selector" style="padding:0; align-items:stretch; justify-content:stretch;">
-  <!-- Header fijo -->
   <div class="sel-header" style="position:absolute;top:0;left:0;right:0;">
     <button class="btn-back" style="position:relative;top:auto;left:auto;" onclick="nav('home')">
       <i class="fa-solid fa-arrow-left"></i> Volver
@@ -1028,9 +1083,7 @@ html, body {
       <i class="fa-solid fa-hand-pointer"></i> Tocá para explorar
     </span>
   </div>
-
   <div class="selector-grid">
-    <!-- Columna 1: GE -->
     <div class="sel-col" onclick="nav('ge-intro')">
       <div class="sel-bg" style="background-image:url('./grupoelectrogeno.jpeg');"></div>
       <span class="sel-num">01 — División Potencia</span>
@@ -1040,7 +1093,6 @@ html, body {
         <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
       </div>
     </div>
-    <!-- Columna 2: Compresores -->
     <div class="sel-col" onclick="nav('comp-intro')">
       <div class="sel-bg" style="background-image:url('./electrocompresor.jpg');"></div>
       <span class="sel-num">02 — Aire Comprimido</span>
@@ -1050,7 +1102,6 @@ html, body {
         <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
       </div>
     </div>
-    <!-- Columna 3: Otros -->
     <div class="sel-col" onclick="nav('otros-intro')">
       <div class="sel-bg" style="background-image:url('./todoslosequipo.jpg');"></div>
       <span class="sel-num">03 — Equipamiento</span>
@@ -1112,53 +1163,80 @@ html, body {
 </div>
 
 <!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — EXPLORADOR
+     GRUPOS ELECTRÓGENOS — EXPLORADOR (nuevo layout)
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="ge-explorador">
-  <button class="btn-back" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+  <div class="explorer-layout">
 
-  <div class="explorer-wrap">
-    <img class="explorer-img" src="./grupoelectrogenoabierto.jpeg" alt="Grupo Electrógeno">
-
-    <!-- Badge inferior izquierdo -->
-    <div class="explorer-badge">
-      <span class="explorer-badge-div">División Potencia</span>
-      <span class="explorer-badge-name">Grupo Electrógeno</span>
-    </div>
-
-    <!-- Alternador — izquierda (cuerpo azul del alternador) -->
-    <div class="hotspot" style="top:60%;left:28%;" onclick="openPanel('ge-alternador')">
-      <div class="hs-card">
-        <span class="hs-card-title">Alternador</span>
-        <span class="hs-card-sub">Leroy Somer · Sin escobillas</span>
+    <!-- Sidebar izquierdo -->
+    <aside class="explorer-sidebar">
+      <div class="esb-header">
+        <button class="esb-back" onclick="nav('ge-diagnostico')">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="esb-title-wrap">
+          <span class="esb-division">División Potencia</span>
+          <span class="esb-name">Grupo Electrógeno</span>
+        </div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
-    </div>
 
-    <!-- Motor — centro (motor Baudouin azul) -->
-    <div class="hotspot" style="top:45%;left:54%;" onclick="openPanel('ge-motor')">
-      <div class="hs-card">
-        <span class="hs-card-title">Motor</span>
-        <span class="hs-card-sub">Baudouin · Diésel / Gas</span>
+      <div class="esb-component-list">
+        <div class="esb-component" id="esb-ge-alternador" onclick="activateComponent('ge-alternador', 'esb-ge-alternador')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Alternador</span>
+            <span class="esb-comp-sub">Leroy Somer · Sin escobillas</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
+        <div class="esb-component" id="esb-ge-motor" onclick="activateComponent('ge-motor', 'esb-ge-motor')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-gear"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Motor</span>
+            <span class="esb-comp-sub">Baudouin · Diésel / Gas</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
+        <div class="esb-component" id="esb-ge-cabina" onclick="activateComponent('ge-cabina', 'esb-ge-cabina')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Cabina</span>
+            <span class="esb-comp-sub">Insonorizada · Intemperie</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
-    </div>
 
-    <!-- Cabina — derecha (panel/carcasa lateral) -->
-    <div class="hotspot" style="top:30%;left:78%;" onclick="openPanel('ge-cabina')">
-      <div class="hs-card">
-        <span class="hs-card-title">Cabina</span>
-        <span class="hs-card-sub">Insonorizada · Intemperie</span>
+      <!-- Área de detalle del componente activo -->
+      <div class="esb-detail" id="esb-detail-panel">
+        <span class="esb-detail-label" id="esb-detail-title">—</span>
+        <div class="esb-detail-text" id="esb-detail-body"></div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
-    </div>
 
-    <button class="cta-float" onclick="nav('contacto')">
-      <i class="fa-solid fa-envelope"></i> Solicitar Cotización
-    </button>
+      <div class="esb-cta">
+        <button class="esb-cta-btn" onclick="nav('contacto')">
+          <i class="fa-solid fa-envelope"></i> Solicitar Cotización
+        </button>
+      </div>
+    </aside>
+
+    <!-- Área imagen con hotspots -->
+    <div class="explorer-image-area" id="ge-image-area">
+      <img class="explorer-img" src="./grupoelectrogenoabierto.jpeg" alt="Grupo Electrógeno">
+
+      <div class="hotspot" id="hs-ge-alternador" style="top:60%;left:28%;" onclick="activateComponent('ge-alternador', 'esb-ge-alternador')">
+        <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
+        <div class="hs-index">1</div>
+      </div>
+      <div class="hotspot" id="hs-ge-motor" style="top:45%;left:54%;" onclick="activateComponent('ge-motor', 'esb-ge-motor')">
+        <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
+        <div class="hs-index">2</div>
+      </div>
+      <div class="hotspot" id="hs-ge-cabina" style="top:30%;left:78%;" onclick="activateComponent('ge-cabina', 'esb-ge-cabina')">
+        <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="hs-index">3</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1276,102 +1354,152 @@ html, body {
 </div>
 
 <!-- ─────────────────────────────────────
-     MOTOCOMPRESOR — EXPLORADOR
+     MOTOCOMPRESOR — EXPLORADOR (nuevo layout)
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="moto-explorador">
-  <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+  <div class="explorer-layout">
 
-  <div class="explorer-wrap">
-    <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor MAC3">
-
-    <div class="explorer-badge">
-      <span class="explorer-badge-div">División Aire Comprimido</span>
-      <span class="explorer-badge-name">Motocompresor Diésel</span>
-    </div>
-
-    <!-- Motor Diésel — lado izquierdo del equipo -->
-    <div class="hotspot" style="top:56%;left:22%;" onclick="openPanel('mc-motor')">
-      <div class="hs-card">
-        <span class="hs-card-title">Motor Diésel</span>
-        <span class="hs-card-sub">Kubota · Alta autonomía</span>
+    <aside class="explorer-sidebar">
+      <div class="esb-header">
+        <button class="esb-back" onclick="nav('comp-subcat')">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="esb-title-wrap">
+          <span class="esb-division">División Aire Comprimido</span>
+          <span class="esb-name">Motocompresor</span>
+        </div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
-    </div>
 
-    <!-- Unidad Compresora — zona central, filtro blanco alto -->
-    <div class="hotspot" style="top:38%;left:50%;" onclick="openPanel('mc-unidad')">
-      <div class="hs-card">
-        <span class="hs-card-title">Unidad Compresora</span>
-        <span class="hs-card-sub">Fabricación europea</span>
+      <div class="esb-component-list">
+        <div class="esb-component" id="esb-mc-motor" onclick="activateComponent('mc-motor', 'esb-mc-motor')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-gear"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Motor Diésel</span>
+            <span class="esb-comp-sub">Kubota · Alta autonomía</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
+        <div class="esb-component" id="esb-mc-unidad" onclick="activateComponent('mc-unidad', 'esb-mc-unidad')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-wind"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Unidad Compresora</span>
+            <span class="esb-comp-sub">Fabricación europea</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
+        <div class="esb-component" id="esb-mc-panel" onclick="activateComponent('mc-panel', 'esb-mc-panel')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-sliders"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Panel de Control</span>
+            <span class="esb-comp-sub">Presión · Temperatura</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-wind"></i></div>
-    </div>
 
-    <!-- Panel de Control — frente inferior, instrumentos y válvulas -->
-    <div class="hotspot" style="top:68%;left:36%;" onclick="openPanel('mc-panel')">
-      <div class="hs-card">
-        <span class="hs-card-title">Panel de Control</span>
-        <span class="hs-card-sub">Presión · Temperatura</span>
+      <div class="esb-detail" id="esb-detail-panel-mc">
+        <span class="esb-detail-label" id="esb-detail-title-mc">—</span>
+        <div class="esb-detail-text" id="esb-detail-body-mc"></div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-sliders"></i></div>
-    </div>
 
-    <button class="cta-float" onclick="nav('contacto')">
-      <i class="fa-solid fa-envelope"></i> Solicitar Cotización
-    </button>
+      <div class="esb-cta">
+        <button class="esb-cta-btn" onclick="nav('contacto')">
+          <i class="fa-solid fa-envelope"></i> Solicitar Cotización
+        </button>
+      </div>
+    </aside>
+
+    <div class="explorer-image-area">
+      <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor MAC3">
+
+      <div class="hotspot" id="hs-mc-motor" style="top:56%;left:22%;" onclick="activateComponent('mc-motor', 'esb-mc-motor')">
+        <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
+        <div class="hs-index">1</div>
+      </div>
+      <div class="hotspot" id="hs-mc-unidad" style="top:38%;left:50%;" onclick="activateComponent('mc-unidad', 'esb-mc-unidad')">
+        <div class="hs-btn"><i class="fa-solid fa-wind"></i></div>
+        <div class="hs-index">2</div>
+      </div>
+      <div class="hotspot" id="hs-mc-panel" style="top:68%;left:36%;" onclick="activateComponent('mc-panel', 'esb-mc-panel')">
+        <div class="hs-btn"><i class="fa-solid fa-sliders"></i></div>
+        <div class="hs-index">3</div>
+      </div>
+    </div>
   </div>
 </div>
 
 <!-- ─────────────────────────────────────
-     ELECTROCOMPRESOR — EXPLORADOR
+     ELECTROCOMPRESOR — EXPLORADOR (nuevo layout)
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="electro-explorador">
-  <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+  <div class="explorer-layout">
 
-  <div class="explorer-wrap">
-    <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
-
-    <div class="explorer-badge">
-      <span class="explorer-badge-div">División Aire Comprimido</span>
-      <span class="explorer-badge-name">Electrocompresor</span>
-    </div>
-
-    <!-- Motor Eléctrico — lado izquierdo (radiador/rejilla lateral) -->
-    <div class="hotspot" style="top:62%;left:16%;" onclick="openPanel('ec-motor')">
-      <div class="hs-card">
-        <span class="hs-card-title">Motor Eléctrico</span>
-        <span class="hs-card-sub">Fijo o VSD · Origen alemán</span>
+    <aside class="explorer-sidebar">
+      <div class="esb-header">
+        <button class="esb-back" onclick="nav('comp-subcat')">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <div class="esb-title-wrap">
+          <span class="esb-division">División Aire Comprimido</span>
+          <span class="esb-name">Electrocompresor</span>
+        </div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
-    </div>
 
-    <!-- Cabezal de Tornillo — centro (filtros blancos y tuberías azules) -->
-    <div class="hotspot" style="top:38%;left:52%;" onclick="openPanel('ec-tornillo')">
-      <div class="hs-card">
-        <span class="hs-card-title">Cabezal de Tornillo</span>
-        <span class="hs-card-sub">Oil free o lubricado</span>
+      <div class="esb-component-list">
+        <div class="esb-component" id="esb-ec-motor" onclick="activateComponent('ec-motor', 'esb-ec-motor')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Motor Eléctrico</span>
+            <span class="esb-comp-sub">Fijo o VSD · Origen alemán</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
+        <div class="esb-component" id="esb-ec-tornillo" onclick="activateComponent('ec-tornillo', 'esb-ec-tornillo')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-rotate"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Cabezal Tornillo</span>
+            <span class="esb-comp-sub">Oil free o lubricado</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
+        <div class="esb-component" id="esb-ec-vsd" onclick="activateComponent('ec-vsd', 'esb-ec-vsd')">
+          <div class="esb-comp-icon"><i class="fa-solid fa-display"></i></div>
+          <div class="esb-comp-text">
+            <span class="esb-comp-name">Panel de Control</span>
+            <span class="esb-comp-sub">Display · Sistema VSD</span>
+          </div>
+          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
+        </div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-rotate"></i></div>
-    </div>
 
-    <!-- Panel de Control — derecha (display digital + botón rojo) -->
-    <div class="hotspot" style="top:28%;left:82%;" onclick="openPanel('ec-vsd')">
-      <div class="hs-card">
-        <span class="hs-card-title">Panel de Control</span>
-        <span class="hs-card-sub">Display · Sistema VSD</span>
+      <div class="esb-detail" id="esb-detail-panel-ec">
+        <span class="esb-detail-label" id="esb-detail-title-ec">—</span>
+        <div class="esb-detail-text" id="esb-detail-body-ec"></div>
       </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-display"></i></div>
-    </div>
 
-    <button class="cta-float" onclick="nav('contacto')">
-      <i class="fa-solid fa-envelope"></i> Solicitar Cotización
-    </button>
+      <div class="esb-cta">
+        <button class="esb-cta-btn" onclick="nav('contacto')">
+          <i class="fa-solid fa-envelope"></i> Solicitar Cotización
+        </button>
+      </div>
+    </aside>
+
+    <div class="explorer-image-area">
+      <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
+
+      <div class="hotspot" id="hs-ec-motor" style="top:62%;left:16%;" onclick="activateComponent('ec-motor', 'esb-ec-motor')">
+        <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
+        <div class="hs-index">1</div>
+      </div>
+      <div class="hotspot" id="hs-ec-tornillo" style="top:38%;left:52%;" onclick="activateComponent('ec-tornillo', 'esb-ec-tornillo')">
+        <div class="hs-btn"><i class="fa-solid fa-rotate"></i></div>
+        <div class="hs-index">2</div>
+      </div>
+      <div class="hotspot" id="hs-ec-vsd" style="top:28%;left:82%;" onclick="activateComponent('ec-vsd', 'esb-ec-vsd')">
+        <div class="hs-btn"><i class="fa-solid fa-display"></i></div>
+        <div class="hs-index">3</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1437,7 +1565,7 @@ html, body {
 </div>
 
 <!-- ─────────────────────────────────────
-     PANEL LATERAL
+     PANEL LATERAL (para torres, vru, secadora, shelter)
 ───────────────────────────────────── -->
 <div class="side-panel" id="sidePanel">
   <div class="panel-head">
@@ -1445,7 +1573,6 @@ html, body {
     <div class="panel-title" id="panelTitle">—</div>
     <div class="panel-rule"></div>
   </div>
-
   <div class="panel-section">
     <div class="panel-section-label danger">
       <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1453,7 +1580,6 @@ html, body {
     </div>
     <ul class="panel-list danger-list" id="panelDesc"></ul>
   </div>
-
   <div class="panel-section">
     <div class="panel-section-label info">
       <i class="fa-solid fa-circle-check"></i>
@@ -1461,7 +1587,6 @@ html, body {
     </div>
     <ul class="panel-list info-list" id="panelSol"></ul>
   </div>
-
   <button class="btn-close" onclick="closePanel()">
     <i class="fa-solid fa-xmark" style="margin-right:8px;"></i>Cerrar panel
   </button>
@@ -1472,7 +1597,6 @@ html, body {
 ───────────────────────────────────── -->
 <div class="slide" id="contacto">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-
   <div class="contact-wrap">
     <div class="contact-text">
       <div class="contact-eyebrow">Contacto directo</div>
@@ -1498,7 +1622,6 @@ html, body {
       <div class="qr-label">Escanear para contactar</div>
     </div>
   </div>
-
   <button class="btn-reset" onclick="nav('home')">
     <i class="fa-solid fa-rotate-right"></i> Reiniciar presentación
   </button>
@@ -1509,7 +1632,7 @@ html, body {
 <!-- STATUS BAR -->
 <div class="status-bar">
   <div class="s-item"><div class="s-live"></div> Sistema Activo</div>
-  <div class="s-item"><i class="fa-solid fa-server" style="font-size:8px;color:var(--blue);"></i>&nbsp; Aercom EXP v5.0</div>
+  <div class="s-item"><i class="fa-solid fa-server" style="font-size:8px;color:var(--blue);"></i>&nbsp; Aercom EXP v6.0</div>
   <div class="s-item s-right" id="clock">--:--:--</div>
 </div>
 
@@ -1517,9 +1640,7 @@ html, body {
      JAVASCRIPT
 ══════════════════════════════════════════════════════════ -->
 <script>
-/* ════════════════════════════════════════════════════════════
-   CURSOR — solo dot, sin anillo (optimizado tablet)
-════════════════════════════════════════════════════════════ */
+/* ════ CURSOR ════ */
 const curDot = document.getElementById('cursor-dot');
 document.addEventListener('mousemove', e => {
   curDot.style.left = e.clientX + 'px';
@@ -1528,9 +1649,7 @@ document.addEventListener('mousemove', e => {
 document.addEventListener('mouseleave', () => { curDot.style.opacity = '0'; });
 document.addEventListener('mouseenter', () => { curDot.style.opacity = '1'; });
 
-/* ════════════════════════════════════════════════════════════
-   NAVEGACIÓN
-════════════════════════════════════════════════════════════ */
+/* ════ NAVEGACIÓN ════ */
 function nav(id) {
   const prev = document.querySelector('.slide.active');
   const next = document.getElementById(id);
@@ -1541,22 +1660,12 @@ function nav(id) {
 }
 
 /* ════════════════════════════════════════════════════════════
-   ╔══════════════════════════════════════════════════════╗
-   ║  BASE DE DATOS DE CONTENIDO — EDITAR AQUÍ           ║
-   ║  Cada entrada tiene:                                 ║
-   ║    div  → subtítulo del panel (arriba del título)    ║
-   ║    t    → título principal del panel                 ║
-   ║    d[]  → lista ROJA: problemas / especificaciones   ║
-   ║    s[]  → lista AZUL: ventajas Aercom                ║
-   ╚══════════════════════════════════════════════════════╝
+   BASE DE DATOS DE CONTENIDO
 ════════════════════════════════════════════════════════════ */
 const panelData = {
-
-  /* ── GRUPOS ELECTRÓGENOS ─────────────────────────────────
-     Hotspot ALTERNADOR (izquierda — parte azul del equipo)  */
   'ge-alternador': {
-    div: 'Grupo Electrógeno',
-    t: 'Alternador',
+    div: 'Grupo Electrógeno', t: 'Alternador',
+    short: 'Leroy Somer sin escobillas. Trifásico 3×380 V / 50 Hz con regulación AVR integrada y preparado para paralelismo.',
     d: [
       'Pérdida de aislamiento por partículas conductoras o humedad',
       'Tensión inestable que daña equipos electrónicos sensibles',
@@ -1570,11 +1679,9 @@ const panelData = {
       'Preparados para paralelismo según modelo',
     ]
   },
-
-  /* Hotspot MOTOR (centro) */
   'ge-motor': {
-    div: 'Grupo Electrógeno',
-    t: 'Motor',
+    div: 'Grupo Electrógeno', t: 'Motor',
+    short: 'Baudouin / Weichai en versiones Diésel, Gas Natural o GLP. Control electrónico de velocidad y stock de repuestos garantizado.',
     d: [
       'Fallas por uso de lubricantes o combustible fuera de especificación',
       'Paradas inesperadas por falta de stock de repuestos críticos',
@@ -1587,11 +1694,9 @@ const panelData = {
       'Stock permanente de repuestos garantizado en Argentina',
     ]
   },
-
-  /* Hotspot CABINA (derecha — panel/carcasa) */
   'ge-cabina': {
-    div: 'Grupo Electrógeno',
-    t: 'Cabina',
+    div: 'Grupo Electrógeno', t: 'Cabina',
+    short: 'Insonorizada apta para intemperie. Batea antiderrame, puertas imantadas, revestimiento fonoabsorbente y cáncamos de izaje.',
     d: [
       'Exposición a intemperie, ingreso de agua y polvo fino',
       'Alto nivel de ruido en entornos residenciales o sensibles',
@@ -1600,17 +1705,14 @@ const panelData = {
     s: [
       'Cabina insonorizada apta para intemperie con batea antiderrame integrada',
       'Tanque de combustible extraíble para limpieza sencilla',
-      'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente interior',
+      'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente',
       'Carga externa con reloj analógico de control de nivel',
       'Cáncamos de izaje y guías para autoelevador según modelo',
     ]
   },
-
-  /* ── MOTOCOMPRESORES DIÉSEL ──────────────────────────────
-     Hotspot MOTOR DIÉSEL (izquierda)                        */
   'mc-motor': {
-    div: 'Motocompresor Diésel',
-    t: 'Motor Kubota',
+    div: 'Motocompresor Diésel', t: 'Motor Kubota',
+    short: 'Motor Kubota de confiabilidad industrial. Gran tanque para jornadas extendidas. Ideal para minería, oil & gas y emergencias.',
     d: [
       'Dependencia de red eléctrica en zonas remotas u obras sin suministro',
       'Alta demanda de potencia en trabajo continuo de larga jornada',
@@ -1621,11 +1723,9 @@ const panelData = {
       'Ideal para minería, oil & gas, construcción y emergencias',
     ]
   },
-
-  /* Hotspot UNIDAD COMPRESORA (centro) */
   'mc-unidad': {
-    div: 'Motocompresor Diésel',
-    t: 'Unidad Compresora',
+    div: 'Motocompresor Diésel', t: 'Unidad Compresora',
+    short: 'Fabricación europea. Modelos de diferentes caudales y presiones. Eje simple y lanza regulable para fácil maniobra en campo.',
     d: [
       'Diversidad de requerimientos de caudal y presión según la aplicación',
       'Necesidad de portabilidad en terrenos irregulares o de difícil acceso',
@@ -1636,11 +1736,9 @@ const panelData = {
       'Eje simple y lanza de altura regulable para fácil maniobra en campo',
     ]
   },
-
-  /* Hotspot PANEL DE CONTROL (derecha) */
   'mc-panel': {
-    div: 'Motocompresor Diésel',
-    t: 'Panel de Control',
+    div: 'Motocompresor Diésel', t: 'Panel de Control',
+    short: 'Panel completo con indicadores de presión, temperatura y horario. Protecciones automáticas ante fallas integradas.',
     d: [
       'Dificultad para monitorear parámetros de operación en campo',
       'Sin protecciones que prevengan daños al equipo ante fallas',
@@ -1651,12 +1749,9 @@ const panelData = {
       'Cabina diseñada para intemperie con acceso seguro al panel de control',
     ]
   },
-
-  /* ── ELECTROCOMPRESORES ──────────────────────────────────
-     Hotspot MOTOR ELÉCTRICO (izquierda)                     */
   'ec-motor': {
-    div: 'Electrocompresor',
-    t: 'Motor Eléctrico',
+    div: 'Electrocompresor', t: 'Motor Eléctrico',
+    short: 'Velocidad fija o variable VSD. Acople directo o a correas. Tecnología de origen alemán, homologada en la Unión Europea.',
     d: [
       'Alto consumo energético en compresores de velocidad fija con ciclos variables',
       'Desgaste acelerado por arranques directos frecuentes sin suavizado',
@@ -1667,29 +1762,25 @@ const panelData = {
       'Tecnología de origen alemán homologada en la Unión Europea',
     ]
   },
-
-  /* Hotspot CABEZAL DE TORNILLO (centro) */
   'ec-tornillo': {
-    div: 'Electrocompresor',
-    t: 'Cabezal de Tornillo',
+    div: 'Electrocompresor', t: 'Cabezal de Tornillo',
+    short: 'Lubricados o libres de aceite. Apto para industria general, alimentaria y farmacéutica. Cabinas de bajo nivel sonoro.',
     d: [
       'Contaminación del aire en procesos alimenticios o farmacéuticos',
-      'Ruido excesivo que limita la instalación en espacios confinados o urbanizados',
+      'Ruido excesivo que limita la instalación en espacios confinados',
     ],
     s: [
       'Lubricados (Oil injected) o libres de aceite (Oil free) según proceso',
       'Apto para industria general, alimentaria, farmacéutica y de alta precisión',
-      'Cabinas de bajo nivel sonoro para optimizar instalación en cualquier espacio',
+      'Cabinas de bajo nivel sonoro para instalación en cualquier espacio',
       'Modelos específicos para mesas de corte láser y procesos especiales',
     ]
   },
-
-  /* Hotspot SISTEMA VSD (derecha) */
   'ec-vsd': {
-    div: 'Electrocompresor',
-    t: 'Sistema y Tecnología',
+    div: 'Electrocompresor', t: 'Sistema y Tecnología',
+    short: 'Amplia gama de caudal/presión. Modelos Compact con tanque y secador integrados. Stock de repuestos garantizado en Argentina.',
     d: [
-      'Rango limitado de caudal/presión que no cubre todos los requerimientos de planta',
+      'Rango limitado de caudal/presión que no cubre todos los requerimientos',
       'Stock de repuestos incierto que genera paradas prolongadas y costosas',
     ],
     s: [
@@ -1699,12 +1790,8 @@ const panelData = {
       'Stock permanente de repuestos garantizado en Argentina',
     ]
   },
-
-  /* ── TRATAMIENTO DE AIRE ─────────────────────────────────
-     Panel de Secadoras (click en foto)                      */
   'secadora': {
-    div: 'Tratamiento de Aire',
-    t: 'Secadores de Aire',
+    div: 'Tratamiento de Aire', t: 'Secadores de Aire',
     d: [
       'Condensados que dañan herramientas neumáticas, válvulas y actuadores',
       'Corrosión interna en tuberías por humedad sin tratamiento adecuado',
@@ -1718,12 +1805,8 @@ const panelData = {
       'Muy bajo mantenimiento, con filtros de línea integrados de serie',
     ]
   },
-
-  /* ── SHELTER INDUSTRIAL ──────────────────────────────────
-     Panel de Shelter (click en foto)                        */
   'shelter': {
-    div: 'Infraestructura de Campo',
-    t: 'Shelter Industrial',
+    div: 'Infraestructura de Campo', t: 'Shelter Industrial',
     d: [
       'Altos costos de obra civil para alojar equipos en locaciones remotas',
       'Exposición a condiciones ambientales adversas sin protección adecuada',
@@ -1737,12 +1820,8 @@ const panelData = {
       'Amplios accesos para operación cómoda y mantenimiento eficiente',
     ]
   },
-
-  /* ── OTROS EQUIPOS ───────────────────────────────────────
-     Panel Torres de Iluminación (click en tarjeta)          */
   'torre': {
-    div: 'Equipamiento Especial',
-    t: 'Torres de Iluminación',
+    div: 'Equipamiento Especial', t: 'Torres de Iluminación',
     d: [
       'Falta de visibilidad en turnos nocturnos o áreas de trabajo remotas',
       'Riesgos laborales graves y baja productividad sin iluminación suficiente',
@@ -1756,11 +1835,8 @@ const panelData = {
       'Lanza de remolque para fácil traslado y patas desplegables estabilizadoras',
     ]
   },
-
-  /* Panel Unidades VRU (click en tarjeta) */
   'vru': {
-    div: 'Equipamiento Especial',
-    t: 'Unidades VRU',
+    div: 'Equipamiento Especial', t: 'Unidades VRU',
     d: [
       'Emisiones fugitivas de gases livianos desde tanques de almacenamiento',
       'Pérdidas económicas y problemas de cumplimiento de normativa ambiental',
@@ -1771,19 +1847,15 @@ const panelData = {
       'Sistemas diseñados a medida para cada instalación y proceso',
     ]
   }
+};
 
-}; /* ─── fin panelData ─── */
-
-/* ════════════════════════════════════════════════════════════
-   PANEL LATERAL
-════════════════════════════════════════════════════════════ */
+/* ════ PANEL LATERAL (para torres/vru/secadora/shelter) ════ */
 function buildItems(arr) {
   if (!arr || !arr.length) return '';
   return arr.map(item =>
     `<li><span class="pdot"></span><span>${item}</span></li>`
   ).join('');
 }
-
 function openPanel(key) {
   const d = panelData[key];
   if (!d) return;
@@ -1794,17 +1866,68 @@ function openPanel(key) {
   document.getElementById('sidePanel').classList.add('open');
   document.getElementById('panelOverlay').classList.add('open');
 }
-
 function closePanel() {
   document.getElementById('sidePanel').classList.remove('open');
   document.getElementById('panelOverlay').classList.remove('open');
 }
-
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
 /* ════════════════════════════════════════════════════════════
-   RELOJ
+   ACTIVAR COMPONENTE EN EL SIDEBAR DEL EXPLORADOR
+   - Resalta el ítem en la lista
+   - Muestra el detalle en el panel de detalle del sidebar
+   - Resalta el hotspot correspondiente en la imagen
 ════════════════════════════════════════════════════════════ */
+let activeCompId = null;
+
+function activateComponent(dataKey, sbItemId) {
+  const d = panelData[dataKey];
+  if (!d) return;
+
+  // Obtener prefijo del equipo (ge, mc, ec) para saber qué detail panel usar
+  const prefix = dataKey.split('-')[0]; // 'ge', 'mc', 'ec'
+
+  // Mapeo de prefijo a IDs de los detail panels
+  const detailPanelMap = {
+    'ge': { panel: 'esb-detail-panel',    title: 'esb-detail-title',    body: 'esb-detail-body' },
+    'mc': { panel: 'esb-detail-panel-mc', title: 'esb-detail-title-mc', body: 'esb-detail-body-mc' },
+    'ec': { panel: 'esb-detail-panel-ec', title: 'esb-detail-title-ec', body: 'esb-detail-body-ec' },
+  };
+
+  const dp = detailPanelMap[prefix];
+  if (!dp) return;
+
+  // Si ya está activo, deseleccionar
+  if (activeCompId === sbItemId) {
+    document.getElementById(sbItemId)?.classList.remove('active');
+    document.getElementById('hs-' + dataKey)?.classList.remove('active');
+    const panel = document.getElementById(dp.panel);
+    if (panel) panel.classList.remove('open');
+    activeCompId = null;
+    return;
+  }
+
+  // Desactivar anterior — buscar en todos los componentes del slide activo
+  document.querySelectorAll('.esb-component.active').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.hotspot.active').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.esb-detail.open').forEach(el => el.classList.remove('open'));
+
+  // Activar el nuevo
+  activeCompId = sbItemId;
+  document.getElementById(sbItemId)?.classList.add('active');
+  document.getElementById('hs-' + dataKey)?.classList.add('active');
+
+  // Rellenar y abrir el detail panel
+  const panelEl = document.getElementById(dp.panel);
+  const titleEl = document.getElementById(dp.title);
+  const bodyEl  = document.getElementById(dp.body);
+
+  if (titleEl) titleEl.textContent = d.t;
+  if (bodyEl)  bodyEl.textContent  = d.short || (d.s && d.s[0]) || '';
+  if (panelEl) panelEl.classList.add('open');
+}
+
+/* ════ RELOJ ════ */
 (function tick() {
   const n = new Date(), p = v => String(v).padStart(2,'0');
   const el = document.getElementById('clock');
@@ -1812,19 +1935,15 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
   setTimeout(tick, 1000);
 })();
 
-/* ════════════════════════════════════════════════════════════
-   PRELOAD IMÁGENES (tablet: reduce tiempos de carga)
-════════════════════════════════════════════════════════════ */
+/* ════ PRELOAD ════ */
 [
   './fondo.jpeg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg',
   './electrocompresor.jpg', './motocompresores.jpg', 'sheltercerrado.jpg',
   'shelterabierto.jpg', 'secadora.jpg', 'torredeiluminacion.jpg',
-  'vru.JPG', './todoslosequipo.jpg'
+  'vru.JPG', './todoslosequipo.jpg', 'motocompresorabierto.jpg', 'electrocompresorabierto.jpg'
 ].forEach(src => { const img = new Image(); img.src = src; });
 
-/* ════════════════════════════════════════════════════════════
-   SWIPE TÁCTIL — cerrar panel deslizando a la derecha
-════════════════════════════════════════════════════════════ */
+/* ════ SWIPE ════ */
 let _tx = 0;
 document.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
 document.addEventListener('touchend',   e => {
