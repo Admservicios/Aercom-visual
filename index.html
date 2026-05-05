@@ -10,9 +10,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* ════════════════════════════════════════════════════════════
-   VARIABLES GLOBALES
-════════════════════════════════════════════════════════════ */
 :root {
   --blue:       #0066FF;
   --blue-dark:  #0050CC;
@@ -37,660 +34,264 @@
   --swift:      cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ════════════════════════════════════════════════════════════
-   RESET
-════════════════════════════════════════════════════════════ */
-*, *::before, *::after {
-  box-sizing: border-box; margin: 0; padding: 0;
-  -webkit-font-smoothing: antialiased;
-}
-html, body {
-  width: 100%; height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Barlow', sans-serif;
-  overflow: hidden;
-  cursor: none;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+html, body { width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; overflow: hidden; cursor: none; }
 
-/* ════════════════════════════════════════════════════════════
-   CURSOR
-════════════════════════════════════════════════════════════ */
-#cursor-dot {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 8px; height: 8px;
-  background: var(--blue);
-  border-radius: 50%;
-  transform: translate(-50%,-50%);
-}
+#cursor-dot { position: fixed; pointer-events: none; z-index: 9999; width: 8px; height: 8px; background: var(--blue); border-radius: 50%; transform: translate(-50%,-50%); }
 #cursor-ring { display: none; }
 
-/* ════════════════════════════════════════════════════════════
-   APP SHELL
-════════════════════════════════════════════════════════════ */
-#app {
-  position: relative;
-  width: 100vw; height: 100vh;
-  overflow: hidden;
-}
+#app { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
 
-/* ════════════════════════════════════════════════════════════
-   SLIDES
-════════════════════════════════════════════════════════════ */
-.slide {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  opacity: 0; visibility: hidden; pointer-events: none;
-  will-change: opacity, transform;
-  transition: opacity 0.35s var(--ease), visibility 0.35s;
-}
-.slide.active {
-  opacity: 1; visibility: visible; pointer-events: all;
-  animation: slideIn 0.22s var(--swift) both;
-}
-@keyframes slideIn {
-  from { opacity:0; transform: translateY(8px); }
-  to   { opacity:1; transform: translateY(0); }
-}
+.slide { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; pointer-events: none; will-change: opacity, transform; transition: opacity 0.35s var(--ease), visibility 0.35s; }
+.slide.active { opacity: 1; visibility: visible; pointer-events: all; animation: slideIn 0.22s var(--swift) both; }
+@keyframes slideIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
 
-/* ════════════════════════════════════════════════════════════
-   BOTÓN VOLVER
-════════════════════════════════════════════════════════════ */
-.btn-back {
-  position: absolute; top: 24px; left: 24px; z-index: 100;
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 10px 22px;
-  background: var(--surface2);
-  border: 1.5px solid var(--border-hi);
-  border-radius: 3px;
-  color: var(--text);
-  font-family: 'Barlow', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.15s var(--bounce);
-}
-.btn-back:hover {
-  background: var(--surface3);
-  border-color: var(--blue-border);
-  transform: translateX(-3px);
-}
+.btn-back { position: absolute; top: 24px; left: 24px; z-index: 100; display: inline-flex; align-items: center; gap: 10px; padding: 10px 22px; background: var(--surface2); border: 1.5px solid var(--border-hi); border-radius: 3px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: none; transition: background 0.15s, border-color 0.15s, transform 0.15s var(--bounce); }
+.btn-back:hover { background: var(--surface3); border-color: var(--blue-border); transform: translateX(-3px); }
 
-/* ════════════════════════════════════════════════════════════
-   LOGO / WORDMARK
-════════════════════════════════════════════════════════════ */
-.logo-mark {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-/* ════════════════════════════════════════════════════════════
-   ─── SLIDE: HOME ────────────────────────────────────────
-════════════════════════════════════════════════════════════ */
-#home {
-  background: var(--bg);
-  overflow: hidden;
-}
-#home-bg-img {
-  position: absolute; inset: 0;
-  background: url('./fondo.jpeg') center / cover no-repeat;
-  opacity: 0.32;
-  z-index: 0;
-}
-.home-content {
-  position: relative; z-index: 2;
-  text-align: center;
-  display: flex; flex-direction: column;
-  align-items: center;
-}
-.home-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 7px 18px;
-  border: 1.5px solid var(--blue-border);
-  border-radius: 2px;
-  background: rgba(0,102,255,0.08);
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--blue);
-  margin-bottom: 32px;
-  animation: fadeUp 0.7s var(--swift) 0.1s both;
-}
-.home-eyebrow-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--blue);
-  animation: blink 2s infinite;
-}
+/* HOME */
+#home { background: var(--bg); overflow: hidden; }
+#home-bg-img { position: absolute; inset: 0; background: url('./fondo.jpeg') center / cover no-repeat; opacity: 0.32; z-index: 0; }
+.home-content { position: relative; z-index: 2; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.home-eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 7px 18px; border: 1.5px solid var(--blue-border); border-radius: 2px; background: rgba(0,102,255,0.08); font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blue); margin-bottom: 32px; animation: fadeUp 0.7s var(--swift) 0.1s both; }
+.home-eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.home-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(80px, 14vw, 180px);
-  font-weight: 800;
-  line-height: 0.85;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: #fff;
-  animation: titleReveal 0.9s var(--swift) 0.2s both;
-}
-@keyframes titleReveal {
-  from { opacity:0; transform: translateY(30px) scaleY(0.9); }
-  to   { opacity:1; transform: translateY(0) scaleY(1); }
-}
-.home-rule {
-  display: flex; align-items: center; gap: 16px;
-  width: 100%; max-width: 540px;
-  margin: 24px 0;
-  animation: fadeUp 0.7s var(--swift) 0.5s both;
-}
-.home-rule-line {
-  flex: 1; height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--blue), transparent);
-}
-.home-rule-text {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--text-muted);
-  white-space: nowrap;
-}
-.home-sub {
-  font-size: clamp(13px, 1.6vw, 16px);
-  font-weight: 300;
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  margin-bottom: 48px;
-  animation: fadeUp 0.7s var(--swift) 0.65s both;
-}
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 14px;
-  padding: clamp(16px, 2.2vh, 22px) clamp(44px, 5.5vw, 72px);
-  background: var(--blue);
-  border: 2px solid var(--blue);
-  border-radius: 3px;
-  color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(14px, 1.6vw, 18px);
-  font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s;
-  animation: fadeUp 0.7s var(--swift) 0.85s both;
-}
-.btn-primary:hover {
-  background: var(--blue-dark);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0,102,255,0.35);
-}
+.home-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(80px, 14vw, 180px); font-weight: 800; line-height: 0.85; letter-spacing: -0.01em; text-transform: uppercase; color: #fff; animation: titleReveal 0.9s var(--swift) 0.2s both; }
+@keyframes titleReveal { from { opacity:0; transform: translateY(30px) scaleY(0.9); } to { opacity:1; transform: translateY(0) scaleY(1); } }
+.home-rule { display: flex; align-items: center; gap: 16px; width: 100%; max-width: 540px; margin: 24px 0; animation: fadeUp 0.7s var(--swift) 0.5s both; }
+.home-rule-line { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, var(--blue), transparent); }
+.home-rule-text { font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; }
+.home-sub { font-size: clamp(13px, 1.6vw, 16px); font-weight: 300; color: var(--text-dim); letter-spacing: 0.06em; margin-bottom: 48px; animation: fadeUp 0.7s var(--swift) 0.65s both; }
+.btn-primary { display: inline-flex; align-items: center; gap: 14px; padding: clamp(16px, 2.2vh, 22px) clamp(44px, 5.5vw, 72px); background: var(--blue); border: 2px solid var(--blue); border-radius: 3px; color: #fff; font-family: 'Barlow Condensed', sans-serif; font-size: clamp(14px, 1.6vw, 18px); font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; cursor: none; transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s; animation: fadeUp 0.7s var(--swift) 0.85s both; }
+.btn-primary:hover { background: var(--blue-dark); transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 48px rgba(0,102,255,0.35); }
 .btn-primary:active { transform: scale(0.97); }
-.btn-primary .btn-icon {
-  width: 20px; height: 20px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-}
-.home-stats {
-  position: absolute; bottom: 48px;
-  display: flex; gap: clamp(28px, 5vw, 72px);
-  animation: fadeUp 0.7s var(--swift) 1.1s both;
-  z-index: 2;
-}
+.btn-primary .btn-icon { width: 20px; height: 20px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+.home-stats { position: absolute; bottom: 48px; display: flex; gap: clamp(28px, 5vw, 72px); animation: fadeUp 0.7s var(--swift) 1.1s both; z-index: 2; }
 .stat-item { text-align: center; }
-.stat-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 800; color: #fff; line-height: 1;
-  display: block;
-}
+.stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: #fff; line-height: 1; display: block; }
 .stat-num span { color: var(--blue); }
-.stat-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--text-muted);
-  margin-top: 4px; display: block;
-}
-.stat-sep {
-  width: 1.5px; background: var(--border-hi);
-  align-self: stretch; margin: 8px 0;
-}
-@keyframes fadeUp {
-  from { opacity:0; transform: translateY(16px); }
-  to   { opacity:1; transform: translateY(0); }
-}
+.stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; display: block; }
+.stat-sep { width: 1.5px; background: var(--border-hi); align-self: stretch; margin: 8px 0; }
+@keyframes fadeUp { from { opacity:0; transform: translateY(16px); } to { opacity:1; transform: translateY(0); } }
 
-/* ════════════════════════════════════════════════════════════
-   ─── SLIDE: SELECTOR ────────────────────────────────────
-════════════════════════════════════════════════════════════ */
+/* SELECTOR */
 #selector { padding: 0; }
-.selector-grid {
-  display: flex; width: 100%; height: 100%;
-}
-.sel-col {
-  flex: 1; position: relative; overflow: hidden;
-  cursor: none;
-  border-right: 1.5px solid rgba(255,255,255,0.08);
-  transition: flex 0.5s var(--swift);
-}
+.selector-grid { display: flex; width: 100%; height: 100%; }
+.sel-col { flex: 1; position: relative; overflow: hidden; cursor: none; border-right: 1.5px solid rgba(255,255,255,0.08); transition: flex 0.5s var(--swift); }
 .sel-col:last-child { border-right: none; }
 .sel-col:hover { flex: 1.6; }
-.sel-bg {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  opacity: 0.85;
-}
-.sel-col::before {
-  content: ''; position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 45%,
-    rgba(5,5,5,0.70) 75%,
-    rgba(5,5,5,0.92) 100%
-  );
-}
-.sel-col::after {
-  content: ''; position: absolute;
-  top: 0; left: 0; width: 3px; height: 100%;
-  background: var(--blue);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform 0.35s var(--swift);
-  z-index: 3;
-}
+.sel-bg { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0.85; }
+.sel-col::before { content: ''; position: absolute; inset: 0; z-index: 2; background: linear-gradient(180deg, transparent 0%, transparent 45%, rgba(5,5,5,0.70) 75%, rgba(5,5,5,0.92) 100%); }
+.sel-col::after { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--blue); transform: scaleY(0); transform-origin: bottom; transition: transform 0.35s var(--swift); z-index: 3; }
 .sel-col:hover::after { transform: scaleY(1); }
-.sel-num {
-  position: absolute; top: 28px; left: 28px; z-index: 5;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--blue);
-  opacity: 0;
-  transition: opacity 0.25s;
-}
+.sel-num { position: absolute; top: 28px; left: 28px; z-index: 5; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--blue); opacity: 0; transition: opacity 0.25s; }
 .sel-col:hover .sel-num { opacity: 1; }
-.sel-content {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: clamp(24px,4vh,56px) clamp(20px,3vw,44px);
-  z-index: 4;
-}
-.sel-tag {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--blue);
-  margin-bottom: 8px;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity 0.25s, transform 0.25s var(--swift);
-}
+.sel-content { position: absolute; bottom: 0; left: 0; right: 0; padding: clamp(24px,4vh,56px) clamp(20px,3vw,44px); z-index: 4; }
+.sel-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; opacity: 0; transform: translateY(8px); transition: opacity 0.25s, transform 0.25s var(--swift); }
 .sel-col:hover .sel-tag { opacity: 1; transform: translateY(0); }
-.sel-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(26px, 3.5vw, 48px);
-  font-weight: 800; text-transform: uppercase;
-  letter-spacing: 0.04em; line-height: 1.05; color: #fff;
-}
-.sel-cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 14px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--blue);
-  opacity: 0; transform: translateX(-10px);
-  transition: opacity 0.25s 0.05s, transform 0.25s 0.05s var(--swift);
-}
+.sel-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(26px, 3.5vw, 48px); font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.05; color: #fff; }
+.sel-cta { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 11px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); opacity: 0; transform: translateX(-10px); transition: opacity 0.25s 0.05s, transform 0.25s 0.05s var(--swift); }
 .sel-col:hover .sel-cta { opacity: 1; transform: translateX(0); }
-.sel-header {
-  position: absolute; top: 0; left: 0; right: 0;
-  padding: 22px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  z-index: 10;
-  background: linear-gradient(180deg, rgba(5,5,5,0.85) 0%, transparent 100%);
-}
-.sel-header-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.sel-header-hint {
-  font-size: 10px; font-weight: 500; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--text-muted);
-  display: flex; align-items: center; gap: 8px;
-}
+.sel-header { position: absolute; top: 0; left: 0; right: 0; padding: 22px 32px; display: flex; align-items: center; justify-content: space-between; z-index: 10; background: linear-gradient(180deg, rgba(5,5,5,0.85) 0%, transparent 100%); }
+.sel-header-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; color: var(--text-muted); }
+.sel-header-hint { font-size: 10px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
 .sel-header-hint i { color: var(--blue); font-size: 9px; }
 
-/* ════════════════════════════════════════════════════════════
-   ─── CARD CONTENEDOR ─────────────────────────────────────
-════════════════════════════════════════════════════════════ */
-.card {
-  width: 92%; max-width: 900px;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-  background: var(--surface);
-  border: 1.5px solid var(--border-hi);
-  border-radius: 4px;
-  padding: clamp(32px,4.5vh,60px) clamp(32px,4.5vw,64px);
-  position: relative;
-}
-.card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--blue);
-  border-radius: 4px 4px 0 0;
-}
-
-/* ════════════════════════════════════════════════════════════
-   TIPOGRAFÍA COMPARTIDA
-════════════════════════════════════════════════════════════ */
-.eyebrow {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.45em;
-  text-transform: uppercase; color: var(--blue);
-  margin-bottom: 10px;
-  display: flex; align-items: center; gap: 10px;
-}
-.eyebrow::after {
-  content: ''; flex: 0 0 24px; height: 1.5px;
-  background: var(--blue-border);
-}
-.slide-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(38px, 6vw, 80px);
-  font-weight: 800; letter-spacing: 0.01em;
-  line-height: 0.9; text-transform: uppercase; color: #fff;
-  margin-bottom: 16px;
-}
-.slide-sub {
-  font-size: clamp(14px,1.8vw,18px);
-  font-weight: 300; color: var(--text-dim);
-  line-height: 1.6; max-width: 500px;
-}
-
-/* ════════════════════════════════════════════════════════════
-   BOTÓN FLECHA HACIA ABAJO
-════════════════════════════════════════════════════════════ */
-.btn-continue {
-  display: inline-flex; flex-direction: column;
-  align-items: center; gap: 8px;
-  margin-top: clamp(28px,4vh,44px);
-  background: none; border: none;
-  cursor: none; color: var(--text-dim);
-}
-.btn-continue-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.btn-continue-icon {
-  width: 44px; height: 44px;
-  border: 1.5px solid var(--border-hi);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-dim); font-size: 13px;
-  animation: continueBounce 2.2s ease-in-out infinite;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-}
-.btn-continue:hover .btn-continue-icon {
-  border-color: var(--blue);
-  background: rgba(0,102,255,0.12);
-  color: var(--blue);
-}
-@keyframes continueBounce {
-  0%,100%{ transform: translateY(0); }
-  50%    { transform: translateY(10px); }
-}
-
-/* ════════════════════════════════════════════════════════════
-   LISTA DE DESAFÍOS
-════════════════════════════════════════════════════════════ */
+/* CARD */
+.card { width: 92%; max-width: 900px; max-height: calc(100vh - 80px); overflow-y: auto; background: var(--surface); border: 1.5px solid var(--border-hi); border-radius: 4px; padding: clamp(32px,4.5vh,60px) clamp(32px,4.5vw,64px); position: relative; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--blue); border-radius: 4px 4px 0 0; }
+.eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+.eyebrow::after { content: ''; flex: 0 0 24px; height: 1.5px; background: var(--blue-border); }
+.slide-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(38px, 6vw, 80px); font-weight: 800; letter-spacing: 0.01em; line-height: 0.9; text-transform: uppercase; color: #fff; margin-bottom: 16px; }
+.slide-sub { font-size: clamp(14px,1.8vw,18px); font-weight: 300; color: var(--text-dim); line-height: 1.6; max-width: 500px; }
+.btn-continue { display: inline-flex; flex-direction: column; align-items: center; gap: 8px; margin-top: clamp(28px,4vh,44px); background: none; border: none; cursor: none; color: var(--text-dim); }
+.btn-continue-label { font-size: 10px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-muted); }
+.btn-continue-icon { width: 44px; height: 44px; border: 1.5px solid var(--border-hi); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-dim); font-size: 13px; animation: continueBounce 2.2s ease-in-out infinite; transition: border-color 0.15s, color 0.15s, background 0.15s; }
+.btn-continue:hover .btn-continue-icon { border-color: var(--blue); background: rgba(0,102,255,0.12); color: var(--blue); }
+@keyframes continueBounce { 0%,100%{ transform: translateY(0); } 50% { transform: translateY(10px); } }
 .challenge-list { margin: 28px 0; }
-.challenge-item {
-  display: flex; align-items: center; gap: 20px;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  color: #fff;
-  font-size: clamp(14px,1.8vw,18px);
-  font-weight: 400;
-  opacity: 0;
-  animation: cItemIn 0.4s var(--swift) both;
-}
+.challenge-item { display: flex; align-items: center; gap: 20px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.07); color: #fff; font-size: clamp(14px,1.8vw,18px); font-weight: 400; opacity: 0; animation: cItemIn 0.4s var(--swift) both; }
 .challenge-item:last-child { border-bottom: none; }
 .challenge-item:nth-child(1){ animation-delay: 0.05s; }
 .challenge-item:nth-child(2){ animation-delay: 0.12s; }
 .challenge-item:nth-child(3){ animation-delay: 0.19s; }
 .challenge-item:nth-child(4){ animation-delay: 0.26s; }
-@keyframes cItemIn {
-  from{ opacity:0; transform:translateX(-20px); }
-  to  { opacity:1; transform:translateX(0); }
-}
-.challenge-icon {
-  width: 42px; height: 42px; flex-shrink: 0;
-  background: rgba(0,102,255,0.10);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--blue); font-size: 16px;
-}
+@keyframes cItemIn { from{ opacity:0; transform:translateX(-20px); } to{ opacity:1; transform:translateX(0); } }
+.challenge-icon { width: 42px; height: 42px; flex-shrink: 0; background: rgba(0,102,255,0.10); border: 1.5px solid var(--blue-border); border-radius: 3px; display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 16px; }
 
 /* ════════════════════════════════════════════════════════════
-   ─── SLIDE: EXPLORADOR — NUEVO LAYOUT CON SIDEBAR ───────
-   Layout: [Sidebar izquierdo 280px] + [Imagen ocupa el resto]
-   CTA debajo de la imagen, separado
+   EXPLORADOR — CAMBIOS MÍNIMOS
+   
+   Estructura nueva:
+   ┌─────────────────────────────────────────────────────────┐
+   │  [labels col izq]  [    explorer-wrap (imagen)    ]    │
+   │                                                         │
+   │                    [   btn cotización   ]               │
+   └─────────────────────────────────────────────────────────┘
 ════════════════════════════════════════════════════════════ */
 .explorer-slide {
+  padding: 56px 0 36px; /* top: btn-back | bottom: status bar */
   background: var(--bg);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: stretch;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
 }
-
-/* Sin ::before en explorer-slide */
 .explorer-slide::before { display: none; }
 
-/* Contenedor principal del explorador */
-.explorer-layout {
+/* Fila central: labels + imagen */
+.explorer-row {
   display: flex;
+  align-items: center;
+  gap: 0;
   width: 100%;
-  height: calc(100vh - 32px); /* descontar status bar */
-  overflow: hidden;
+  max-width: min(96vw, 1400px);
+  /* Altura: deja espacio para el btn-back arriba y el CTA abajo */
+  max-height: calc(100vh - 56px - 52px - 32px); /* top padding + cta + status */
 }
 
-/* ─── SIDEBAR IZQUIERDO ─── */
-.explorer-sidebar {
-  width: 280px;
+/* ─── COLUMNA DE LABELS (izquierda) ─── */
+.hs-labels-col {
+  width: 220px;
   flex-shrink: 0;
-  background: #0a0a0a;
-  border-right: 1.5px solid var(--border);
   display: flex;
   flex-direction: column;
-  padding: 0;
-  overflow: hidden;
-  position: relative;
-  z-index: 10;
+  gap: 12px;
+  padding-right: 20px;
+  align-self: center;
 }
 
-/* Cabecera del sidebar */
-.esb-header {
-  padding: 20px 24px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+/* Tarjeta de label — misma estética que antes */
+.hs-label-card {
+  background: rgba(8,8,8,0.92);
+  border: 1.5px solid var(--blue-border);
+  border-radius: 4px;
+  padding: 10px 16px 9px;
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: 72px;
-}
-.esb-back {
-  width: 34px; height: 34px;
-  background: var(--surface2);
-  border: 1.5px solid var(--border);
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-dim); font-size: 11px;
-  cursor: none; flex-shrink: 0;
-  transition: border-color 0.15s, color 0.15s;
-}
-.esb-back:hover { border-color: var(--blue-border); color: var(--blue); }
-.esb-title-wrap { flex: 1; min-width: 0; }
-.esb-division {
-  font-size: 9px; font-weight: 600; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--blue);
-  display: block; margin-bottom: 2px;
-}
-.esb-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px; font-weight: 800;
-  text-transform: uppercase; color: #fff;
-  line-height: 1; display: block;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-/* Lista de componentes del sidebar */
-.esb-component-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 0;
-}
-.esb-component {
-  display: flex; align-items: center; gap: 14px;
-  padding: 14px 24px;
   cursor: none;
-  border-left: 2.5px solid transparent;
-  transition: background 0.15s, border-color 0.15s;
-  position: relative;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s var(--bounce);
 }
-.esb-component:hover,
-.esb-component.active {
-  background: rgba(0,102,255,0.06);
-  border-left-color: var(--blue);
-}
-.esb-comp-icon {
-  width: 36px; height: 36px; flex-shrink: 0;
+.hs-label-card:hover {
   background: rgba(0,102,255,0.10);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 3px;
+  border-color: var(--blue);
+  transform: translateX(3px);
+}
+.hs-label-card.active {
+  background: rgba(0,102,255,0.12);
+  border-color: var(--blue);
+}
+
+/* Número de orden */
+.hs-label-num {
+  width: 22px; height: 22px; flex-shrink: 0;
+  background: var(--blue);
+  border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  color: var(--blue); font-size: 14px;
-  transition: background 0.15s;
+  font-size: 10px; font-weight: 800; color: #fff;
+  line-height: 1;
 }
-.esb-component.active .esb-comp-icon,
-.esb-component:hover .esb-comp-icon {
-  background: rgba(0,102,255,0.20);
-}
-.esb-comp-text { flex: 1; min-width: 0; }
-.esb-comp-name {
+
+.hs-label-text { flex: 1; min-width: 0; }
+.hs-label-title {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.08em;
-  color: #fff; display: block; line-height: 1.1;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: #fff; white-space: nowrap; display: block;
+  line-height: 1.2;
 }
-.esb-comp-sub {
-  font-size: 10px; color: var(--text-muted);
-  letter-spacing: 0.04em; display: block; margin-top: 2px;
-}
-.esb-comp-arrow {
-  font-size: 9px; color: var(--blue);
-  opacity: 0;
-  transition: opacity 0.15s, transform 0.15s;
-}
-.esb-component:hover .esb-comp-arrow,
-.esb-component.active .esb-comp-arrow {
-  opacity: 1; transform: translateX(3px);
+.hs-label-sub {
+  font-size: 10px; font-weight: 400;
+  color: var(--text-dim); letter-spacing: 0.06em;
+  display: block; margin-top: 2px;
 }
 
-/* Área de detalle activo en sidebar */
-.esb-detail {
-  border-top: 1px solid rgba(255,255,255,0.07);
-  padding: 0;
-  max-height: 0;
+/* ─── IMAGEN (igual que antes) ─── */
+.explorer-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-height: calc(100vh - 56px - 52px - 32px);
+  border-radius: 8px;
   overflow: hidden;
-  transition: max-height 0.4s var(--swift), padding 0.3s;
-  background: rgba(0,102,255,0.04);
-}
-.esb-detail.open {
-  max-height: 300px;
-  padding: 16px 24px 20px;
-}
-.esb-detail-label {
-  font-size: 9px; font-weight: 700; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--blue);
-  margin-bottom: 8px; display: block;
-}
-.esb-detail-text {
-  font-size: 12px; color: var(--text-dim);
-  line-height: 1.6;
+  border: 2px solid var(--border-hi);
+  background: #1a1a1a;
+  display: block;
+  line-height: 0;
 }
 
-/* CTA en la parte inferior del sidebar */
-.esb-cta {
-  padding: 16px 20px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+.explorer-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 56px - 52px - 32px);
+  object-fit: contain;
+  opacity: 1;
+}
+
+.explorer-wrap::after {
+  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, transparent 52%, rgba(5,5,5,0.55) 72%, rgba(5,5,5,0.92) 100%);
+}
+
+/* ─── CTA — BARRA INFERIOR SEPARADA DE LA IMAGEN ─── */
+.explorer-cta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: min(96vw, 1400px);
+  padding: 12px 0 0 220px; /* alineado con la imagen, no con los labels */
   flex-shrink: 0;
 }
-.esb-cta-btn {
-  width: 100%;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 14px 20px;
-  background: var(--blue);
-  border: 2px solid var(--blue);
-  border-radius: 3px;
-  color: #fff;
+
+.cta-bar-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px clamp(28px,3.5vw,48px);
+  background: var(--blue); color: #fff;
+  border: 2px solid var(--blue); border-radius: 3px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; font-weight: 700;
+  font-size: clamp(13px,1.5vw,16px); font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   cursor: none;
   transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s;
 }
-.esb-cta-btn:hover {
+.cta-bar-btn:hover {
   background: var(--blue-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(0,102,255,0.40);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 36px rgba(0,102,255,0.40);
 }
-.esb-cta-btn:active { transform: scale(0.97); }
+.cta-bar-btn:active { transform: scale(0.97); }
 
-/* ─── ÁREA DE IMAGEN ─── */
-.explorer-image-area {
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #0d0d0d;
-}
-
-/* Imagen principal */
-.explorer-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-}
-
-/* Degradé sutil en bordes */
-.explorer-image-area::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
-  background:
-    linear-gradient(180deg, rgba(5,5,5,0.30) 0%, transparent 18%, transparent 75%, rgba(5,5,5,0.55) 100%);
-}
-
-/* ════════════════════════════════════════════════════════════
-   HOTSPOTS — Solo botón circular, sin tarjeta encima.
-   Al hacer clic activan el componente en el sidebar.
-════════════════════════════════════════════════════════════ */
+/* ─── HOTSPOTS — igual que original pero sin .hs-card ─── */
 .hotspot {
   position: absolute; z-index: 10;
   transform: translate(-50%, -50%);
   cursor: none;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
 }
 
-/* Botón circular — único elemento visible */
+/* Ocultar tarjeta original — ahora está en el sidebar */
+.hs-card { display: none; }
+.hs-connector { display: none; }
+.hs-label { display: none; }
+
 .hs-btn {
-  width: 44px; height: 44px;
+  width: 48px; height: 48px;
   background: var(--blue);
   border: 2.5px solid rgba(255,255,255,0.9);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 17px; color: #fff;
+  font-size: 18px; color: #fff;
   animation: hsPulse 3.5s ease-in-out infinite;
   will-change: box-shadow;
+  flex-shrink: 0;
   transition: transform 0.2s var(--bounce), background 0.15s;
 }
 .hotspot:hover .hs-btn,
-.hotspot.active .hs-btn {
+.hotspot.active-hs .hs-btn {
   transform: scale(1.15);
   background: var(--blue-dark);
 }
@@ -700,343 +301,112 @@ html, body {
   100% { box-shadow: 0 0 0 0 rgba(0,102,255,0); }
 }
 
-/* Número de índice sobre el botón */
-.hs-index {
-  position: absolute;
-  top: -6px; right: -6px;
-  width: 18px; height: 18px;
-  background: #fff;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px; font-weight: 800;
-  color: var(--blue);
-  line-height: 1;
+/* Badge divisón/nombre — igual que antes */
+.explorer-badge {
+  position: absolute; z-index: 15;
+  bottom: clamp(20px,4vh,40px); left: clamp(20px,2.5vw,36px);
+  display: flex; flex-direction: column; gap: 4px;
+  pointer-events: none;
 }
-
-/* Ocultar elementos viejos de hotspot si quedaran */
-.hs-card, .hs-connector, .hs-label { display: none; }
-
-/* ════════════════════════════════════════════════════════════
-   GRID DE CATEGORÍAS
-════════════════════════════════════════════════════════════ */
-.cat-grid {
-  display: flex; gap: clamp(12px,1.8vw,24px);
-  margin-top: clamp(20px,3vh,40px); width: 100%;
+.explorer-badge-div {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--blue);
 }
-.cat-card {
-  flex: 1; position: relative; border-radius: 4px;
-  overflow: hidden;
-  height: clamp(320px,46vh,580px);
-  cursor: none;
-  border: 1.5px solid var(--border);
-  transition: transform 0.3s var(--swift), border-color 0.3s;
-}
-.cat-card img {
-  width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.82;
-  display: block;
-}
-.cat-card::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent 30%, rgba(5,5,5,0.82) 100%);
-}
-.cat-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--blue-border);
-}
-.cat-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: clamp(18px,2.8vw,32px) clamp(18px,2.8vw,28px);
-  z-index: 5;
-  border-top: 2px solid transparent;
-  transition: border-color 0.2s, background 0.2s;
-}
-.cat-card:hover .cat-label { border-color: var(--blue); background: rgba(0,102,255,0.10); }
-.cat-label h4 {
+.explorer-badge-name {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(20px,2.6vw,32px);
-  text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
-  color: #fff; margin-bottom: 6px;
-}
-.cat-label p {
-  font-size: clamp(12px,1.2vw,14px); color: var(--text-dim); letter-spacing: 0.05em;
+  font-size: clamp(24px,3.5vw,48px); font-weight: 800;
+  text-transform: uppercase; color: #fff; line-height: 1;
 }
 
-/* ════════════════════════════════════════════════════════════
-   FOTO INTERACTIVA (secadora / shelter)
-════════════════════════════════════════════════════════════ */
-.iPhoto {
-  width: 100%; max-width: 840px;
-  height: clamp(200px,32vh,400px);
-  border-radius: 4px; overflow: hidden;
-  border: 1.5px solid var(--border);
-  cursor: none; position: relative; margin-top: 24px;
-  transition: border-color 0.2s, transform 0.2s var(--bounce);
-}
+/* GRID CATEGORÍAS */
+.cat-grid { display: flex; gap: clamp(12px,1.8vw,24px); margin-top: clamp(20px,3vh,40px); width: 100%; }
+.cat-card { flex: 1; position: relative; border-radius: 4px; overflow: hidden; height: clamp(320px,46vh,580px); cursor: none; border: 1.5px solid var(--border); transition: transform 0.3s var(--swift), border-color 0.3s; }
+.cat-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.82; display: block; }
+.cat-card::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, transparent 30%, rgba(5,5,5,0.82) 100%); }
+.cat-card:hover { transform: translateY(-8px); border-color: var(--blue-border); }
+.cat-label { position: absolute; bottom: 0; left: 0; right: 0; padding: clamp(18px,2.8vw,32px) clamp(18px,2.8vw,28px); z-index: 5; border-top: 2px solid transparent; transition: border-color 0.2s, background 0.2s; }
+.cat-card:hover .cat-label { border-color: var(--blue); background: rgba(0,102,255,0.10); }
+.cat-label h4 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(20px,2.6vw,32px); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.cat-label p { font-size: clamp(12px,1.2vw,14px); color: var(--text-dim); letter-spacing: 0.05em; }
+
+.iPhoto { width: 100%; max-width: 840px; height: clamp(200px,32vh,400px); border-radius: 4px; overflow: hidden; border: 1.5px solid var(--border); cursor: none; position: relative; margin-top: 24px; transition: border-color 0.2s, transform 0.2s var(--bounce); }
 .iPhoto:hover { border-color: var(--blue-border); transform: scale(1.008); }
 .iPhoto img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.iPhoto-cta {
-  position: absolute; bottom: 20px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--blue); border: 2px solid rgba(255,255,255,0.3);
-  padding: 11px 28px; border-radius: 3px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
-  text-transform: uppercase; white-space: nowrap; color: #fff;
-  display: flex; align-items: center; gap: 8px;
-  transition: transform 0.15s var(--bounce);
-}
+.iPhoto-cta { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--blue); border: 2px solid rgba(255,255,255,0.3); padding: 11px 28px; border-radius: 3px; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; color: #fff; display: flex; align-items: center; gap: 8px; transition: transform 0.15s var(--bounce); }
 .iPhoto:hover .iPhoto-cta { transform: translateX(-50%) translateY(-4px); }
 
-/* ════════════════════════════════════════════════════════════
-   PANEL LATERAL (para hotspots en vistas no-explorer)
-════════════════════════════════════════════════════════════ */
-.panel-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 199; opacity: 0; visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  cursor: none;
-}
+/* PANEL LATERAL */
+.panel-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 199; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; cursor: none; }
 .panel-overlay.open { opacity: 1; visibility: visible; }
-.side-panel {
-  position: fixed; top: 0; right: 0;
-  width: min(540px, 94vw); height: 100%;
-  background: #0a0a0a;
-  border-left: 2px solid var(--blue-border);
-  padding: clamp(36px,5vh,72px) clamp(28px,3.5vw,52px);
-  transform: translateX(100%);
-  transition: transform 0.5s var(--swift);
-  z-index: 200; overflow-y: auto;
-}
+.side-panel { position: fixed; top: 0; right: 0; width: min(540px, 94vw); height: 100%; background: #0a0a0a; border-left: 2px solid var(--blue-border); padding: clamp(36px,5vh,72px) clamp(28px,3.5vw,52px); transform: translateX(100%); transition: transform 0.5s var(--swift); z-index: 200; overflow-y: auto; }
 .side-panel.open { transform: translateX(0); }
 .panel-head { margin-bottom: 28px; }
-.panel-div {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
-}
-.panel-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(28px,4vw,44px); font-weight: 800;
-  text-transform: uppercase; line-height: 1; color: #fff;
-}
-.panel-rule {
-  width: 36px; height: 2.5px; background: var(--blue);
-  margin-top: 14px; border-radius: 2px;
-}
+.panel-div { font-size: 10px; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; }
+.panel-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(28px,4vw,44px); font-weight: 800; text-transform: uppercase; line-height: 1; color: #fff; }
+.panel-rule { width: 36px; height: 2.5px; background: var(--blue); margin-top: 14px; border-radius: 2px; }
 .panel-section { margin-bottom: 22px; }
-.panel-section-label {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 14px;
-  border-radius: 2px;
-  font-size: 9px; font-weight: 700; letter-spacing: 0.35em;
-  text-transform: uppercase; margin-bottom: 2px;
-}
-.panel-section-label.danger {
-  background: var(--danger-bg);
-  color: var(--danger);
-  border-left: 2px solid var(--danger);
-}
-.panel-section-label.info {
-  background: var(--info-bg);
-  color: var(--info);
-  border-left: 2px solid var(--info);
-}
+.panel-section-label { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 2px; }
+.panel-section-label.danger { background: var(--danger-bg); color: var(--danger); border-left: 2px solid var(--danger); }
+.panel-section-label.info { background: var(--info-bg); color: var(--info); border-left: 2px solid var(--info); }
 .panel-list { list-style: none; }
-.panel-list li {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  font-size: clamp(13px,1.5vw,15px); line-height: 1.55;
-  color: #ddd; font-weight: 400;
-}
+.panel-list li { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: clamp(13px,1.5vw,15px); line-height: 1.55; color: #ddd; font-weight: 400; }
 .panel-list li:last-child { border-bottom: none; }
-.panel-list li .pdot {
-  flex-shrink: 0; margin-top: 7px;
-  width: 5px; height: 5px; border-radius: 50%;
-}
+.panel-list li .pdot { flex-shrink: 0; margin-top: 7px; width: 5px; height: 5px; border-radius: 50%; }
 .panel-list.danger-list li .pdot { background: var(--danger); }
 .panel-list.info-list   li .pdot { background: var(--info); }
-.btn-close {
-  width: 100%; margin-top: 24px;
-  padding: clamp(13px,1.8vh,17px);
-  background: var(--surface2);
-  border: 1.5px solid var(--border-hi);
-  border-radius: 3px; color: var(--text);
-  font-family: 'Barlow', sans-serif; font-weight: 600;
-  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.2s var(--bounce);
-}
-.btn-close:hover {
-  background: var(--surface3);
-  border-color: var(--blue-border);
-  transform: translateY(-2px);
-}
+.btn-close { width: 100%; margin-top: 24px; padding: clamp(13px,1.8vh,17px); background: var(--surface2); border: 1.5px solid var(--border-hi); border-radius: 3px; color: var(--text); font-family: 'Barlow', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: none; transition: background 0.15s, border-color 0.15s, transform 0.2s var(--bounce); }
+.btn-close:hover { background: var(--surface3); border-color: var(--blue-border); transform: translateY(-2px); }
 
-/* ════════════════════════════════════════════════════════════
-   ─── SLIDE: CONTACTO ─────────────────────────────────────
-════════════════════════════════════════════════════════════ */
+/* CONTACTO */
 #contacto { background: var(--bg); }
-#contacto::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-  z-index: 0;
-}
-.contact-wrap {
-  position: relative; z-index: 2;
-  display: flex; align-items: center;
-  gap: clamp(48px,8vw,120px);
-  flex-wrap: wrap; justify-content: center;
-}
-.contact-eyebrow {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.45em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
-}
-.contact-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(60px,10vw,130px);
-  font-weight: 800; line-height: 0.85; color: #fff;
-  text-transform: uppercase;
-}
-.contact-desc {
-  font-size: clamp(14px,1.6vw,17px);
-  color: var(--text-dim); font-weight: 300;
-  line-height: 1.7; margin-top: 20px; max-width: 340px;
-}
-.contact-links {
-  margin-top: 28px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.contact-link {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 14px; color: #fff; font-weight: 500;
-}
-.contact-link i {
-  width: 32px; height: 32px;
-  background: rgba(0,102,255,0.12);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--blue);
-}
-.qr-box {
-  background: #fff;
-  padding: clamp(20px,3vw,36px);
-  border-radius: 4px;
-  border: 3px solid var(--blue);
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-}
+#contacto::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%); z-index: 0; }
+.contact-wrap { position: relative; z-index: 2; display: flex; align-items: center; gap: clamp(48px,8vw,120px); flex-wrap: wrap; justify-content: center; }
+.contact-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 0.45em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; }
+.contact-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(60px,10vw,130px); font-weight: 800; line-height: 0.85; color: #fff; text-transform: uppercase; }
+.contact-desc { font-size: clamp(14px,1.6vw,17px); color: var(--text-dim); font-weight: 300; line-height: 1.7; margin-top: 20px; max-width: 340px; }
+.contact-links { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+.contact-link { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #fff; font-weight: 500; }
+.contact-link i { width: 32px; height: 32px; background: rgba(0,102,255,0.12); border: 1.5px solid var(--blue-border); border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--blue); }
+.qr-box { background: #fff; padding: clamp(20px,3vw,36px); border-radius: 4px; border: 3px solid var(--blue); display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .qr-icon { font-size: clamp(90px,12vw,150px); color: #000; line-height: 1; }
-.qr-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.3em;
-  text-transform: uppercase; color: #333;
-}
-.btn-reset {
-  position: absolute; bottom: 44px;
-  background: none; border: none; color: var(--text-muted);
-  cursor: none; font-size: 10px; font-weight: 600;
-  letter-spacing: 0.35em; text-transform: uppercase;
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Barlow', sans-serif;
-  transition: color 0.15s;
-  z-index: 2;
-}
+.qr-label { font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: #333; }
+.btn-reset { position: absolute; bottom: 44px; background: none; border: none; color: var(--text-muted); cursor: none; font-size: 10px; font-weight: 600; letter-spacing: 0.35em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; font-family: 'Barlow', sans-serif; transition: color 0.15s; z-index: 2; }
 .btn-reset:hover { color: var(--text); }
 
-/* ════════════════════════════════════════════════════════════
-   STATUS BAR
-════════════════════════════════════════════════════════════ */
-.status-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  height: 32px;
-  background: rgba(5,5,5,0.97);
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center;
-  padding: 0 24px; gap: 28px; z-index: 500;
-}
-.s-item {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'Barlow', monospace;
-  font-size: 9px; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted);
-}
-.s-live {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--success);
-  animation: livePulse 2s ease-in-out infinite;
-}
+/* STATUS BAR */
+.status-bar { position: fixed; bottom: 0; left: 0; right: 0; height: 32px; background: rgba(5,5,5,0.97); border-top: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; gap: 28px; z-index: 500; }
+.s-item { display: flex; align-items: center; gap: 7px; font-family: 'Barlow', monospace; font-size: 9px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+.s-live { width: 5px; height: 5px; border-radius: 50%; background: var(--success); animation: livePulse 2s ease-in-out infinite; }
 @keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
 .s-right { margin-left: auto; }
 
-/* ════════════════════════════════════════════════════════════
-   RESPONSIVE
-════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .explorer-sidebar { width: 220px; }
-  .esb-comp-name { font-size: 13px; }
-}
-@media (max-width: 640px) {
-  .explorer-layout { flex-direction: column; }
-  .explorer-sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1.5px solid var(--border); }
-  .esb-component-list { display: flex; flex-direction: row; overflow-x: auto; padding: 8px 12px; gap: 8px; }
-  .esb-component { padding: 10px 14px; border-left: none; border-bottom: 2px solid transparent; flex-shrink: 0; }
-  .esb-component:hover, .esb-component.active { border-left-color: transparent; border-bottom-color: var(--blue); }
-  .esb-detail { display: none; }
-  .esb-cta { padding: 10px 14px; }
-  .cat-grid { flex-direction: column; }
-  .cat-card { height: 190px; }
+/* RESPONSIVE */
+@media (max-width:900px) { .hs-labels-col { width: 170px; } .hs-label-title { font-size: 12px; } .explorer-cta-bar { padding-left: 170px; } }
+@media (max-width:640px) {
+  .hs-labels-col { display: none; }
+  .explorer-cta-bar { padding-left: 0; justify-content: center; }
+  .cat-grid { flex-direction: column; } .cat-card { height: 190px; }
   .selector-grid { flex-direction: column; }
   .contact-wrap { flex-direction: column; text-align: center; gap: 32px; }
   .contact-desc { margin: 12px auto 0; }
   .status-bar { display: none; }
   .home-stats { display: none; }
 }
-@media (max-width:1100px) {
-  .cat-card { height: clamp(280px,40vh,480px); }
-  .card { padding: 24px 26px; }
-}
-@media (max-height:800px) {
-  .home-stats { bottom: 36px; }
-  .slide-title { font-size: clamp(30px,5vw,58px); }
-  .card { padding: 22px 24px; max-height: calc(100vh - 64px); }
-  .cat-card { height: clamp(240px,35vh,400px); }
-  .challenge-item { padding: 12px 0; }
-}
-@media (max-height:640px) {
-  .home-title { font-size: 56px; }
-  .home-stats { display: none; }
-  .cat-card { height: 200px; }
-  .card { padding: 16px 18px; }
-  .challenge-item { font-size: 13px; padding: 9px 0; }
-}
-@media (min-width:2400px) {
-  .home-title { font-size: 220px; }
-  .slide-title { font-size: 100px; }
-  .cat-card { height: 520px; }
-}
+@media (max-width:1100px) { .cat-card { height: clamp(280px,40vh,480px); } .card { padding: 24px 26px; } }
+@media (max-height:800px) { .home-stats { bottom: 36px; } .slide-title { font-size: clamp(30px,5vw,58px); } .card { padding: 22px 24px; max-height: calc(100vh - 64px); } .cat-card { height: clamp(240px,35vh,400px); } .challenge-item { padding: 12px 0; } }
+@media (max-height:640px) { .home-title { font-size: 56px; } .home-stats { display: none; } .cat-card { height: 200px; } .card { padding: 16px 18px; } .challenge-item { font-size: 13px; padding: 9px 0; } }
+@media (min-width:2400px) { .home-title { font-size: 220px; } .slide-title { font-size: 100px; } .cat-card { height: 520px; } }
 </style>
 </head>
 <body>
 
-<!-- Cursor -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
-
-<!-- Overlay panel -->
 <div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
 
-<!-- ══════════════════════════ APP ══════════════════════════ -->
 <div id="app">
 
-<!-- ─────────────────────────────────────
-     SLIDE: HOME
-───────────────────────────────────── -->
+<!-- HOME -->
 <div class="slide active" id="home">
   <div id="home-bg-img"></div>
   <div class="home-content">
@@ -1053,520 +423,280 @@ html, body {
     </button>
   </div>
   <div class="home-stats">
-    <div class="stat-item">
-      <span class="stat-num">+25<span>años</span></span>
-      <span class="stat-label">Experiencia</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">+25<span>años</span></span><span class="stat-label">Experiencia</span></div>
     <div class="stat-sep"></div>
-    <div class="stat-item">
-      <span class="stat-num">24<span>/7</span></span>
-      <span class="stat-label">Soporte Técnico</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">24<span>/7</span></span><span class="stat-label">Soporte Técnico</span></div>
     <div class="stat-sep"></div>
-    <div class="stat-item">
-      <span class="stat-num">100<span>%</span></span>
-      <span class="stat-label">Stock Garantizado</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">100<span>%</span></span><span class="stat-label">Stock Garantizado</span></div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SLIDE: SELECTOR
-───────────────────────────────────── -->
+<!-- SELECTOR -->
 <div class="slide" id="selector" style="padding:0; align-items:stretch; justify-content:stretch;">
   <div class="sel-header" style="position:absolute;top:0;left:0;right:0;">
-    <button class="btn-back" style="position:relative;top:auto;left:auto;" onclick="nav('home')">
-      <i class="fa-solid fa-arrow-left"></i> Volver
-    </button>
+    <button class="btn-back" style="position:relative;top:auto;left:auto;" onclick="nav('home')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
     <span class="sel-header-title">Aercom — Seleccioná tu área</span>
-    <span class="sel-header-hint">
-      <i class="fa-solid fa-hand-pointer"></i> Tocá para explorar
-    </span>
+    <span class="sel-header-hint"><i class="fa-solid fa-hand-pointer"></i> Tocá para explorar</span>
   </div>
   <div class="selector-grid">
     <div class="sel-col" onclick="nav('ge-intro')">
       <div class="sel-bg" style="background-image:url('./grupoelectrogeno.jpeg');"></div>
       <span class="sel-num">01 — División Potencia</span>
-      <div class="sel-content">
-        <div class="sel-tag">Grupos Electrógenos</div>
-        <h2 class="sel-title">Grupos<br>Electrógenos</h2>
-        <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
-      </div>
+      <div class="sel-content"><div class="sel-tag">Grupos Electrógenos</div><h2 class="sel-title">Grupos<br>Electrógenos</h2><div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div></div>
     </div>
     <div class="sel-col" onclick="nav('comp-intro')">
       <div class="sel-bg" style="background-image:url('./electrocompresor.jpg');"></div>
       <span class="sel-num">02 — Aire Comprimido</span>
-      <div class="sel-content">
-        <div class="sel-tag">Compresores de Aire</div>
-        <h2 class="sel-title">Compresores<br>de Aire</h2>
-        <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
-      </div>
+      <div class="sel-content"><div class="sel-tag">Compresores de Aire</div><h2 class="sel-title">Compresores<br>de Aire</h2><div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div></div>
     </div>
     <div class="sel-col" onclick="nav('otros-intro')">
       <div class="sel-bg" style="background-image:url('./todoslosequipo.jpg');"></div>
       <span class="sel-num">03 — Equipamiento</span>
-      <div class="sel-content">
-        <div class="sel-tag">Equipamiento Especial</div>
-        <h2 class="sel-title">Otros<br>Equipos</h2>
-        <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
-      </div>
+      <div class="sel-content"><div class="sel-tag">Equipamiento Especial</div><h2 class="sel-title">Otros<br>Equipos</h2><div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div></div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — INTRO
-───────────────────────────────────── -->
-<div class="slide" id="ge-intro"
-     style="background: linear-gradient(rgba(5,5,5,.45),rgba(5,5,5,.82)), url('./grupoelectrogeno.jpeg') center/cover;">
+<!-- GE INTRO -->
+<div class="slide" id="ge-intro" style="background: linear-gradient(rgba(5,5,5,.45),rgba(5,5,5,.82)), url('./grupoelectrogeno.jpeg') center/cover;">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
     <div class="eyebrow" style="justify-content:center;">División Potencia</div>
     <h2 class="slide-title" style="text-align:center;">Grupo<br>Electrógeno</h2>
     <p class="slide-sub" style="text-align:center; margin-left:auto; margin-right:auto;">¿Su operación está preparada para evitar paradas críticas por falta de energía?</p>
-    <button class="btn-continue" onclick="nav('ge-diagnostico')">
-      <span class="btn-continue-label">Diagnóstico</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <button class="btn-continue" onclick="nav('ge-diagnostico')"><span class="btn-continue-label">Diagnóstico</span><div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — DESAFÍOS
-───────────────────────────────────── -->
-<div class="slide" id="ge-diagnostico"
-     style="background: linear-gradient(rgba(5,5,5,.82),rgba(5,5,5,.92)), url('./grupoelectrogeno.jpeg') center/cover;">
+<!-- GE DIAGNÓSTICO -->
+<div class="slide" id="ge-diagnostico" style="background: linear-gradient(rgba(5,5,5,.82),rgba(5,5,5,.92)), url('./grupoelectrogeno.jpeg') center/cover;">
   <button class="btn-back" onclick="nav('ge-intro')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
     <div class="eyebrow">Diagnóstico Operativo</div>
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3.5vw,42px);font-weight:800;text-transform:uppercase;margin-bottom:4px;">Desafíos en su operación</h2>
     <p style="font-size:14px;color:var(--text-muted);margin-bottom:4px;">Identificamos los problemas que frenan su producción</p>
     <div class="challenge-list">
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
-        Cortes de energía frecuentes e imprevistos que paralizan la producción
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-bolt-lightning"></i></div>Cortes de energía frecuentes e imprevistos que paralizan la producción</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-shield-virus"></i></div>Ausencia de respaldo de potencia confiable ante fallos de red</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-gears"></i></div>Necesidad de operación continua 24/7 sin interrupciones</div>
+    </div>
+    <button class="btn-continue" onclick="nav('ge-explorador')"><span class="btn-continue-label">Ver el equipo</span><div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div></button>
+  </div>
+</div>
+
+<!-- GE EXPLORADOR -->
+<div class="slide explorer-slide" id="ge-explorador">
+  <button class="btn-back" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+
+  <div class="explorer-row">
+    <!-- Labels columna izquierda -->
+    <div class="hs-labels-col">
+      <div class="hs-label-card" onclick="openPanel('ge-alternador')">
+        <div class="hs-label-num">1</div>
+        <div class="hs-label-text">
+          <span class="hs-label-title">Alternador</span>
+          <span class="hs-label-sub">Leroy Somer · Sin escobillas</span>
+        </div>
       </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-shield-virus"></i></div>
-        Ausencia de respaldo de potencia confiable ante fallos de red
+      <div class="hs-label-card" onclick="openPanel('ge-motor')">
+        <div class="hs-label-num">2</div>
+        <div class="hs-label-text">
+          <span class="hs-label-title">Motor</span>
+          <span class="hs-label-sub">Baudouin · Diésel / Gas</span>
+        </div>
       </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-gears"></i></div>
-        Necesidad de operación continua 24/7 sin interrupciones
+      <div class="hs-label-card" onclick="openPanel('ge-cabina')">
+        <div class="hs-label-num">3</div>
+        <div class="hs-label-text">
+          <span class="hs-label-title">Cabina</span>
+          <span class="hs-label-sub">Insonorizada · Intemperie</span>
+        </div>
       </div>
     </div>
-    <button class="btn-continue" onclick="nav('ge-explorador')">
-      <span class="btn-continue-label">Ver el equipo</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
+
+    <!-- Imagen con hotspots -->
+    <div class="explorer-wrap">
+      <img class="explorer-img" src="./grupoelectrogenoabierto.jpeg" alt="Grupo Electrógeno">
+      <div class="explorer-badge">
+        <span class="explorer-badge-div">División Potencia</span>
+        <span class="explorer-badge-name">Grupo Electrógeno</span>
+      </div>
+      <!-- Hotspots: solo botón circular + número, sin tarjeta -->
+      <div class="hotspot" style="top:60%;left:28%;" onclick="openPanel('ge-alternador')">
+        <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
+      </div>
+      <div class="hotspot" style="top:45%;left:54%;" onclick="openPanel('ge-motor')">
+        <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
+      </div>
+      <div class="hotspot" style="top:30%;left:78%;" onclick="openPanel('ge-cabina')">
+        <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA separado, fuera de la imagen -->
+  <div class="explorer-cta-bar">
+    <button class="cta-bar-btn" onclick="nav('contacto')">
+      <i class="fa-solid fa-envelope"></i> Solicitar Cotización
     </button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — EXPLORADOR (nuevo layout)
-───────────────────────────────────── -->
-<div class="slide explorer-slide" id="ge-explorador">
-  <div class="explorer-layout">
-
-    <!-- Sidebar izquierdo -->
-    <aside class="explorer-sidebar">
-      <div class="esb-header">
-        <button class="esb-back" onclick="nav('ge-diagnostico')">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <div class="esb-title-wrap">
-          <span class="esb-division">División Potencia</span>
-          <span class="esb-name">Grupo Electrógeno</span>
-        </div>
-      </div>
-
-      <div class="esb-component-list">
-        <div class="esb-component" id="esb-ge-alternador" onclick="activateComponent('ge-alternador', 'esb-ge-alternador')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Alternador</span>
-            <span class="esb-comp-sub">Leroy Somer · Sin escobillas</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-        <div class="esb-component" id="esb-ge-motor" onclick="activateComponent('ge-motor', 'esb-ge-motor')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-gear"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Motor</span>
-            <span class="esb-comp-sub">Baudouin · Diésel / Gas</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-        <div class="esb-component" id="esb-ge-cabina" onclick="activateComponent('ge-cabina', 'esb-ge-cabina')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-shield-halved"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Cabina</span>
-            <span class="esb-comp-sub">Insonorizada · Intemperie</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-      </div>
-
-      <!-- Área de detalle del componente activo -->
-      <div class="esb-detail" id="esb-detail-panel">
-        <span class="esb-detail-label" id="esb-detail-title">—</span>
-        <div class="esb-detail-text" id="esb-detail-body"></div>
-      </div>
-
-      <div class="esb-cta">
-        <button class="esb-cta-btn" onclick="nav('contacto')">
-          <i class="fa-solid fa-envelope"></i> Solicitar Cotización
-        </button>
-      </div>
-    </aside>
-
-    <!-- Área imagen con hotspots -->
-    <div class="explorer-image-area" id="ge-image-area">
-      <img class="explorer-img" src="./grupoelectrogenoabierto.jpeg" alt="Grupo Electrógeno">
-
-      <div class="hotspot" id="hs-ge-alternador" style="top:60%;left:28%;" onclick="activateComponent('ge-alternador', 'esb-ge-alternador')">
-        <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
-        <div class="hs-index">1</div>
-      </div>
-      <div class="hotspot" id="hs-ge-motor" style="top:45%;left:54%;" onclick="activateComponent('ge-motor', 'esb-ge-motor')">
-        <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
-        <div class="hs-index">2</div>
-      </div>
-      <div class="hotspot" id="hs-ge-cabina" style="top:30%;left:78%;" onclick="activateComponent('ge-cabina', 'esb-ge-cabina')">
-        <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
-        <div class="hs-index">3</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ─────────────────────────────────────
-     COMPRESORES — INTRO
-───────────────────────────────────── -->
-<div class="slide" id="comp-intro"
-     style="background: linear-gradient(rgba(5,5,5,.40),rgba(5,5,5,.80)), url('./electrocompresor.jpg') center/cover;">
+<!-- COMP INTRO -->
+<div class="slide" id="comp-intro" style="background: linear-gradient(rgba(5,5,5,.40),rgba(5,5,5,.80)), url('./electrocompresor.jpg') center/cover;">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
     <div class="eyebrow" style="justify-content:center;">División Aire Comprimido</div>
     <h2 class="slide-title" style="text-align:center;">Compresores<br>de Aire</h2>
     <p class="slide-sub" style="text-align:center; margin-left:auto; margin-right:auto;">¿Tu línea de aire está preparada para sostener la producción sin interrupciones?</p>
-    <button class="btn-continue" onclick="nav('comp-diagnostico')">
-      <span class="btn-continue-label">Continuar</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <button class="btn-continue" onclick="nav('comp-diagnostico')"><span class="btn-continue-label">Continuar</span><div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     COMPRESORES — DESAFÍOS
-───────────────────────────────────── -->
-<div class="slide" id="comp-diagnostico"
-     style="background: linear-gradient(rgba(5,5,5,.82),rgba(5,5,5,.92)), url('./electrocompresor.jpg') center/cover;">
+<!-- COMP DIAGNÓSTICO -->
+<div class="slide" id="comp-diagnostico" style="background: linear-gradient(rgba(5,5,5,.82),rgba(5,5,5,.92)), url('./electrocompresor.jpg') center/cover;">
   <button class="btn-back" onclick="nav('comp-intro')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
     <div class="eyebrow">Diagnóstico</div>
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3.5vw,42px);font-weight:800;text-transform:uppercase;margin-bottom:4px;">¿Qué desafíos enfrentás hoy?</h2>
     <p style="font-size:14px;color:var(--text-muted);margin-bottom:4px;">Conocemos cada problema de las líneas de aire comprimido</p>
     <div class="challenge-list">
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-shield-halved"></i></div>
-        Falta de respaldo confiable de aire ante fallas del compresor principal
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-filter"></i></div>
-        Mala calidad de aire comprimido que afecta el proceso o los productos
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-bolt"></i></div>
-        Equipos poco eficientes que generan alto consumo eléctrico
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-droplet-slash"></i></div>
-        Agua en la línea que daña herramientas y detiene la producción
-      </div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-shield-halved"></i></div>Falta de respaldo confiable de aire ante fallas del compresor principal</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-filter"></i></div>Mala calidad de aire comprimido que afecta el proceso o los productos</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-bolt"></i></div>Equipos poco eficientes que generan alto consumo eléctrico</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-droplet-slash"></i></div>Agua en la línea que daña herramientas y detiene la producción</div>
     </div>
-    <button class="btn-continue" onclick="nav('comp-soluciones')">
-      <span class="btn-continue-label">Ver soluciones</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <button class="btn-continue" onclick="nav('comp-soluciones')"><span class="btn-continue-label">Ver soluciones</span><div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     COMPRESORES — SOLUCIONES
-───────────────────────────────────── -->
+<!-- COMP SOLUCIONES -->
 <div class="slide" id="comp-soluciones" style="background:var(--bg);">
   <button class="btn-back" onclick="nav('comp-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div style="width:92%;max-width:1080px;">
     <div class="eyebrow">Soluciones a Medida</div>
     <h2 class="slide-title">Infraestructura de<br>Aire Comprimido</h2>
     <div class="cat-grid">
-      <div class="cat-card" onclick="nav('comp-subcat')">
-        <img src="./electrocompresor.jpg" alt="Compresores">
-        <div class="cat-label">
-          <h4>Compresores</h4>
-          <p>Diésel y eléctrico — tornillo y pistón</p>
-        </div>
-      </div>
-      <div class="cat-card" onclick="nav('view-secadora')">
-        <img src="secadora.jpg" alt="Secadoras">
-        <div class="cat-label">
-          <h4>Tratamiento de Aire</h4>
-          <p>Secadoras frigoríficas y por adsorción</p>
-        </div>
-      </div>
-      <div class="cat-card" onclick="nav('view-shelter')">
-        <img src="sheltercerrado.jpg" alt="Shelter">
-        <div class="cat-label">
-          <h4>Shelter Industrial</h4>
-          <p>Infraestructura contenedorizada de campo</p>
-        </div>
-      </div>
+      <div class="cat-card" onclick="nav('comp-subcat')"><img src="./electrocompresor.jpg" alt="Compresores"><div class="cat-label"><h4>Compresores</h4><p>Diésel y eléctrico — tornillo y pistón</p></div></div>
+      <div class="cat-card" onclick="nav('view-secadora')"><img src="secadora.jpg" alt="Secadoras"><div class="cat-label"><h4>Tratamiento de Aire</h4><p>Secadoras frigoríficas y por adsorción</p></div></div>
+      <div class="cat-card" onclick="nav('view-shelter')"><img src="sheltercerrado.jpg" alt="Shelter"><div class="cat-label"><h4>Shelter Industrial</h4><p>Infraestructura contenedorizada de campo</p></div></div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SELECCIÓN TIPO COMPRESOR
-───────────────────────────────────── -->
+<!-- COMP SUBCAT -->
 <div class="slide" id="comp-subcat" style="background:var(--bg);">
   <button class="btn-back" onclick="nav('comp-soluciones')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
     <div class="eyebrow">Tecnologías Disponibles</div>
     <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,3.5vw,44px);font-weight:800;text-transform:uppercase;margin-bottom:24px;">Seleccioná la tecnología</h2>
     <div class="cat-grid" style="justify-content:center;">
-      <div class="cat-card" style="max-width:440px;" onclick="nav('moto-explorador')">
-        <img src="motocompresores.jpg" alt="Motocompresores">
-        <div class="cat-label">
-          <h4>Motocompresores Diésel</h4>
-          <p>Autonomía total · Sin red eléctrica</p>
-        </div>
-      </div>
-      <div class="cat-card" style="max-width:440px;" onclick="nav('electro-explorador')">
-        <img src="./electrocompresor.jpg" alt="Electrocompresores">
-        <div class="cat-label">
-          <h4>Electrocompresores</h4>
-          <p>Eficiencia máxima · Tornillo alemán</p>
-        </div>
-      </div>
+      <div class="cat-card" style="max-width:440px;" onclick="nav('moto-explorador')"><img src="motocompresores.jpg" alt="Motocompresores"><div class="cat-label"><h4>Motocompresores Diésel</h4><p>Autonomía total · Sin red eléctrica</p></div></div>
+      <div class="cat-card" style="max-width:440px;" onclick="nav('electro-explorador')"><img src="./electrocompresor.jpg" alt="Electrocompresores"><div class="cat-label"><h4>Electrocompresores</h4><p>Eficiencia máxima · Tornillo alemán</p></div></div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     MOTOCOMPRESOR — EXPLORADOR (nuevo layout)
-───────────────────────────────────── -->
+<!-- MOTOCOMPRESOR EXPLORADOR -->
 <div class="slide explorer-slide" id="moto-explorador">
-  <div class="explorer-layout">
+  <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
 
-    <aside class="explorer-sidebar">
-      <div class="esb-header">
-        <button class="esb-back" onclick="nav('comp-subcat')">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <div class="esb-title-wrap">
-          <span class="esb-division">División Aire Comprimido</span>
-          <span class="esb-name">Motocompresor</span>
-        </div>
+  <div class="explorer-row">
+    <div class="hs-labels-col">
+      <div class="hs-label-card" onclick="openPanel('mc-motor')">
+        <div class="hs-label-num">1</div>
+        <div class="hs-label-text"><span class="hs-label-title">Motor Diésel</span><span class="hs-label-sub">Kubota · Alta autonomía</span></div>
       </div>
-
-      <div class="esb-component-list">
-        <div class="esb-component" id="esb-mc-motor" onclick="activateComponent('mc-motor', 'esb-mc-motor')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-gear"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Motor Diésel</span>
-            <span class="esb-comp-sub">Kubota · Alta autonomía</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-        <div class="esb-component" id="esb-mc-unidad" onclick="activateComponent('mc-unidad', 'esb-mc-unidad')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-wind"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Unidad Compresora</span>
-            <span class="esb-comp-sub">Fabricación europea</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-        <div class="esb-component" id="esb-mc-panel" onclick="activateComponent('mc-panel', 'esb-mc-panel')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-sliders"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Panel de Control</span>
-            <span class="esb-comp-sub">Presión · Temperatura</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
+      <div class="hs-label-card" onclick="openPanel('mc-unidad')">
+        <div class="hs-label-num">2</div>
+        <div class="hs-label-text"><span class="hs-label-title">Unidad Compresora</span><span class="hs-label-sub">Fabricación europea</span></div>
       </div>
-
-      <div class="esb-detail" id="esb-detail-panel-mc">
-        <span class="esb-detail-label" id="esb-detail-title-mc">—</span>
-        <div class="esb-detail-text" id="esb-detail-body-mc"></div>
+      <div class="hs-label-card" onclick="openPanel('mc-panel')">
+        <div class="hs-label-num">3</div>
+        <div class="hs-label-text"><span class="hs-label-title">Panel de Control</span><span class="hs-label-sub">Presión · Temperatura</span></div>
       </div>
+    </div>
 
-      <div class="esb-cta">
-        <button class="esb-cta-btn" onclick="nav('contacto')">
-          <i class="fa-solid fa-envelope"></i> Solicitar Cotización
-        </button>
-      </div>
-    </aside>
-
-    <div class="explorer-image-area">
+    <div class="explorer-wrap">
       <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor MAC3">
-
-      <div class="hotspot" id="hs-mc-motor" style="top:56%;left:22%;" onclick="activateComponent('mc-motor', 'esb-mc-motor')">
-        <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
-        <div class="hs-index">1</div>
+      <div class="explorer-badge">
+        <span class="explorer-badge-div">División Aire Comprimido</span>
+        <span class="explorer-badge-name">Motocompresor Diésel</span>
       </div>
-      <div class="hotspot" id="hs-mc-unidad" style="top:38%;left:50%;" onclick="activateComponent('mc-unidad', 'esb-mc-unidad')">
-        <div class="hs-btn"><i class="fa-solid fa-wind"></i></div>
-        <div class="hs-index">2</div>
-      </div>
-      <div class="hotspot" id="hs-mc-panel" style="top:68%;left:36%;" onclick="activateComponent('mc-panel', 'esb-mc-panel')">
-        <div class="hs-btn"><i class="fa-solid fa-sliders"></i></div>
-        <div class="hs-index">3</div>
-      </div>
+      <div class="hotspot" style="top:56%;left:22%;" onclick="openPanel('mc-motor')"><div class="hs-btn"><i class="fa-solid fa-gear"></i></div></div>
+      <div class="hotspot" style="top:38%;left:50%;" onclick="openPanel('mc-unidad')"><div class="hs-btn"><i class="fa-solid fa-wind"></i></div></div>
+      <div class="hotspot" style="top:68%;left:36%;" onclick="openPanel('mc-panel')"><div class="hs-btn"><i class="fa-solid fa-sliders"></i></div></div>
     </div>
+  </div>
+
+  <div class="explorer-cta-bar">
+    <button class="cta-bar-btn" onclick="nav('contacto')"><i class="fa-solid fa-envelope"></i> Solicitar Cotización</button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     ELECTROCOMPRESOR — EXPLORADOR (nuevo layout)
-───────────────────────────────────── -->
+<!-- ELECTROCOMPRESOR EXPLORADOR -->
 <div class="slide explorer-slide" id="electro-explorador">
-  <div class="explorer-layout">
+  <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
 
-    <aside class="explorer-sidebar">
-      <div class="esb-header">
-        <button class="esb-back" onclick="nav('comp-subcat')">
-          <i class="fa-solid fa-arrow-left"></i>
-        </button>
-        <div class="esb-title-wrap">
-          <span class="esb-division">División Aire Comprimido</span>
-          <span class="esb-name">Electrocompresor</span>
-        </div>
+  <div class="explorer-row">
+    <div class="hs-labels-col">
+      <div class="hs-label-card" onclick="openPanel('ec-motor')">
+        <div class="hs-label-num">1</div>
+        <div class="hs-label-text"><span class="hs-label-title">Motor Eléctrico</span><span class="hs-label-sub">Fijo o VSD · Origen alemán</span></div>
       </div>
-
-      <div class="esb-component-list">
-        <div class="esb-component" id="esb-ec-motor" onclick="activateComponent('ec-motor', 'esb-ec-motor')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Motor Eléctrico</span>
-            <span class="esb-comp-sub">Fijo o VSD · Origen alemán</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-        <div class="esb-component" id="esb-ec-tornillo" onclick="activateComponent('ec-tornillo', 'esb-ec-tornillo')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-rotate"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Cabezal Tornillo</span>
-            <span class="esb-comp-sub">Oil free o lubricado</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
-        <div class="esb-component" id="esb-ec-vsd" onclick="activateComponent('ec-vsd', 'esb-ec-vsd')">
-          <div class="esb-comp-icon"><i class="fa-solid fa-display"></i></div>
-          <div class="esb-comp-text">
-            <span class="esb-comp-name">Panel de Control</span>
-            <span class="esb-comp-sub">Display · Sistema VSD</span>
-          </div>
-          <i class="fa-solid fa-arrow-right esb-comp-arrow"></i>
-        </div>
+      <div class="hs-label-card" onclick="openPanel('ec-tornillo')">
+        <div class="hs-label-num">2</div>
+        <div class="hs-label-text"><span class="hs-label-title">Cabezal de Tornillo</span><span class="hs-label-sub">Oil free o lubricado</span></div>
       </div>
-
-      <div class="esb-detail" id="esb-detail-panel-ec">
-        <span class="esb-detail-label" id="esb-detail-title-ec">—</span>
-        <div class="esb-detail-text" id="esb-detail-body-ec"></div>
-      </div>
-
-      <div class="esb-cta">
-        <button class="esb-cta-btn" onclick="nav('contacto')">
-          <i class="fa-solid fa-envelope"></i> Solicitar Cotización
-        </button>
-      </div>
-    </aside>
-
-    <div class="explorer-image-area">
-      <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
-
-      <div class="hotspot" id="hs-ec-motor" style="top:62%;left:16%;" onclick="activateComponent('ec-motor', 'esb-ec-motor')">
-        <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
-        <div class="hs-index">1</div>
-      </div>
-      <div class="hotspot" id="hs-ec-tornillo" style="top:38%;left:52%;" onclick="activateComponent('ec-tornillo', 'esb-ec-tornillo')">
-        <div class="hs-btn"><i class="fa-solid fa-rotate"></i></div>
-        <div class="hs-index">2</div>
-      </div>
-      <div class="hotspot" id="hs-ec-vsd" style="top:28%;left:82%;" onclick="activateComponent('ec-vsd', 'esb-ec-vsd')">
-        <div class="hs-btn"><i class="fa-solid fa-display"></i></div>
-        <div class="hs-index">3</div>
+      <div class="hs-label-card" onclick="openPanel('ec-vsd')">
+        <div class="hs-label-num">3</div>
+        <div class="hs-label-text"><span class="hs-label-title">Panel de Control</span><span class="hs-label-sub">Display · Sistema VSD</span></div>
       </div>
     </div>
+
+    <div class="explorer-wrap">
+      <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
+      <div class="explorer-badge">
+        <span class="explorer-badge-div">División Aire Comprimido</span>
+        <span class="explorer-badge-name">Electrocompresor</span>
+      </div>
+      <div class="hotspot" style="top:62%;left:16%;" onclick="openPanel('ec-motor')"><div class="hs-btn"><i class="fa-solid fa-bolt"></i></div></div>
+      <div class="hotspot" style="top:38%;left:52%;" onclick="openPanel('ec-tornillo')"><div class="hs-btn"><i class="fa-solid fa-rotate"></i></div></div>
+      <div class="hotspot" style="top:28%;left:82%;" onclick="openPanel('ec-vsd')"><div class="hs-btn"><i class="fa-solid fa-display"></i></div></div>
+    </div>
+  </div>
+
+  <div class="explorer-cta-bar">
+    <button class="cta-bar-btn" onclick="nav('contacto')"><i class="fa-solid fa-envelope"></i> Solicitar Cotización</button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SECADORA — VISTA
-───────────────────────────────────── -->
+<!-- SECADORA -->
 <div class="slide" id="view-secadora" style="background:var(--bg);">
   <button class="btn-back" onclick="nav('comp-soluciones')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="card">
-    <div class="eyebrow">Tratamiento de Aire</div>
-    <h2 class="slide-title">Secadores<br>de Aire</h2>
-    <div class="iPhoto" onclick="openPanel('secadora')">
-      <img src="secadora.jpg" alt="Secadora de Aire">
-      <div class="iPhoto-cta">
-        <i class="fa-solid fa-file-lines"></i> Ver Especificaciones
-      </div>
-    </div>
-  </div>
+  <div class="card"><div class="eyebrow">Tratamiento de Aire</div><h2 class="slide-title">Secadores<br>de Aire</h2><div class="iPhoto" onclick="openPanel('secadora')"><img src="secadora.jpg" alt="Secadora de Aire"><div class="iPhoto-cta"><i class="fa-solid fa-file-lines"></i> Ver Especificaciones</div></div></div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SHELTER — VISTA
-───────────────────────────────────── -->
+<!-- SHELTER -->
 <div class="slide" id="view-shelter" style="background:var(--bg);">
   <button class="btn-back" onclick="nav('comp-soluciones')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="card">
-    <div class="eyebrow">Infraestructura de Campo</div>
-    <h2 class="slide-title">Shelter<br>Industrial</h2>
-    <div class="iPhoto" onclick="openPanel('shelter')">
-      <img src="shelterabierto.jpg" alt="Shelter Abierto">
-      <div class="iPhoto-cta">
-        <i class="fa-solid fa-file-lines"></i> Ver Especificaciones
-      </div>
-    </div>
-  </div>
+  <div class="card"><div class="eyebrow">Infraestructura de Campo</div><h2 class="slide-title">Shelter<br>Industrial</h2><div class="iPhoto" onclick="openPanel('shelter')"><img src="shelterabierto.jpg" alt="Shelter Abierto"><div class="iPhoto-cta"><i class="fa-solid fa-file-lines"></i> Ver Especificaciones</div></div></div>
 </div>
 
-<!-- ─────────────────────────────────────
-     OTROS EQUIPOS
-───────────────────────────────────── -->
+<!-- OTROS EQUIPOS -->
 <div class="slide" id="otros-intro" style="background:var(--bg);">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div style="width:92%;max-width:860px;">
     <div class="eyebrow">Equipamiento Industrial Premium</div>
     <h2 class="slide-title">Otros Equipos</h2>
     <div class="cat-grid">
-      <div class="cat-card" onclick="openPanel('torre')">
-        <img src="torredeiluminacion.jpg" alt="Torre de Luz">
-        <div class="cat-label">
-          <h4>Torres de Iluminación</h4>
-          <p>Diésel · LED · 360° · Gran autonomía</p>
-        </div>
-      </div>
-      <div class="cat-card" onclick="openPanel('vru')">
-        <img src="vru.JPG" alt="VRU">
-        <div class="cat-label">
-          <h4>Unidades VRU</h4>
-          <p>Vapor Recovery · Oil & Gas · A medida</p>
-        </div>
-      </div>
+      <div class="cat-card" onclick="openPanel('torre')"><img src="torredeiluminacion.jpg" alt="Torre de Luz"><div class="cat-label"><h4>Torres de Iluminación</h4><p>Diésel · LED · 360° · Gran autonomía</p></div></div>
+      <div class="cat-card" onclick="openPanel('vru')"><img src="vru.JPG" alt="VRU"><div class="cat-label"><h4>Unidades VRU</h4><p>Vapor Recovery · Oil & Gas · A medida</p></div></div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     PANEL LATERAL (para torres, vru, secadora, shelter)
-───────────────────────────────────── -->
+<!-- PANEL LATERAL -->
 <div class="side-panel" id="sidePanel">
   <div class="panel-head">
     <div class="panel-div" id="panelDiv">—</div>
@@ -1574,27 +704,17 @@ html, body {
     <div class="panel-rule"></div>
   </div>
   <div class="panel-section">
-    <div class="panel-section-label danger">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      Problema / Especificación
-    </div>
+    <div class="panel-section-label danger"><i class="fa-solid fa-triangle-exclamation"></i> Problema / Especificación</div>
     <ul class="panel-list danger-list" id="panelDesc"></ul>
   </div>
   <div class="panel-section">
-    <div class="panel-section-label info">
-      <i class="fa-solid fa-circle-check"></i>
-      Ventaja Aercom
-    </div>
+    <div class="panel-section-label info"><i class="fa-solid fa-circle-check"></i> Ventaja Aercom</div>
     <ul class="panel-list info-list" id="panelSol"></ul>
   </div>
-  <button class="btn-close" onclick="closePanel()">
-    <i class="fa-solid fa-xmark" style="margin-right:8px;"></i>Cerrar panel
-  </button>
+  <button class="btn-close" onclick="closePanel()"><i class="fa-solid fa-xmark" style="margin-right:8px;"></i>Cerrar panel</button>
 </div>
 
-<!-- ─────────────────────────────────────
-     CONTACTO
-───────────────────────────────────── -->
+<!-- CONTACTO -->
 <div class="slide" id="contacto">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="contact-wrap">
@@ -1603,18 +723,9 @@ html, body {
       <h2 class="contact-title">Hablemos.</h2>
       <p class="contact-desc">Nuestro departamento técnico está disponible para asesorarle en cada proyecto.</p>
       <div class="contact-links">
-        <div class="contact-link">
-          <i class="fa-solid fa-globe"></i>
-          aercom.com.ar
-        </div>
-        <div class="contact-link">
-          <i class="fa-solid fa-envelope"></i>
-          info@aercom.com.ar
-        </div>
-        <div class="contact-link">
-          <i class="fa-solid fa-phone"></i>
-          Consultar en stand
-        </div>
+        <div class="contact-link"><i class="fa-solid fa-globe"></i> aercom.com.ar</div>
+        <div class="contact-link"><i class="fa-solid fa-envelope"></i> info@aercom.com.ar</div>
+        <div class="contact-link"><i class="fa-solid fa-phone"></i> Consultar en stand</div>
       </div>
     </div>
     <div class="qr-box">
@@ -1622,34 +733,25 @@ html, body {
       <div class="qr-label">Escanear para contactar</div>
     </div>
   </div>
-  <button class="btn-reset" onclick="nav('home')">
-    <i class="fa-solid fa-rotate-right"></i> Reiniciar presentación
-  </button>
+  <button class="btn-reset" onclick="nav('home')"><i class="fa-solid fa-rotate-right"></i> Reiniciar presentación</button>
 </div>
 
 </div><!-- /app -->
 
-<!-- STATUS BAR -->
 <div class="status-bar">
   <div class="s-item"><div class="s-live"></div> Sistema Activo</div>
-  <div class="s-item"><i class="fa-solid fa-server" style="font-size:8px;color:var(--blue);"></i>&nbsp; Aercom EXP v6.0</div>
+  <div class="s-item"><i class="fa-solid fa-server" style="font-size:8px;color:var(--blue);"></i>&nbsp; Aercom EXP v5.1</div>
   <div class="s-item s-right" id="clock">--:--:--</div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════════ -->
 <script>
-/* ════ CURSOR ════ */
+/* CURSOR */
 const curDot = document.getElementById('cursor-dot');
-document.addEventListener('mousemove', e => {
-  curDot.style.left = e.clientX + 'px';
-  curDot.style.top  = e.clientY + 'px';
-}, { passive: true });
+document.addEventListener('mousemove', e => { curDot.style.left = e.clientX + 'px'; curDot.style.top = e.clientY + 'px'; }, { passive: true });
 document.addEventListener('mouseleave', () => { curDot.style.opacity = '0'; });
 document.addEventListener('mouseenter', () => { curDot.style.opacity = '1'; });
 
-/* ════ NAVEGACIÓN ════ */
+/* NAVEGACIÓN */
 function nav(id) {
   const prev = document.querySelector('.slide.active');
   const next = document.getElementById(id);
@@ -1659,202 +761,78 @@ function nav(id) {
   closePanel();
 }
 
-/* ════════════════════════════════════════════════════════════
-   BASE DE DATOS DE CONTENIDO
-════════════════════════════════════════════════════════════ */
+/* PANEL DATA */
 const panelData = {
   'ge-alternador': {
     div: 'Grupo Electrógeno', t: 'Alternador',
-    short: 'Leroy Somer sin escobillas. Trifásico 3×380 V / 50 Hz con regulación AVR integrada y preparado para paralelismo.',
-    d: [
-      'Pérdida de aislamiento por partículas conductoras o humedad',
-      'Tensión inestable que daña equipos electrónicos sensibles',
-      'Incompatibilidad con cargas monofásicas en red trifásica',
-    ],
-    s: [
-      'Alternadores Leroy Somer / Weichai de alta fiabilidad industrial',
-      'Trifásico 3×380 V — 50 Hz con neutro para cargas monofásicas 220 V',
-      'Sin escobillas: excitación por diodos rotantes, mínimo mantenimiento',
-      'Regulación de tensión por placa AVR integrada',
-      'Preparados para paralelismo según modelo',
-    ]
+    d: ['Pérdida de aislamiento por partículas conductoras o humedad','Tensión inestable que daña equipos electrónicos sensibles','Incompatibilidad con cargas monofásicas en red trifásica'],
+    s: ['Alternadores Leroy Somer / Weichai de alta fiabilidad industrial','Trifásico 3×380 V — 50 Hz con neutro para cargas monofásicas 220 V','Sin escobillas: excitación por diodos rotantes, mínimo mantenimiento','Regulación de tensión por placa AVR integrada','Preparados para paralelismo según modelo']
   },
   'ge-motor': {
     div: 'Grupo Electrógeno', t: 'Motor',
-    short: 'Baudouin / Weichai en versiones Diésel, Gas Natural o GLP. Control electrónico de velocidad y stock de repuestos garantizado.',
-    d: [
-      'Fallas por uso de lubricantes o combustible fuera de especificación',
-      'Paradas inesperadas por falta de stock de repuestos críticos',
-      'Incompatibilidad con suministro de gas natural o GLP disponible en planta',
-    ],
-    s: [
-      'Motores Baudouin / Weichai: Diésel, Gas Natural o GLP según necesidad',
-      'Línea industrial diseñada para uso estacionario y generación continua',
-      'Control electrónico de velocidad de alta precisión',
-      'Stock permanente de repuestos garantizado en Argentina',
-    ]
+    d: ['Fallas por uso de lubricantes o combustible fuera de especificación','Paradas inesperadas por falta de stock de repuestos críticos','Incompatibilidad con suministro de gas natural o GLP disponible en planta'],
+    s: ['Motores Baudouin / Weichai: Diésel, Gas Natural o GLP según necesidad','Línea industrial diseñada para uso estacionario y generación continua','Control electrónico de velocidad de alta precisión','Stock permanente de repuestos garantizado en Argentina']
   },
   'ge-cabina': {
     div: 'Grupo Electrógeno', t: 'Cabina',
-    short: 'Insonorizada apta para intemperie. Batea antiderrame, puertas imantadas, revestimiento fonoabsorbente y cáncamos de izaje.',
-    d: [
-      'Exposición a intemperie, ingreso de agua y polvo fino',
-      'Alto nivel de ruido en entornos residenciales o sensibles',
-      'Dificultad de acceso para operación y mantenimiento en campo',
-    ],
-    s: [
-      'Cabina insonorizada apta para intemperie con batea antiderrame integrada',
-      'Tanque de combustible extraíble para limpieza sencilla',
-      'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente',
-      'Carga externa con reloj analógico de control de nivel',
-      'Cáncamos de izaje y guías para autoelevador según modelo',
-    ]
+    d: ['Exposición a intemperie, ingreso de agua y polvo fino','Alto nivel de ruido en entornos residenciales o sensibles','Dificultad de acceso para operación y mantenimiento en campo'],
+    s: ['Cabina insonorizada apta para intemperie con batea antiderrame integrada','Tanque de combustible extraíble para limpieza sencilla','Puertas amplias con imanes antiviento y revestimiento fonoabsorbente interior','Carga externa con reloj analógico de control de nivel','Cáncamos de izaje y guías para autoelevador según modelo']
   },
   'mc-motor': {
     div: 'Motocompresor Diésel', t: 'Motor Kubota',
-    short: 'Motor Kubota de confiabilidad industrial. Gran tanque para jornadas extendidas. Ideal para minería, oil & gas y emergencias.',
-    d: [
-      'Dependencia de red eléctrica en zonas remotas u obras sin suministro',
-      'Alta demanda de potencia en trabajo continuo de larga jornada',
-    ],
-    s: [
-      'Motor Kubota de fiabilidad industrial reconocida mundialmente',
-      'Gran tanque de combustible para jornadas extendidas sin reposición',
-      'Ideal para minería, oil & gas, construcción y emergencias',
-    ]
+    d: ['Dependencia de red eléctrica en zonas remotas u obras sin suministro','Alta demanda de potencia en trabajo continuo de larga jornada'],
+    s: ['Motor Kubota de fiabilidad industrial reconocida mundialmente','Gran tanque de combustible para jornadas extendidas sin reposición','Ideal para minería, oil & gas, construcción y emergencias']
   },
   'mc-unidad': {
     div: 'Motocompresor Diésel', t: 'Unidad Compresora',
-    short: 'Fabricación europea. Modelos de diferentes caudales y presiones. Eje simple y lanza regulable para fácil maniobra en campo.',
-    d: [
-      'Diversidad de requerimientos de caudal y presión según la aplicación',
-      'Necesidad de portabilidad en terrenos irregulares o de difícil acceso',
-    ],
-    s: [
-      'Unidad compresora de fabricación europea: alta eficiencia y durabilidad',
-      'Modelos de diferentes caudales y presiones para cada requerimiento',
-      'Eje simple y lanza de altura regulable para fácil maniobra en campo',
-    ]
+    d: ['Diversidad de requerimientos de caudal y presión según la aplicación','Necesidad de portabilidad en terrenos irregulares o de difícil acceso'],
+    s: ['Unidad compresora de fabricación europea: alta eficiencia y durabilidad','Modelos de diferentes caudales y presiones para cada requerimiento','Eje simple y lanza de altura regulable para fácil maniobra en campo']
   },
   'mc-panel': {
     div: 'Motocompresor Diésel', t: 'Panel de Control',
-    short: 'Panel completo con indicadores de presión, temperatura y horario. Protecciones automáticas ante fallas integradas.',
-    d: [
-      'Dificultad para monitorear parámetros de operación en campo',
-      'Sin protecciones que prevengan daños al equipo ante fallas',
-    ],
-    s: [
-      'Panel completo: presión, temperatura y horario de uso integrados',
-      'Protecciones automáticas ante sobrecalentamiento y baja presión de aceite',
-      'Cabina diseñada para intemperie con acceso seguro al panel de control',
-    ]
+    d: ['Dificultad para monitorear parámetros de operación en campo','Sin protecciones que prevengan daños al equipo ante fallas'],
+    s: ['Panel completo: presión, temperatura y horario de uso integrados','Protecciones automáticas ante sobrecalentamiento y baja presión de aceite','Cabina diseñada para intemperie con acceso seguro al panel de control']
   },
   'ec-motor': {
     div: 'Electrocompresor', t: 'Motor Eléctrico',
-    short: 'Velocidad fija o variable VSD. Acople directo o a correas. Tecnología de origen alemán, homologada en la Unión Europea.',
-    d: [
-      'Alto consumo energético en compresores de velocidad fija con ciclos variables',
-      'Desgaste acelerado por arranques directos frecuentes sin suavizado',
-    ],
-    s: [
-      'Acople directo o a correas según el modelo y la aplicación',
-      'Velocidad fija o variable VSD para máxima eficiencia energética',
-      'Tecnología de origen alemán homologada en la Unión Europea',
-    ]
+    d: ['Alto consumo energético en compresores de velocidad fija con ciclos variables','Desgaste acelerado por arranques directos frecuentes sin suavizado'],
+    s: ['Acople directo o a correas según el modelo y la aplicación','Velocidad fija o variable VSD para máxima eficiencia energética','Tecnología de origen alemán homologada en la Unión Europea']
   },
   'ec-tornillo': {
     div: 'Electrocompresor', t: 'Cabezal de Tornillo',
-    short: 'Lubricados o libres de aceite. Apto para industria general, alimentaria y farmacéutica. Cabinas de bajo nivel sonoro.',
-    d: [
-      'Contaminación del aire en procesos alimenticios o farmacéuticos',
-      'Ruido excesivo que limita la instalación en espacios confinados',
-    ],
-    s: [
-      'Lubricados (Oil injected) o libres de aceite (Oil free) según proceso',
-      'Apto para industria general, alimentaria, farmacéutica y de alta precisión',
-      'Cabinas de bajo nivel sonoro para instalación en cualquier espacio',
-      'Modelos específicos para mesas de corte láser y procesos especiales',
-    ]
+    d: ['Contaminación del aire en procesos alimenticios o farmacéuticos','Ruido excesivo que limita la instalación en espacios confinados o urbanizados'],
+    s: ['Lubricados (Oil injected) o libres de aceite (Oil free) según proceso','Apto para industria general, alimentaria, farmacéutica y de alta precisión','Cabinas de bajo nivel sonoro para optimizar instalación en cualquier espacio','Modelos específicos para mesas de corte láser y procesos especiales']
   },
   'ec-vsd': {
     div: 'Electrocompresor', t: 'Sistema y Tecnología',
-    short: 'Amplia gama de caudal/presión. Modelos Compact con tanque y secador integrados. Stock de repuestos garantizado en Argentina.',
-    d: [
-      'Rango limitado de caudal/presión que no cubre todos los requerimientos',
-      'Stock de repuestos incierto que genera paradas prolongadas y costosas',
-    ],
-    s: [
-      'Amplia gama de caudal y presión para cubrir todos los requerimientos',
-      'Modelos Compact con tanque y secador integrados en una sola unidad',
-      'Mayor eficiencia energética con diseño certificado y auditado',
-      'Stock permanente de repuestos garantizado en Argentina',
-    ]
+    d: ['Rango limitado de caudal/presión que no cubre todos los requerimientos de planta','Stock de repuestos incierto que genera paradas prolongadas y costosas'],
+    s: ['Amplia gama de caudal y presión para cubrir todos los requerimientos','Modelos Compact con tanque y secador integrados en una sola unidad','Mayor eficiencia energética con diseño certificado y auditado','Stock permanente de repuestos garantizado en Argentina']
   },
   'secadora': {
     div: 'Tratamiento de Aire', t: 'Secadores de Aire',
-    d: [
-      'Condensados que dañan herramientas neumáticas, válvulas y actuadores',
-      'Corrosión interna en tuberías por humedad sin tratamiento adecuado',
-      'Procesos que exigen calidad de aire certificada según ISO 8573-1',
-    ],
-    s: [
-      'Frigoríficos (+3 °C) o por adsorción (−40 °C) según el proceso productivo',
-      'Calidad de aire certificable según norma ISO 8573-1',
-      'Adaptables a todos los procesos industriales o requerimientos especiales',
-      'Gama completa compatible con todos los modelos de compresores Aercom',
-      'Muy bajo mantenimiento, con filtros de línea integrados de serie',
-    ]
+    d: ['Condensados que dañan herramientas neumáticas, válvulas y actuadores','Corrosión interna en tuberías por humedad sin tratamiento adecuado','Procesos que exigen calidad de aire certificada según ISO 8573-1'],
+    s: ['Frigoríficos (+3 °C) o por adsorción (−40 °C) según el proceso productivo','Calidad de aire certificable según norma ISO 8573-1','Adaptables a todos los procesos industriales o requerimientos especiales','Gama completa compatible con todos los modelos de compresores Aercom','Muy bajo mantenimiento, con filtros de línea integrados de serie']
   },
   'shelter': {
     div: 'Infraestructura de Campo', t: 'Shelter Industrial',
-    d: [
-      'Altos costos de obra civil para alojar equipos en locaciones remotas',
-      'Exposición a condiciones ambientales adversas sin protección adecuada',
-      'Largos plazos de instalación que demoran el inicio operativo del proyecto',
-    ],
-    s: [
-      'Aplicaciones en minería, campos petroleros y gasíferos de todo tipo',
-      'Diseño completamente personalizado para cada cliente y cada proyecto',
-      'Contenedores normalizados con equipamiento adicional según el sitio',
-      'Equipado con máquinas y sistemas listos para el proceso de destino',
-      'Amplios accesos para operación cómoda y mantenimiento eficiente',
-    ]
+    d: ['Altos costos de obra civil para alojar equipos en locaciones remotas','Exposición a condiciones ambientales adversas sin protección adecuada','Largos plazos de instalación que demoran el inicio operativo del proyecto'],
+    s: ['Aplicaciones en minería, campos petroleros y gasíferos de todo tipo','Diseño completamente personalizado para cada cliente y cada proyecto','Contenedores normalizados con equipamiento adicional según el sitio','Equipado con máquinas y sistemas listos para el proceso de destino','Amplios accesos para operación cómoda y mantenimiento eficiente']
   },
   'torre': {
     div: 'Equipamiento Especial', t: 'Torres de Iluminación',
-    d: [
-      'Falta de visibilidad en turnos nocturnos o áreas de trabajo remotas',
-      'Riesgos laborales graves y baja productividad sin iluminación suficiente',
-    ],
-    s: [
-      'Distintos modelos para diferentes necesidades operativas y de faena',
-      'Luminarias LED de largo alcance y gran poder lumínico certificado',
-      'Motor diésel con gran autonomía y consumo reducido',
-      'Alternador 220 V / 50 Hz con tomacorrientes para herramientas eléctricas',
-      'Mástil de gran altura, giro 360°, izaje manual o hidráulico',
-      'Lanza de remolque para fácil traslado y patas desplegables estabilizadoras',
-    ]
+    d: ['Falta de visibilidad en turnos nocturnos o áreas de trabajo remotas','Riesgos laborales graves y baja productividad sin iluminación suficiente'],
+    s: ['Distintos modelos para diferentes necesidades operativas y de faena','Luminarias LED de largo alcance y gran poder lumínico certificado','Motor diésel con gran autonomía y consumo reducido','Alternador 220 V / 50 Hz con tomacorrientes para herramientas eléctricas','Mástil de gran altura, giro 360°, izaje manual o hidráulico','Lanza de remolque para fácil traslado y patas desplegables estabilizadoras']
   },
   'vru': {
     div: 'Equipamiento Especial', t: 'Unidades VRU',
-    d: [
-      'Emisiones fugitivas de gases livianos desde tanques de almacenamiento',
-      'Pérdidas económicas y problemas de cumplimiento de normativa ambiental',
-    ],
-    s: [
-      'Recuperación eficiente de hidrocarburos livianos del proceso',
-      'Reducción de emisiones dentro de normativa ambiental vigente',
-      'Sistemas diseñados a medida para cada instalación y proceso',
-    ]
+    d: ['Emisiones fugitivas de gases livianos desde tanques de almacenamiento','Pérdidas económicas y problemas de cumplimiento de normativa ambiental'],
+    s: ['Recuperación eficiente de hidrocarburos livianos del proceso','Reducción de emisiones dentro de normativa ambiental vigente','Sistemas diseñados a medida para cada instalación y proceso']
   }
 };
 
-/* ════ PANEL LATERAL (para torres/vru/secadora/shelter) ════ */
 function buildItems(arr) {
   if (!arr || !arr.length) return '';
-  return arr.map(item =>
-    `<li><span class="pdot"></span><span>${item}</span></li>`
-  ).join('');
+  return arr.map(item => `<li><span class="pdot"></span><span>${item}</span></li>`).join('');
 }
 function openPanel(key) {
   const d = panelData[key];
@@ -1872,62 +850,7 @@ function closePanel() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
-/* ════════════════════════════════════════════════════════════
-   ACTIVAR COMPONENTE EN EL SIDEBAR DEL EXPLORADOR
-   - Resalta el ítem en la lista
-   - Muestra el detalle en el panel de detalle del sidebar
-   - Resalta el hotspot correspondiente en la imagen
-════════════════════════════════════════════════════════════ */
-let activeCompId = null;
-
-function activateComponent(dataKey, sbItemId) {
-  const d = panelData[dataKey];
-  if (!d) return;
-
-  // Obtener prefijo del equipo (ge, mc, ec) para saber qué detail panel usar
-  const prefix = dataKey.split('-')[0]; // 'ge', 'mc', 'ec'
-
-  // Mapeo de prefijo a IDs de los detail panels
-  const detailPanelMap = {
-    'ge': { panel: 'esb-detail-panel',    title: 'esb-detail-title',    body: 'esb-detail-body' },
-    'mc': { panel: 'esb-detail-panel-mc', title: 'esb-detail-title-mc', body: 'esb-detail-body-mc' },
-    'ec': { panel: 'esb-detail-panel-ec', title: 'esb-detail-title-ec', body: 'esb-detail-body-ec' },
-  };
-
-  const dp = detailPanelMap[prefix];
-  if (!dp) return;
-
-  // Si ya está activo, deseleccionar
-  if (activeCompId === sbItemId) {
-    document.getElementById(sbItemId)?.classList.remove('active');
-    document.getElementById('hs-' + dataKey)?.classList.remove('active');
-    const panel = document.getElementById(dp.panel);
-    if (panel) panel.classList.remove('open');
-    activeCompId = null;
-    return;
-  }
-
-  // Desactivar anterior — buscar en todos los componentes del slide activo
-  document.querySelectorAll('.esb-component.active').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.hotspot.active').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.esb-detail.open').forEach(el => el.classList.remove('open'));
-
-  // Activar el nuevo
-  activeCompId = sbItemId;
-  document.getElementById(sbItemId)?.classList.add('active');
-  document.getElementById('hs-' + dataKey)?.classList.add('active');
-
-  // Rellenar y abrir el detail panel
-  const panelEl = document.getElementById(dp.panel);
-  const titleEl = document.getElementById(dp.title);
-  const bodyEl  = document.getElementById(dp.body);
-
-  if (titleEl) titleEl.textContent = d.t;
-  if (bodyEl)  bodyEl.textContent  = d.short || (d.s && d.s[0]) || '';
-  if (panelEl) panelEl.classList.add('open');
-}
-
-/* ════ RELOJ ════ */
+/* RELOJ */
 (function tick() {
   const n = new Date(), p = v => String(v).padStart(2,'0');
   const el = document.getElementById('clock');
@@ -1935,20 +858,13 @@ function activateComponent(dataKey, sbItemId) {
   setTimeout(tick, 1000);
 })();
 
-/* ════ PRELOAD ════ */
-[
-  './fondo.jpeg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg',
-  './electrocompresor.jpg', './motocompresores.jpg', 'sheltercerrado.jpg',
-  'shelterabierto.jpg', 'secadora.jpg', 'torredeiluminacion.jpg',
-  'vru.JPG', './todoslosequipo.jpg', 'motocompresorabierto.jpg', 'electrocompresorabierto.jpg'
-].forEach(src => { const img = new Image(); img.src = src; });
+/* PRELOAD */
+['./fondo.jpeg','./grupoelectrogeno.jpeg','./grupoelectrogenoabierto.jpeg','./electrocompresor.jpg','./motocompresores.jpg','sheltercerrado.jpg','shelterabierto.jpg','secadora.jpg','torredeiluminacion.jpg','vru.JPG','./todoslosequipo.jpg'].forEach(src => { const img = new Image(); img.src = src; });
 
-/* ════ SWIPE ════ */
+/* SWIPE */
 let _tx = 0;
 document.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
-document.addEventListener('touchend',   e => {
-  if (e.changedTouches[0].clientX - _tx > 70) closePanel();
-}, { passive: true });
+document.addEventListener('touchend',   e => { if (e.changedTouches[0].clientX - _tx > 70) closePanel(); }, { passive: true });
 </script>
 </body>
 </html>
