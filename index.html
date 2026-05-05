@@ -521,47 +521,65 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   HOTSPOTS
+   HOTSPOTS — Estilo tarjeta, siempre visible (tablet táctil)
 ════════════════════════════════════════════════════════════ */
 .hotspot {
   position: absolute; z-index: 10;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   cursor: none;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
 }
+
+/* Tarjeta de etiqueta — siempre visible, encima del botón */
+.hs-card {
+  background: rgba(8,8,8,0.92);
+  border: 1.5px solid var(--blue-border);
+  border-radius: 4px;
+  padding: 8px 14px 7px;
+  text-align: center;
+  min-width: 120px;
+  pointer-events: none;
+  margin-bottom: 6px;
+}
+.hs-card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #fff; white-space: nowrap; display: block;
+  line-height: 1.2;
+}
+.hs-card-sub {
+  font-size: 10px; font-weight: 400;
+  color: var(--text-dim); letter-spacing: 0.06em;
+  display: block; margin-top: 2px;
+}
+
+/* Conector vertical entre tarjeta y botón */
+.hs-connector {
+  width: 2px; height: 10px;
+  background: var(--blue-border);
+}
+
+/* Botón circular */
 .hs-btn {
-  width: clamp(46px,5.5vw,58px); height: clamp(46px,5.5vw,58px);
+  width: 48px; height: 48px;
   background: var(--blue);
   border: 2.5px solid rgba(255,255,255,0.9);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: clamp(15px,1.8vw,20px); color: #fff;
+  font-size: 18px; color: #fff;
   animation: hsPulse 3.5s ease-in-out infinite;
   will-change: box-shadow;
-  transition: transform 0.2s var(--bounce), background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
 }
 @keyframes hsPulse {
   0%   { box-shadow: 0 0 0 0 rgba(0,102,255,0.7); }
-  60%  { box-shadow: 0 0 0 18px rgba(0,102,255,0); }
+  60%  { box-shadow: 0 0 0 16px rgba(0,102,255,0); }
   100% { box-shadow: 0 0 0 0 rgba(0,102,255,0); }
 }
-.hotspot:hover .hs-btn {
-  transform: scale(1.25);
-  background: #fff; color: var(--blue);
-  border-color: var(--blue);
-}
-.hs-label {
-  position: absolute; bottom: calc(100% + 12px); left: 50%;
-  transform: translateX(-50%) translateY(6px);
-  background: var(--bg);
-  border: 1.5px solid var(--blue-border);
-  padding: 6px 14px; border-radius: 3px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
-  text-transform: uppercase; color: #fff;
-  white-space: nowrap;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.15s, transform 0.15s var(--ease);
-}
-.hotspot:hover .hs-label { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* Mantener compatibilidad con .hs-label antiguo (no se usa en nuevos exploradores) */
+.hs-label { display: none; }
 
 /* ════════════════════════════════════════════════════════════
    CTA FLOTANTE
@@ -1059,6 +1077,9 @@ html, body {
 
 <!-- ─────────────────────────────────────
      GRUPOS ELECTRÓGENOS — EXPLORADOR
+     Alternador → izquierda (parte azul)
+     Motor      → centro (motor Baudouin)
+     Cabina     → derecha (carcasa/panel)
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="ge-explorador">
   <button class="btn-back" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
@@ -1069,19 +1090,33 @@ html, body {
     <span class="explorer-badge-name">Grupo Electrógeno</span>
   </div>
 
-  <!-- Hotspot ALTERNADOR — izquierda (parte azul del equipo) -->
-  <div class="hotspot" style="top:55%;left:34%;" onclick="openPanel('ge-alternador')">
-    <div class="hs-label">Alternador</div>
+  <!-- Alternador — izquierda (cuerpo azul del alternador) -->
+  <div class="hotspot" style="top:60%;left:28%;" onclick="openPanel('ge-alternador')">
+    <div class="hs-card">
+      <span class="hs-card-title">Alternador</span>
+      <span class="hs-card-sub">Leroy Somer · Sin escobillas</span>
+    </div>
+    <div class="hs-connector"></div>
     <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
   </div>
-  <!-- Hotspot MOTOR — centro -->
-  <div class="hotspot" style="top:43%;left:56%;" onclick="openPanel('ge-motor')">
-    <div class="hs-label">Motor</div>
+
+  <!-- Motor — centro (motor Baudouin azul) -->
+  <div class="hotspot" style="top:45%;left:54%;" onclick="openPanel('ge-motor')">
+    <div class="hs-card">
+      <span class="hs-card-title">Motor</span>
+      <span class="hs-card-sub">Baudouin · Diésel / Gas</span>
+    </div>
+    <div class="hs-connector"></div>
     <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
   </div>
-  <!-- Hotspot CABINA — derecha (panel/carcasa) -->
-  <div class="hotspot" style="top:32%;left:77%;" onclick="openPanel('ge-cabina')">
-    <div class="hs-label">Cabina</div>
+
+  <!-- Cabina — derecha (panel/carcasa lateral) -->
+  <div class="hotspot" style="top:30%;left:78%;" onclick="openPanel('ge-cabina')">
+    <div class="hs-card">
+      <span class="hs-card-title">Cabina</span>
+      <span class="hs-card-sub">Insonorizada · Intemperie</span>
+    </div>
+    <div class="hs-connector"></div>
     <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
   </div>
 
@@ -1205,27 +1240,48 @@ html, body {
 
 <!-- ─────────────────────────────────────
      MOTOCOMPRESOR — EXPLORADOR
+     Imagen: MAC3 S5000 abierto (foto 5)
+     Motor diésel → izquierda del equipo (negro)
+     Filtro / Unidad compresora → centro (blanco alto)
+     Panel de instrumentos → frente inferior izquierdo
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="moto-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <img class="explorer-img" src="motocompresores.jpg" alt="Motocompresor">
+  <img class="explorer-img" src="motocompresores.jpg" alt="Motocompresor MAC3">
 
   <div class="explorer-badge">
     <span class="explorer-badge-div">División Aire Comprimido</span>
     <span class="explorer-badge-name">Motocompresor Diésel</span>
   </div>
 
-  <div class="hotspot" style="top:50%;left:30%;" onclick="openPanel('mc-motor')">
-    <div class="hs-label">Motor Diésel</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+  <!-- Motor Diésel — lado izquierdo del equipo (parte negra/motor) -->
+  <div class="hotspot" style="top:56%;left:22%;" onclick="openPanel('mc-motor')">
+    <div class="hs-card">
+      <span class="hs-card-title">Motor Diésel</span>
+      <span class="hs-card-sub">Kubota · Alta autonomía</span>
+    </div>
+    <div class="hs-connector"></div>
+    <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
   </div>
-  <div class="hotspot" style="top:44%;left:55%;" onclick="openPanel('mc-unidad')">
-    <div class="hs-label">Unidad Compresora</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+
+  <!-- Unidad Compresora — zona central, filtro blanco alto -->
+  <div class="hotspot" style="top:44%;left:50%;" onclick="openPanel('mc-unidad')">
+    <div class="hs-card">
+      <span class="hs-card-title">Unidad Compresora</span>
+      <span class="hs-card-sub">Fabricación europea</span>
+    </div>
+    <div class="hs-connector"></div>
+    <div class="hs-btn"><i class="fa-solid fa-wind"></i></div>
   </div>
-  <div class="hotspot" style="top:32%;left:76%;" onclick="openPanel('mc-panel')">
-    <div class="hs-label">Panel de Control</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+
+  <!-- Panel de Control — frente inferior, instrumentos y válvulas -->
+  <div class="hotspot" style="top:72%;left:34%;" onclick="openPanel('mc-panel')">
+    <div class="hs-card">
+      <span class="hs-card-title">Panel de Control</span>
+      <span class="hs-card-sub">Presión · Temperatura</span>
+    </div>
+    <div class="hs-connector"></div>
+    <div class="hs-btn"><i class="fa-solid fa-sliders"></i></div>
   </div>
 
   <button class="cta-float" onclick="nav('contacto')">
@@ -1235,27 +1291,48 @@ html, body {
 
 <!-- ─────────────────────────────────────
      ELECTROCOMPRESOR — EXPLORADOR
+     Imagen: HGS11 abierto (foto 6)
+     Motor eléctrico → izquierda (radiador lateral)
+     Cabezal tornillo + filtros → centro (tuberías azules)
+     Panel de control → derecha (display + botón rojo)
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="electro-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <img class="explorer-img" src="./electrocompresor.jpg" alt="Electrocompresor">
+  <img class="explorer-img" src="./electrocompresor.jpg" alt="Electrocompresor HGS">
 
   <div class="explorer-badge">
     <span class="explorer-badge-div">División Aire Comprimido</span>
     <span class="explorer-badge-name">Electrocompresor</span>
   </div>
 
-  <div class="hotspot" style="top:52%;left:28%;" onclick="openPanel('ec-motor')">
-    <div class="hs-label">Motor Eléctrico</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+  <!-- Motor Eléctrico — lado izquierdo (radiador/rejilla lateral) -->
+  <div class="hotspot" style="top:60%;left:18%;" onclick="openPanel('ec-motor')">
+    <div class="hs-card">
+      <span class="hs-card-title">Motor Eléctrico</span>
+      <span class="hs-card-sub">Fijo o VSD · Origen alemán</span>
+    </div>
+    <div class="hs-connector"></div>
+    <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
   </div>
-  <div class="hotspot" style="top:44%;left:54%;" onclick="openPanel('ec-tornillo')">
-    <div class="hs-label">Cabezal de Tornillo</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+
+  <!-- Cabezal de Tornillo — centro (filtros blancos y tuberías azules) -->
+  <div class="hotspot" style="top:42%;left:50%;" onclick="openPanel('ec-tornillo')">
+    <div class="hs-card">
+      <span class="hs-card-title">Cabezal de Tornillo</span>
+      <span class="hs-card-sub">Oil free o lubricado</span>
+    </div>
+    <div class="hs-connector"></div>
+    <div class="hs-btn"><i class="fa-solid fa-rotate"></i></div>
   </div>
-  <div class="hotspot" style="top:34%;left:76%;" onclick="openPanel('ec-vsd')">
-    <div class="hs-label">Sistema VSD</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+
+  <!-- Panel de Control — derecha (display digital + botón rojo de parada) -->
+  <div class="hotspot" style="top:30%;left:80%;" onclick="openPanel('ec-vsd')">
+    <div class="hs-card">
+      <span class="hs-card-title">Panel de Control</span>
+      <span class="hs-card-sub">Display · Sistema VSD</span>
+    </div>
+    <div class="hs-connector"></div>
+    <div class="hs-btn"><i class="fa-solid fa-display"></i></div>
   </div>
 
   <button class="cta-float" onclick="nav('contacto')">
