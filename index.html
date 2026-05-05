@@ -382,7 +382,7 @@ html, body {
 }
 .sel-header-hint {
   font-size: 10px; font-weight: 500; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--text-muted);
+  text-transform: uppercase; color: var(--text-dim);
   display: flex; align-items: center; gap: 8px;
 }
 .sel-header-hint i { color: var(--blue); font-size: 9px; }
@@ -584,7 +584,7 @@ html, body {
   line-height: 1.2;
 }
 .hs-card-sub {
-  font-size: 10px; font-weight: 400;
+  font-size: 11px; font-weight: 400;
   color: var(--text-dim); letter-spacing: 0.06em;
   display: block; margin-top: 2px;
 }
@@ -747,7 +747,7 @@ html, body {
   width: min(540px, 94vw); height: 100%;
   background: #0a0a0a;
   border-left: 2px solid var(--blue-border);
-  padding: clamp(36px,5vh,72px) clamp(28px,3.5vw,52px);
+  padding: clamp(24px,4vh,40px) clamp(24px,3vw,40px) 100px;
   transform: translateX(100%);
   transition: transform 0.5s var(--swift);
   z-index: 200; overflow-y: auto;
@@ -932,30 +932,38 @@ html, body {
 @media (max-width:1100px) {
   .cat-card { height: clamp(280px,40vh,480px); }
   .card { padding: 24px 26px; }
+  .slide-title { font-size: clamp(32px,5vw,60px); }
+  .sel-title { font-size: clamp(24px, 3.5vw, 36px); }
 }
 @media (max-height:800px) {
   .home-stats { bottom: 36px; }
-  .slide-title { font-size: clamp(30px,5vw,58px); }
-  .card { padding: 22px 24px; max-height: calc(100vh - 64px); }
-  .cat-card { height: clamp(240px,35vh,400px); }
-  .challenge-item { padding: 12px 0; }
+  .slide-title { font-size: clamp(30px,4.5vw,48px); margin-bottom: 8px; }
+  .card { padding: 24px 32px; max-height: calc(100vh - 50px); margin-top: 20px; }
+  .cat-card { height: clamp(200px,30vh,300px); }
+  .challenge-item { padding: 8px 0; font-size: 14px; }
+  .btn-continue { margin-top: 16px; }
+  .btn-back { top: 16px; left: 16px; padding: 8px 16px; }
+  .sel-content { padding: clamp(16px,2vh,32px) clamp(16px,2vw,32px); }
 }
 @media (max-height:640px) {
-  .home-title { font-size: 56px; }
+  .home-title { font-size: 48px; }
   .home-stats { display: none; }
-  .cat-card { height: 200px; }
-  .card { padding: 16px 18px; }
-  .challenge-item { font-size: 13px; padding: 9px 0; }
+  .cat-card { height: 180px; }
+  .card { padding: 16px 20px; margin-top: 24px; }
+  .challenge-item { font-size: 12px; padding: 6px 0; }
+  .status-bar { display: none; }
+  .btn-back { top: 10px; left: 10px; padding: 6px 12px; }
 }
 @media (max-width:640px) {
   .cat-grid { flex-direction: column; }
-  .cat-card { height: 190px; }
+  .cat-card { height: 180px; }
   .selector-grid { flex-direction: column; }
   .contact-wrap { flex-direction: column; text-align: center; gap: 32px; }
   .contact-desc { margin: 12px auto 0; }
   .status-bar { display: none; }
   .cta-float { bottom: 16px; right: 14px; padding: 12px 22px; }
   .home-stats { display: none; }
+  .btn-back { top: 12px; left: 12px; }
 }
 @media (min-width:2400px) {
   .home-title { font-size: 220px; }
