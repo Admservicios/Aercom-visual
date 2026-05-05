@@ -1460,13 +1460,7 @@ html, body {
     <div class="panel-rule"></div>
   </div>
 
-  <div class="panel-section">
-    <div class="panel-section-label danger">
-      <i class="fa-solid fa-triangle-exclamation"></i>
-      Problema / Especificación
-    </div>
-    <ul class="panel-list danger-list" id="panelDesc"></ul>
-  </div>
+
 
   <div class="panel-section">
     <div class="panel-section-label info">
@@ -1803,7 +1797,7 @@ function openPanel(key) {
   if (!d) return;
   document.getElementById('panelDiv').textContent   = d.div || '';
   document.getElementById('panelTitle').textContent = d.t;
-  document.getElementById('panelDesc').innerHTML    = buildItems(d.d);
+
   document.getElementById('panelSol').innerHTML     = buildItems(d.s);
   document.getElementById('sidePanel').classList.add('open');
   document.getElementById('panelOverlay').classList.add('open');
