@@ -17,16 +17,16 @@
   --blue:       #0066FF;
   --blue-dark:  #0050CC;
   --blue-glow:  rgba(0,102,255,0.35);
-  --bg:         #050505;
-  --surface:    #0D0D0D;
-  --surface2:   #141414;
-  --surface3:   #1C1C1C;
-  --border:     rgba(255,255,255,0.12);
-  --border-hi:  rgba(255,255,255,0.28);
+  --bg:         #080808;
+  --surface:    #111111;
+  --surface2:   #181818;
+  --surface3:   #202020;
+  --border:     rgba(255,255,255,0.14);
+  --border-hi:  rgba(255,255,255,0.32);
   --blue-border:rgba(0,102,255,0.60);
   --text:       #FFFFFF;
-  --text-dim:   #888;
-  --text-muted: #555;
+  --text-dim:   #aaa;
+  --text-muted: #666;
   --danger:     #FF4444;
   --danger-bg:  rgba(255,68,68,0.08);
   --success:    #00DD66;
@@ -99,10 +99,10 @@ body.hovering #cursor-ring {
 }
 .slide.active {
   opacity: 1; visibility: visible; pointer-events: all;
-  animation: slideIn 0.35s var(--swift) both;
+  animation: slideIn 0.22s var(--swift) both;
 }
 @keyframes slideIn {
-  from { opacity:0; transform: translateY(12px); }
+  from { opacity:0; transform: translateY(8px); }
   to   { opacity:1; transform: translateY(0); }
 }
 
@@ -149,24 +149,11 @@ body.hovering #cursor-ring {
   overflow: hidden;
 }
 
-/* Grilla de fondo — líneas puras, sin transparencias bajas */
-#home::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-  z-index: 0;
-}
-
-/* Foto de fondo con overlay fuerte */
+/* Foto de fondo */
 #home-bg-img {
   position: absolute; inset: 0;
   background: url('./fondo.jpeg') center / cover no-repeat;
-  opacity: 0.14;
+  opacity: 0.32;
   z-index: 0;
 }
 
@@ -536,14 +523,14 @@ body.hovering #cursor-ring {
 .explorer-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover; opacity: 0.88;
+  object-fit: cover; opacity: 0.96;
 }
-/* Viñeta perimetral */
+/* Viñeta perimetral más suave */
 .explorer-slide::before {
   content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(5,5,5,0.55) 0%, transparent 22%, transparent 78%, rgba(5,5,5,0.55) 100%),
-    linear-gradient(180deg, rgba(5,5,5,0.55) 0%, transparent 18%, transparent 75%, rgba(5,5,5,0.80) 100%);
+    linear-gradient(90deg, rgba(5,5,5,0.40) 0%, transparent 20%, transparent 80%, rgba(5,5,5,0.40) 100%),
+    linear-gradient(180deg, rgba(5,5,5,0.40) 0%, transparent 15%, transparent 75%, rgba(5,5,5,0.72) 100%);
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -638,43 +625,43 @@ body.hovering #cursor-ring {
 .cat-card {
   flex: 1; position: relative; border-radius: 4px;
   overflow: hidden;
-  height: clamp(220px,34vh,440px);
+  height: clamp(280px,40vh,520px);
   cursor: none;
   border: 1.5px solid var(--border);
   transition: transform 0.3s var(--swift), border-color 0.3s;
 }
 .cat-card img {
   width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.55;
+  opacity: 0.72;
   transition: opacity 0.4s var(--ease), transform 0.5s var(--ease);
   display: block;
 }
 .cat-card::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent 40%, rgba(5,5,5,0.92) 100%);
+  background: linear-gradient(180deg, transparent 35%, rgba(5,5,5,0.88) 100%);
 }
 .cat-card:hover {
   transform: translateY(-8px);
   border-color: var(--blue-border);
 }
-.cat-card:hover img { opacity: 0.85; transform: scale(1.06); }
+.cat-card:hover img { opacity: 0.92; transform: scale(1.06); }
 
 .cat-label {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: clamp(12px,2vw,20px) clamp(14px,2.5vw,24px);
+  padding: clamp(16px,2.5vw,28px) clamp(18px,2.8vw,28px);
   z-index: 5;
   border-top: 2px solid transparent;
   transition: border-color 0.25s, background 0.25s;
 }
-.cat-card:hover .cat-label { border-color: var(--blue); background: rgba(0,102,255,0.08); }
+.cat-card:hover .cat-label { border-color: var(--blue); background: rgba(0,102,255,0.10); }
 .cat-label h4 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(14px,1.6vw,20px);
+  font-size: clamp(18px,2.2vw,28px);
   text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700;
-  color: #fff; margin-bottom: 4px;
+  color: #fff; margin-bottom: 5px;
 }
 .cat-label p {
-  font-size: 11px; color: var(--text-muted); letter-spacing: 0.06em;
+  font-size: clamp(11px,1.1vw,13px); color: var(--text-dim); letter-spacing: 0.06em;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -902,20 +889,20 @@ body.hovering #cursor-ring {
    RESPONSIVE
 ════════════════════════════════════════════════════════════ */
 @media (max-width:1100px) {
-  .cat-card { height: clamp(200px,30vh,360px); }
+  .cat-card { height: clamp(240px,36vh,420px); }
   .card { padding: 24px 26px; }
 }
 @media (max-height:800px) {
   .home-stats { bottom: 36px; }
   .slide-title { font-size: clamp(30px,5vw,58px); }
   .card { padding: 22px 24px; max-height: calc(100vh - 64px); }
-  .cat-card { height: clamp(180px,28vh,320px); }
+  .cat-card { height: clamp(220px,32vh,360px); }
   .challenge-item { padding: 12px 0; }
 }
 @media (max-height:640px) {
   .home-title { font-size: 56px; }
   .home-stats { display: none; }
-  .cat-card { height: 160px; }
+  .cat-card { height: 180px; }
   .card { padding: 16px 18px; }
   .challenge-item { font-size: 13px; padding: 9px 0; }
 }
@@ -955,10 +942,6 @@ body.hovering #cursor-ring {
   <div id="home-bg-img"></div>
 
   <div class="home-content">
-    <div class="home-eyebrow">
-      <div class="home-eyebrow-dot"></div>
-      Presentación Industrial · 2025
-    </div>
     <h1 class="home-title">AERCOM</h1>
     <div class="home-rule">
       <div class="home-rule-line"></div>
@@ -974,7 +957,7 @@ body.hovering #cursor-ring {
 
   <div class="home-stats">
     <div class="stat-item">
-      <span class="stat-num">+20<span>años</span></span>
+      <span class="stat-num">+25<span>años</span></span>
       <span class="stat-label">Experiencia</span>
     </div>
     <div class="stat-sep"></div>
@@ -1043,12 +1026,12 @@ body.hovering #cursor-ring {
      GRUPOS ELECTRÓGENOS — INTRO
 ───────────────────────────────────── -->
 <div class="slide" id="ge-intro"
-     style="background: linear-gradient(rgba(5,5,5,.55),rgba(5,5,5,.88)), url('./grupoelectrogeno.jpeg') center/cover;">
+     style="background: linear-gradient(rgba(5,5,5,.45),rgba(5,5,5,.82)), url('./grupoelectrogeno.jpeg') center/cover;">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="card" style="text-align:center; align-items:center;">
-    <div class="eyebrow">División Potencia</div>
-    <h2 class="slide-title">Grupo<br>Electrógeno</h2>
-    <p class="slide-sub">¿Su operación está preparada para evitar paradas críticas por falta de energía?</p>
+  <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+    <div class="eyebrow" style="justify-content:center;">División Potencia</div>
+    <h2 class="slide-title" style="text-align:center;">Grupo<br>Electrógeno</h2>
+    <p class="slide-sub" style="text-align:center; margin-left:auto; margin-right:auto;">¿Su operación está preparada para evitar paradas críticas por falta de energía?</p>
     <button class="btn-continue" onclick="nav('ge-diagnostico')">
       <span class="btn-continue-label">Diagnóstico</span>
       <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
@@ -1060,7 +1043,7 @@ body.hovering #cursor-ring {
      GRUPOS ELECTRÓGENOS — DESAFÍOS
 ───────────────────────────────────── -->
 <div class="slide" id="ge-diagnostico"
-     style="background: linear-gradient(rgba(5,5,5,.92),rgba(5,5,5,.97)), url('./grupoelectrogeno.jpeg') center/cover;">
+     style="background: linear-gradient(rgba(5,5,5,.82),rgba(5,5,5,.92)), url('./grupoelectrogeno.jpeg') center/cover;">
   <button class="btn-back" onclick="nav('ge-intro')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
     <div class="eyebrow">Diagnóstico Operativo</div>
@@ -1101,7 +1084,7 @@ body.hovering #cursor-ring {
 
   <div class="hotspot" style="top:55%;left:34%;" onclick="openPanel('ge-cabina')">
     <div class="hs-label">Cabina</div>
-    <div class="hs-btn"><i class="fa-solid fa-plus"></i></div>
+    <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
   </div>
   <div class="hotspot" style="top:43%;left:56%;" onclick="openPanel('ge-motor')">
     <div class="hs-label">Motor</div>
@@ -1121,12 +1104,12 @@ body.hovering #cursor-ring {
      COMPRESORES — INTRO
 ───────────────────────────────────── -->
 <div class="slide" id="comp-intro"
-     style="background: linear-gradient(rgba(5,5,5,.50),rgba(5,5,5,.86)), url('./electrocompresor.jpg') center/cover;">
+     style="background: linear-gradient(rgba(5,5,5,.40),rgba(5,5,5,.80)), url('./electrocompresor.jpg') center/cover;">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="card" style="text-align:center; align-items:center;">
-    <div class="eyebrow">División Aire Comprimido</div>
-    <h2 class="slide-title">Compresores<br>de Aire</h2>
-    <p class="slide-sub">¿Tu línea de aire está preparada para sostener la producción sin interrupciones?</p>
+  <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+    <div class="eyebrow" style="justify-content:center;">División Aire Comprimido</div>
+    <h2 class="slide-title" style="text-align:center;">Compresores<br>de Aire</h2>
+    <p class="slide-sub" style="text-align:center; margin-left:auto; margin-right:auto;">¿Tu línea de aire está preparada para sostener la producción sin interrupciones?</p>
     <button class="btn-continue" onclick="nav('comp-diagnostico')">
       <span class="btn-continue-label">Continuar</span>
       <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
@@ -1138,7 +1121,7 @@ body.hovering #cursor-ring {
      COMPRESORES — DESAFÍOS
 ───────────────────────────────────── -->
 <div class="slide" id="comp-diagnostico"
-     style="background: linear-gradient(rgba(5,5,5,.92),rgba(5,5,5,.97)), url('./electrocompresor.jpg') center/cover;">
+     style="background: linear-gradient(rgba(5,5,5,.82),rgba(5,5,5,.92)), url('./electrocompresor.jpg') center/cover;">
   <button class="btn-back" onclick="nav('comp-intro')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
     <div class="eyebrow">Diagnóstico</div>
@@ -1444,8 +1427,8 @@ document.addEventListener('mousemove', e => {
 (function animateCursor() {
   curDot.style.left  = mx + 'px';
   curDot.style.top   = my + 'px';
-  rx += (mx - rx) * 0.18;
-  ry += (my - ry) * 0.18;
+  rx += (mx - rx) * 0.26;
+  ry += (my - ry) * 0.26;
   curRing.style.left = rx + 'px';
   curRing.style.top  = ry + 'px';
   requestAnimationFrame(animateCursor);
