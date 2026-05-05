@@ -502,46 +502,51 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   ─── SLIDE: EXPLORADOR — Layout tarjeta centrada
+   ─── SLIDE: EXPLORADOR — Tarjeta grande estilo cat-card
 ════════════════════════════════════════════════════════════ */
 .explorer-slide {
-  padding: 0;
+  padding: 64px 0 36px; /* top: espacio para btn-back | bottom: status bar */
   background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Contenedor tarjeta — ocupa casi toda la pantalla */
+/* Tarjeta principal */
 .explorer-wrap {
   position: relative;
-  width: 94vw;
-  height: calc(100vh - 36px); /* deja espacio para status bar */
-  max-width: 1400px;
-  border-radius: 6px;
+  width: 92vw;
+  max-width: 1360px;
+  height: 100%;
+  border-radius: 8px;
   overflow: hidden;
   border: 2px solid var(--border-hi);
+  background: #050505;
 }
 
-/* Imagen dentro de la tarjeta — cover perfecta */
+/* Imagen — cover perfecta, siempre llena la tarjeta */
 .explorer-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center 40%;
   opacity: 1;
   display: block;
 }
 
-/* Viñeta suave solo en bordes */
+/* Degradé solo en la franja inferior — igual que foto 3 */
 .explorer-wrap::after {
   content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background:
-    linear-gradient(90deg, rgba(5,5,5,0.55) 0%, transparent 18%, transparent 82%, rgba(5,5,5,0.55) 100%),
-    linear-gradient(180deg, rgba(5,5,5,0.45) 0%, transparent 14%, transparent 76%, rgba(5,5,5,0.80) 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 55%,
+    rgba(5,5,5,0.65) 75%,
+    rgba(5,5,5,0.95) 100%
+  );
 }
 
-/* Quitar el ::before del slide en modo tarjeta */
+/* Sin ::before en explorer-slide */
 .explorer-slide::before { display: none; }
 
 /* ════════════════════════════════════════════════════════════
@@ -606,13 +611,13 @@ html, body {
 .hs-label { display: none; }
 
 /* ════════════════════════════════════════════════════════════
-   CTA FLOTANTE — dentro de explorer-wrap
+   CTA FLOTANTE — franja inferior derecha de la tarjeta
 ════════════════════════════════════════════════════════════ */
 .cta-float {
   position: absolute; z-index: 20;
-  bottom: clamp(20px,4vh,44px); right: clamp(20px,3vw,40px);
+  bottom: clamp(24px,4.5vh,48px); right: clamp(24px,3vw,44px);
   display: inline-flex; align-items: center; gap: 12px;
-  padding: clamp(13px,1.8vh,18px) clamp(26px,3vw,44px);
+  padding: clamp(14px,2vh,20px) clamp(28px,3.5vw,48px);
   background: var(--blue); color: #fff;
   border: 2px solid var(--blue); border-radius: 3px;
   font-family: 'Barlow Condensed', sans-serif;
@@ -623,25 +628,25 @@ html, body {
 }
 .cta-float:hover {
   background: var(--blue-dark);
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0,102,255,0.40);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 16px 48px rgba(0,102,255,0.40);
 }
 .cta-float:active { transform: scale(0.97); }
 
-/* Etiqueta de slide en explorador — dentro de explorer-wrap */
+/* Etiqueta inferior — dentro de explorer-wrap, sobre el degradé */
 .explorer-badge {
   position: absolute; z-index: 15;
-  bottom: clamp(20px,4vh,44px); left: clamp(20px,3vw,40px);
-  display: flex; flex-direction: column; gap: 3px;
+  bottom: clamp(60px,9vh,90px); left: clamp(24px,3vw,44px);
+  display: flex; flex-direction: column; gap: 4px;
   pointer-events: none;
 }
 .explorer-badge-div {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.35em;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
   text-transform: uppercase; color: var(--blue);
 }
 .explorer-badge-name {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(24px,3.5vw,40px); font-weight: 800;
+  font-size: clamp(28px,4vw,52px); font-weight: 800;
   text-transform: uppercase; color: #fff; line-height: 1;
 }
 
