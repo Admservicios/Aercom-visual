@@ -502,47 +502,53 @@ html, body {
 }
 
 /* ════════════════════════════════════════════════════════════
-   ─── SLIDE: EXPLORADOR — Tarjeta grande estilo cat-card
+   ─── SLIDE: EXPLORADOR — Tarjeta que respeta el ratio de la foto
 ════════════════════════════════════════════════════════════ */
 .explorer-slide {
-  padding: 64px 0 36px; /* top: espacio para btn-back | bottom: status bar */
+  padding: 60px 16px 36px; /* top: btn-back | bottom: status bar */
   background: var(--bg);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Tarjeta principal */
+/* Tarjeta — se dimensiona según el ratio de la imagen */
 .explorer-wrap {
   position: relative;
-  width: 92vw;
-  max-width: 1360px;
-  height: 100%;
+  /* Ancho máximo que entre en pantalla con sus márgenes */
+  max-width: min(96vw, 1360px);
+  /* Alto máximo disponible después del padding del slide */
+  max-height: calc(100vh - 100px);
+  width: auto;
+  height: auto;
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid var(--border-hi);
-  background: #050505;
-}
-
-/* Imagen — cover perfecta, siempre llena la tarjeta */
-.explorer-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center 40%;
-  opacity: 1;
+  background: #1a1a1a;
+  /* La imagen dicta el tamaño — display block para que el wrapper lo envuelva */
   display: block;
+  line-height: 0;
 }
 
-/* Degradé solo en la franja inferior — igual que foto 3 */
+/* Imagen — tamaño natural respetando el wrapper */
+.explorer-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: calc(100vh - 100px);
+  object-fit: contain;
+  opacity: 1;
+}
+
+/* Degradé solo en la franja inferior */
 .explorer-wrap::after {
   content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background: linear-gradient(
     180deg,
     transparent 0%,
-    transparent 55%,
-    rgba(5,5,5,0.65) 75%,
-    rgba(5,5,5,0.95) 100%
+    transparent 52%,
+    rgba(5,5,5,0.55) 72%,
+    rgba(5,5,5,0.92) 100%
   );
 }
 
