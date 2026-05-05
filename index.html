@@ -34,9 +34,10 @@
         --success:       #22dd66;
         --ease:          cubic-bezier(0.16, 1, 0.3, 1);
         --spring:        cubic-bezier(0.34, 1.56, 0.64, 1);
-        --t1: 0.20s;
-        --t2: 0.42s;
-        --t3: 0.65s;
+        /* FIX #5: tiempos reducidos para tablet de baja gama */
+        --t1: 0.15s;
+        --t2: 0.28s;
+        --t3: 0.45s;
     }
 
     /* ================================================================ RESET */
@@ -83,11 +84,12 @@
     }
     .slide.active {
         opacity: 1; visibility: visible; pointer-events: all;
-        animation: sIn 0.45s var(--ease) both;
+        /* FIX #5: animación más corta y sin scale para reducir carga GPU */
+        animation: sIn 0.28s var(--ease) both;
     }
     @keyframes sIn {
-        from { opacity:0; transform: scale(1.01) translateY(4px); }
-        to   { opacity:1; transform: scale(1) translateY(0); }
+        from { opacity:0; transform: translateY(5px); }
+        to   { opacity:1; transform: translateY(0); }
     }
 
     /* ================================================================ BOTÓN VOLVER */
@@ -175,11 +177,10 @@
     .menu-bg {
         position: absolute; inset: 0;
         background-size: cover; background-position: center;
-        opacity: 0.40;   /* base: sin ser invisible */
-        will-change: transform, opacity;
-        transition: opacity var(--t3) var(--ease), transform var(--t3) var(--ease);
+        /* FIX #2: opacidad fija, sin cambio en hover → imagen siempre igual */
+        opacity: 0.62;
     }
-    .menu-item:hover .menu-bg { opacity: 0.75; transform: scale(1.04); }
+    /* FIX #2: sin hover sobre imagen — no scale, no opacity change */
 
     /* Gradiente inferior fuerte y sólido */
     .menu-item::before {
@@ -257,6 +258,7 @@
     .slide-sub {
         font-size: clamp(14px,1.8vw,20px);
         color: var(--text-dim); font-weight: 300; max-width: 520px; line-height: 1.55;
+        text-align: center; margin-left: auto; margin-right: auto;
     }
 
     /* ================================================================ CHALLENGE LIST */
@@ -306,9 +308,10 @@
     }
     .cat-card {
         flex: 1; position: relative; border-radius: 18px; overflow: hidden;
-        height: clamp(190px,28vh,400px); cursor: none;
+        /* FIX #3: altura aumentada — mínimo 240px, 38vh en tablet */
+        height: clamp(240px,38vh,480px); cursor: none;
         background: var(--surface-2);
-        border: 2px solid var(--border);   /* borde sólido */
+        border: 2px solid var(--border);
         transform: translate3d(0,0,0);
         will-change: transform, border-color;
         transition: transform var(--t2) var(--ease), border-color var(--t2);
@@ -458,10 +461,10 @@
 
     .side-panel {
         position: fixed; top: 0; right: 0;
-        width: min(560px, 93vw); height: 100%;
+        width: min(520px, 93vw); height: 100%;
         background: var(--panel-bg);
-        border-left: 3px solid var(--border-blue);   /* línea azul sólida */
-        padding: clamp(38px,5.5vh,80px) clamp(26px,4vw,58px);
+        border-left: 3px solid var(--border-blue);
+        padding: clamp(28px,4vh,60px) clamp(22px,3.5vw,44px);
         transform: translateX(100%);
         will-change: transform;
         transition: transform 0.55s var(--ease);
@@ -471,48 +474,45 @@
 
     #pTitle {
         font-family: 'Rajdhani', sans-serif;
-        font-size: clamp(24px,3.5vw,38px); font-weight: 700; line-height: 1.1; color: #fff;
+        font-size: clamp(22px,3.2vw,34px); font-weight: 700; line-height: 1.1; color: #fff;
+        text-transform: uppercase; letter-spacing: 0.04em;
     }
-    .panel-line { width: 40px; height: 3px; background: var(--accent); margin: 16px 0 24px; border-radius: 2px; }
+    .panel-line { width: 40px; height: 3px; background: var(--accent); margin: 12px 0 18px; border-radius: 2px; }
 
-    .ptag {
-        display: inline-block; padding: 5px 13px; border-radius: 999px;
-        font-size: 10px; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase; margin-bottom: 10px;
+    /* FIX #4: sección con encabezado de bloque sólido */
+    .panel-section { margin-bottom: 18px; }
+    .panel-section-head {
+        display: flex; align-items: center; gap: 10px;
+        padding: 9px 14px; border-radius: 8px;
+        font-size: 10px; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+        margin-bottom: 0;
     }
-    .ptag.danger { background: var(--danger-bg); color: var(--danger-txt); border: 2px solid var(--danger-txt); }
-    .ptag.info   { background: var(--info-bg);   color: var(--info-txt);   border: 2px solid var(--info-txt); }
+    .panel-section-head.danger { background: var(--danger-bg); color: var(--danger-txt); border-left: 3px solid var(--danger-txt); border-radius: 0 8px 8px 0; }
+    .panel-section-head.info   { background: var(--info-bg);   color: var(--info-txt);   border-left: 3px solid var(--info-txt);   border-radius: 0 8px 8px 0; }
 
-    /* ── Panel: contenido en lista con bullets azules ── */
-    #pDesc, #pSol {
-        font-size: clamp(13px,1.7vw,17px); line-height: 1.75;
-        margin-bottom: 24px;
-    }
-    #pDesc { color: #cccccc; font-weight: 300; }
-    #pSol  { color: var(--text); font-weight: 400; }
-
-    #pDesc ul, #pSol ul {
-        list-style: none; padding: 0; margin: 0;
-    }
-    #pDesc ul li, #pSol ul li {
-        padding: 5px 0 5px 20px; position: relative;
+    /* FIX #4: ítems como filas tipo tabla, no lista con bullets */
+    .panel-items { margin: 0; padding: 0; list-style: none; }
+    .panel-items li {
+        display: flex; align-items: flex-start; gap: 10px;
+        padding: 9px 0 9px 4px;
         border-bottom: 1px solid rgba(255,255,255,0.10);
-        font-size: clamp(13px,1.65vw,16px);
+        font-size: clamp(12px,1.55vw,15px); line-height: 1.55;
+        color: #fff; font-weight: 400;
     }
-    #pDesc ul li::before {
-        content: '▸'; position: absolute; left: 0;
-        color: var(--danger-txt); font-size: 11px; top: 7px;
+    .panel-items li:last-child { border-bottom: none; }
+    .panel-items li .pi-dot {
+        flex-shrink: 0; margin-top: 5px;
+        width: 6px; height: 6px; border-radius: 50%;
+        background: var(--accent);
     }
-    #pSol ul li::before {
-        content: '▸'; position: absolute; left: 0;
-        color: var(--info-txt); font-size: 11px; top: 7px;
-    }
+    .panel-items.danger-list li .pi-dot { background: var(--danger-txt); }
 
     .btn-close {
-        width: 100%; margin-top: 28px;
-        padding: clamp(12px,1.7vh,17px);
+        width: 100%; margin-top: 20px;
+        padding: clamp(11px,1.6vh,16px);
         background: var(--surface-2);
         border: 2px solid var(--border); color: var(--text);
-        border-radius: 13px; cursor: none;
+        border-radius: 10px; cursor: none;
         font-family: 'DM Sans', sans-serif; font-weight: 700;
         font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
         will-change: transform;
@@ -592,7 +592,7 @@
     /* ================================================================ RESPONSIVE TABLET */
     /* Tablet landscape ≤ 1180px */
     @media (max-width:1180px) {
-        .cat-card { height: clamp(170px,26vh,320px); }
+        .cat-card { height: clamp(210px,32vh,380px); }
         .card { padding: 22px 24px; }
     }
     /* Altura baja ≤ 820px (tablet típica) */
@@ -600,7 +600,8 @@
         .home-title  { font-size: clamp(46px,9vw,100px); }
         .slide-title { font-size: clamp(26px,4.5vw,52px); }
         .card { max-height: calc(100vh - 72px); }
-        .cat-card { height: clamp(150px,24vh,280px); }
+        /* FIX #3: en tablet baja se mantiene altura razonable */
+        .cat-card { height: clamp(200px,30vh,340px); }
         .challenge-item { padding: 9px 0; }
     }
     /* Muy baja ≤ 620px */
@@ -608,7 +609,7 @@
         .home-title  { font-size: 42px; }
         .slide-title { font-size: 28px; }
         .cat-grid    { gap: 8px; }
-        .cat-card    { height: 140px; }
+        .cat-card    { height: 170px; }
         .card        { padding: 16px 18px; max-height: calc(100vh - 54px); }
         .challenge-item { font-size: 12px; padding: 7px 0; }
         .btn-nav     { margin-top: 12px; }
@@ -616,7 +617,7 @@
     /* Mobile ≤ 640px */
     @media (max-width:640px) {
         .cat-grid   { flex-direction:column; }
-        .cat-card   { height:170px; }
+        .cat-card   { height:200px; }
         .menu-item h3 { font-size:18px; }
         .contact-wrap { flex-direction:column; text-align:center; }
         .status-bar { display:none; }
@@ -626,7 +627,7 @@
     @media (min-width:2560px) {
         .home-title  { font-size:185px; }
         .slide-title { font-size:90px; }
-        .cat-card    { height:520px; }
+        .cat-card    { height:560px; }
     }
     </style>
 </head>
@@ -939,14 +940,23 @@
 <div class="side-panel" id="panel">
     <h3 id="pTitle">—</h3>
     <div class="panel-line"></div>
-    <div style="margin-bottom:22px;">
-        <div class="ptag danger" id="pTagD">Problema / Especificación</div>
-        <div id="pDesc"></div>
+
+    <div class="panel-section">
+        <div class="panel-section-head danger">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            Problema / Especificación
+        </div>
+        <ul class="panel-items danger-list" id="pDesc"></ul>
     </div>
-    <div>
-        <div class="ptag info" id="pTagS">Ventaja Aercom</div>
-        <div id="pSol"></div>
+
+    <div class="panel-section">
+        <div class="panel-section-head info">
+            <i class="fa-solid fa-circle-check"></i>
+            Ventaja Aercom
+        </div>
+        <ul class="panel-items" id="pSol"></ul>
     </div>
+
     <button class="btn-close" onclick="closePanel()">
         <i class="fa-solid fa-xmark" style="margin-right:7px;"></i>Cerrar
     </button>
@@ -983,6 +993,7 @@
 <script>
 /* ================================================================
    CURSOR — RAF loop, 0 layout thrash
+   FIX #5: eliminado will-change dinámico, cursor más liviano
    ================================================================ */
 const dot  = document.getElementById('cur-dot');
 const ring = document.getElementById('cur-ring');
@@ -991,11 +1002,11 @@ let mx=0,my=0, rx=0,ry=0, raf=null;
 document.addEventListener('mousemove', e => {
     mx=e.clientX; my=e.clientY;
     if(!raf) raf=requestAnimationFrame(cursorLoop);
-});
+},{passive:true});
 function cursorLoop() {
     raf=null;
     dot.style.left=mx+'px'; dot.style.top=my+'px';
-    rx+=(mx-rx)*0.16; ry+=(my-ry)*0.16;
+    rx+=(mx-rx)*0.22; ry+=(my-ry)*0.22;  /* FIX #5: lag reducido = más responsivo */
     ring.style.left=rx+'px'; ring.style.top=ry+'px';
     raf=requestAnimationFrame(cursorLoop);
 }
@@ -1005,6 +1016,7 @@ document.addEventListener('mouseenter',()=>{dot.style.opacity='1';ring.style.opa
 
 /* ================================================================
    NAVEGACIÓN
+   FIX #5: animación de entrada más corta (0.35s)
    ================================================================ */
 function nav(id) {
     const prev = document.querySelector('.slide.active');
@@ -1018,39 +1030,32 @@ function nav(id) {
 
 /* ================================================================
    BASE DE DATOS — const info
-   Estructura de cada entrada:
-     t  = título del componente
-     d  = array de strings → problema / especificación (lista roja)
-     s  = array de strings → ventaja Aercom / solución (lista azul)
-   Para agregar un hotspot nuevo:
-     1. Crear key única, ej: 'mc-separador'
-     2. Completar t, d[], s[]
-     3. En el HTML: onclick="openPanel('mc-separador')"
+   t  = título | d[] = problemas (rojo) | s[] = ventajas (azul)
    ================================================================ */
 const info = {
 
-    /* ── GRUPOS ELECTRÓGENOS ─────────────────────────────────────────── */
+    /* ── GRUPOS ELECTRÓGENOS ─────────────────── */
     'ge-cabina': {
         t: 'Cabina',
         d: [
-            'Exposición a intemperie e ingreso de agua y polvo al equipo',
-            'Alto nivel de ruido en entornos residenciales o semicerrados',
-            'Dificultad de acceso para operación y mantenimiento',
+            'Exposición a intemperie e ingreso de agua y polvo',
+            'Alto nivel de ruido en entornos residenciales',
+            'Difícil acceso para operación y mantenimiento',
         ],
         s: [
-            'Cabina insonorizada para uso residencial, apta intemperie',
-            'Batea antiderrame y tanque de combustible extraíble para fácil limpieza',
+            'Cabina insonorizada apta intemperie con batea antiderrame',
+            'Tanque de combustible extraíble para fácil limpieza',
             'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente',
-            'Carga de combustible externa con reloj analógico de control',
-            'Cáncamos de izaje para grúa y guías para autoelevador (según modelo)',
+            'Carga externa con reloj analógico de control',
+            'Cáncamos de izaje y guías para autoelevador (según modelo)',
         ]
     },
     'ge-motor': {
         t: 'Motor',
         d: [
-            'Fallas por combustible contaminado o lubricantes fuera de especificación',
+            'Fallas por lubricantes o combustible fuera de especificación',
             'Paradas inesperadas por falta de stock de repuestos',
-            'Incompatibilidad con redes de gas natural o GLP',
+            'Incompatibilidad con gas natural o GLP',
         ],
         s: [
             'Motores Baudouin / Weichai: Diésel, Gas Natural o GLP',
@@ -1063,79 +1068,79 @@ const info = {
         t: 'Alternador',
         d: [
             'Pérdida de aislamiento por partículas conductoras',
-            'Tensión inestable que daña equipos sensibles conectados',
-            'Incompatibilidad con cargas monofásicas en redes trifásicas',
+            'Tensión inestable que daña equipos sensibles',
+            'Incompatibilidad con cargas monofásicas en red trifásica',
         ],
         s: [
             'Alternadores Leroy Somer / Weichai de alta fiabilidad',
-            'Trifásico 3×380 V — 50 Hz con neutro accesible para cargas monofásicas 220 V',
+            'Trifásico 3×380 V — 50 Hz, neutro para cargas monofásicas 220 V',
             'Sin escobillas — excitación por diodos rotantes, mínimo mantenimiento',
             'Control de tensión por placa AVR integrada',
             'Aptos para paralelismo (según modelo)',
         ]
     },
 
-    /* ── MOTOCOMPRESORES DIÉSEL ──────────────────────────────────────── */
+    /* ── MOTOCOMPRESORES DIÉSEL ──────────────── */
     'mc-motor': {
         t: 'Motor Diésel Kubota',
         d: [
             'Dependencia de red eléctrica en zonas remotas u obras sin suministro',
-            'Alta demanda de potencia en condiciones de trabajo continuo',
+            'Alta demanda de potencia en trabajo continuo',
         ],
         s: [
-            'Motor Kubota de reconocida fiabilidad en aplicaciones industriales exigentes',
-            'Tanque de combustible de gran capacidad para largas jornadas sin reposición',
-            'Ideal para todo tipo de obras: minería, oil & gas, construcción',
+            'Motor Kubota, fiabilidad industrial reconocida',
+            'Gran tanque de combustible para largas jornadas sin reposición',
+            'Ideal para minería, oil & gas y construcción',
         ]
     },
     'mc-unidad': {
         t: 'Unidad Compresora',
         d: [
-            'Variedad de requerimientos de caudal y presión según la aplicación',
-            'Necesidad de portabilidad en terrenos irregulares y espacios reducidos',
+            'Variedad de requerimientos de caudal y presión',
+            'Necesidad de portabilidad en terrenos irregulares',
         ],
         s: [
-            'Unidad compresora de fabricación europea: alta eficiencia y durabilidad',
+            'Unidad compresora de fabricación europea: alta eficiencia',
             'Modelos de diferente caudal y presión para cada necesidad',
-            'Eje simple y lanza de altura regulable para fácil maniobra en obra',
+            'Eje simple y lanza de altura regulable para fácil maniobra',
         ]
     },
     'mc-panel': {
         t: 'Panel de Control',
         d: [
-            'Dificultad para monitorear parámetros de operación en campo',
-            'Falta de protecciones que prevengan daños al equipo',
+            'Difícil monitoreo de parámetros de operación en campo',
+            'Sin protecciones que prevengan daños al equipo',
         ],
         s: [
-            'Panel de instrumentación completo: presión, temperatura, horario de uso',
+            'Panel completo: presión, temperatura y horario de uso',
             'Protecciones automáticas ante sobrecalentamiento y baja presión de aceite',
-            'Cabina para uso a la intemperie con acceso seguro al panel',
+            'Cabina para intemperie con acceso seguro al panel',
         ]
     },
 
-    /* ── ELECTROCOMPRESORES ──────────────────────────────────────────── */
+    /* ── ELECTROCOMPRESORES ──────────────────── */
     'ec-motor': {
         t: 'Motor Eléctrico',
         d: [
-            'Alto consumo eléctrico con compresores de velocidad fija en ciclos variables',
-            'Sobrecalentamiento y desgaste acelerado en arranques directos frecuentes',
+            'Alto consumo con compresores de velocidad fija en ciclos variables',
+            'Desgaste acelerado por arranques directos frecuentes',
         ],
         s: [
-            'Motores con acople directo o a correas según el modelo',
-            'Disponibles con variador de frecuencia (VSD) para máxima eficiencia energética',
-            'Tecnología alemana homologada en la Unión Europea por altos estándares de calidad',
+            'Acople directo o a correas según el modelo',
+            'Velocidad fija o variable (VSD) para máxima eficiencia energética',
+            'Tecnología alemana homologada en la Unión Europea',
         ]
     },
     'ec-tornillo': {
         t: 'Cabezal de Tornillo',
         d: [
-            'Contaminación del aire con aceite en procesos alimenticios o farmacéuticos',
+            'Contaminación del aire en procesos alimenticios o farmacéuticos',
             'Ruido excesivo que limita la instalación en espacios confinados',
         ],
         s: [
-            'Lubricados por aceite (Oil injected) o libres de aceite (Oil free)',
-            'Aplicaciones industriales generales, alimenticias, medicinales y farmacéuticas',
-            'Cabinas de bajo nivel sonoro y volumen reducido para optimizar espacios',
+            'Lubricados (Oil injected) o libres de aceite (Oil free)',
+            'Apto para industria general, alimentaria, medicinal y farmacéutica',
+            'Cabinas de bajo nivel sonoro para optimizar espacios',
             'Modelos específicos para mesas de corte láser',
         ]
     },
@@ -1143,66 +1148,65 @@ const info = {
         t: 'Sistema y Tecnología',
         d: [
             'Rango limitado de caudal/presión que no cubre todos los requerimientos',
-            'Stock de repuestos incierto que genera paradas prolongadas',
+            'Stock de repuestos incierto y paradas prolongadas',
         ],
         s: [
-            'Velocidad fija o variable (VSD) — amplia gama de caudal y presión',
+            'Amplia gama de caudal y presión para todos los requerimientos',
             'Modelos Compact: tanque y secador integrados en la misma unidad',
-            'Diseño y componentes para mayor eficiencia energética certificada',
+            'Mayor eficiencia energética con diseño certificado',
             'Stock permanente de repuestos en Argentina',
         ]
     },
 
-    /* ── TRATAMIENTO DE AIRE ─────────────────────────────────────────── */
+    /* ── TRATAMIENTO DE AIRE ─────────────────── */
     'secadora': {
         t: 'Secadores de Aire',
         d: [
-            'Presencia de condensados que daña herramientas neumáticas y válvulas',
+            'Condensados que dañan herramientas neumáticas y válvulas',
             'Corrosión interna en tuberías por humedad sin tratar',
             'Procesos que exigen calidad de aire certificada (ISO 8573-1)',
         ],
         s: [
             'Frigoríficos (+3 °C) o por adsorción (−40 °C) según el proceso',
-            'Calidad de aire certificable según ISO 8573-1 para cualquier aplicación',
+            'Calidad de aire certificable según ISO 8573-1',
             'Adaptables a todos los procesos industriales o especiales',
             'Gama completa para todos los modelos de compresores',
-            'Diseño para factores ambientales exigentes — muy bajo mantenimiento',
-            'Se proveen con filtros de línea para optimizar el rendimiento',
+            'Muy bajo mantenimiento — con filtros de línea integrados',
         ]
     },
 
-    /* ── SHELTER INDUSTRIAL ──────────────────────────────────────────── */
+    /* ── SHELTER INDUSTRIAL ──────────────────── */
     'shelter': {
         t: 'Shelter Industrial',
         d: [
             'Altos costos de obra civil para albergar equipos en campo',
-            'Exposición a condiciones ambientales adversas (polvo, agua, temperatura extrema)',
+            'Exposición a condiciones ambientales adversas',
             'Largos plazos de instalación que demoran el inicio operativo',
         ],
         s: [
-            'Uso industrial: minería, campos petroleros y de gas — entornos exigentes',
-            'Diseño absolutamente personalizado para cada requerimiento del cliente',
+            'Uso en minería, campos petroleros y de gas',
+            'Diseño completamente personalizado para cada cliente',
             'Contenedores normalizados con equipamiento adicional según el sitio',
-            'Se lo equipa con máquinas y sistemas para el proceso de destino',
-            'Cómodos accesos para operación y mantenimiento del sistema completo',
+            'Equipado con máquinas y sistemas para el proceso de destino',
+            'Cómodos accesos para operación y mantenimiento',
         ]
     },
 
-    /* ── OTROS EQUIPOS ───────────────────────────────────────────────── */
+    /* ── OTROS EQUIPOS ───────────────────────── */
     'torre': {
         t: 'Torres de Luz',
         d: [
-            'Falta de visibilidad en turnos nocturnos, emergencias o áreas remotas',
-            'Riesgos laborales y baja productividad sin iluminación adecuada',
+            'Falta de visibilidad en turnos nocturnos o áreas remotas',
+            'Riesgos laborales y baja productividad sin iluminación',
         ],
         s: [
-            'Distintos modelos adaptables a diferentes necesidades operativas',
+            'Distintos modelos para diferentes necesidades operativas',
             'Luminarias LED de largo alcance y gran poder lumínico',
-            'Motor diésel con gran autonomía y bajo consumo',
-            'Alternador monofásico 220 V — 50 Hz con tomacorrientes para herramientas manuales',
-            'Mástil de gran altura — giro 360° — izaje manual o hidráulico',
-            'Montado sobre eje y lanza de remolque para fácil traslado en obra',
-            'Patas desplegables para equilibrio en condiciones climáticas adversas',
+            'Motor diésel — gran autonomía y bajo consumo',
+            'Alternador 220 V / 50 Hz con tomacorrientes para herramientas',
+            'Mástil de gran altura, giro 360°, izaje manual o hidráulico',
+            'Lanza de remolque para fácil traslado en obra',
+            'Patas desplegables para equilibrio en condiciones adversas',
         ]
     },
     'vru': {
@@ -1220,12 +1224,13 @@ const info = {
 };
 
 /* ================================================================
-   ABRIR / CERRAR PANEL
-   Renderiza listas HTML desde arrays del objeto info
+   FIX #4: buildList — genera <li> con punto de color, limpio y legible
    ================================================================ */
 function buildList(arr) {
-    if (!arr || !arr.length) return '<p style="color:#888">—</p>';
-    return '<ul>' + arr.map(item => `<li>${item}</li>`).join('') + '</ul>';
+    if (!arr || !arr.length) return '';
+    return arr.map(item =>
+        `<li><span class="pi-dot"></span><span>${item}</span></li>`
+    ).join('');
 }
 
 function openPanel(key) {
@@ -1274,7 +1279,7 @@ bindHover();
 .forEach(s=>{const i=new Image();i.src=s;});
 
 /* ================================================================
-   SWIPE TÁCTIL — cerrar panel deslizando derecha
+   SWIPE TÁCTIL
    ================================================================ */
 let tx=0;
 document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
