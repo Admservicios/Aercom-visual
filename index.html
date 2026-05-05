@@ -510,7 +510,10 @@ html, body {
 .explorer-img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover; opacity: 0.96;
+  object-fit: contain;
+  object-position: center center;
+  opacity: 0.96;
+  background: #0a0a0a;
 }
 /* Viñeta perimetral más suave */
 .explorer-slide::before {
@@ -630,7 +633,7 @@ html, body {
 .cat-card {
   flex: 1; position: relative; border-radius: 4px;
   overflow: hidden;
-  height: clamp(280px,40vh,520px);
+  height: clamp(320px,46vh,580px);
   cursor: none;
   border: 1.5px solid var(--border);
   transition: transform 0.3s var(--swift), border-color 0.3s;
@@ -894,20 +897,20 @@ html, body {
    RESPONSIVE
 ════════════════════════════════════════════════════════════ */
 @media (max-width:1100px) {
-  .cat-card { height: clamp(240px,36vh,420px); }
+  .cat-card { height: clamp(280px,40vh,480px); }
   .card { padding: 24px 26px; }
 }
 @media (max-height:800px) {
   .home-stats { bottom: 36px; }
   .slide-title { font-size: clamp(30px,5vw,58px); }
   .card { padding: 22px 24px; max-height: calc(100vh - 64px); }
-  .cat-card { height: clamp(220px,32vh,360px); }
+  .cat-card { height: clamp(240px,35vh,400px); }
   .challenge-item { padding: 12px 0; }
 }
 @media (max-height:640px) {
   .home-title { font-size: 56px; }
   .home-stats { display: none; }
-  .cat-card { height: 180px; }
+  .cat-card { height: 200px; }
   .card { padding: 16px 18px; }
   .challenge-item { font-size: 13px; padding: 9px 0; }
 }
@@ -1247,7 +1250,7 @@ html, body {
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="moto-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <img class="explorer-img" src="motocompresores.jpg" alt="Motocompresor MAC3">
+  <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor MAC3">
 
   <div class="explorer-badge">
     <span class="explorer-badge-div">División Aire Comprimido</span>
@@ -1298,7 +1301,7 @@ html, body {
 ───────────────────────────────────── -->
 <div class="slide explorer-slide" id="electro-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <img class="explorer-img" src="./electrocompresor.jpg" alt="Electrocompresor HGS">
+  <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
 
   <div class="explorer-badge">
     <span class="explorer-badge-div">División Aire Comprimido</span>
