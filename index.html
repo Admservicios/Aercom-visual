@@ -575,6 +575,7 @@ html, body {
 
 /* Tarjeta de etiqueta — siempre visible, encima del botón */
 .hs-card {
+  display: none !important;
   background: rgba(8,8,8,0.92);
   border: 1.5px solid var(--blue-border);
   border-radius: 4px;
@@ -599,6 +600,7 @@ html, body {
 
 /* Conector vertical entre tarjeta y botón */
 .hs-connector {
+  display: none !important;
   width: 2px; height: 10px;
   background: var(--blue-border);
 }
@@ -640,8 +642,8 @@ html, body {
    CTA FLOTANTE — franja inferior derecha de la tarjeta
 ════════════════════════════════════════════════════════════ */
 .cta-float {
-  position: absolute; z-index: 20;
-  bottom: clamp(24px,4.5vh,48px); right: clamp(24px,3vw,44px);
+  position: absolute; z-index: 200;
+  bottom: clamp(16px, 2vh, 32px); right: clamp(16px, 2vw, 32px);
   display: inline-flex; align-items: center; gap: 12px;
   padding: clamp(14px,2vh,20px) clamp(28px,3.5vw,48px);
   background: var(--blue); color: #fff;
@@ -659,11 +661,12 @@ html, body {
 }
 .cta-float:active { transform: scale(0.97); }
 
-/* Etiqueta inferior — dentro de explorer-wrap, sobre el degradé */
+/* Etiqueta superior derecha — fuera de la foto */
 .explorer-badge {
   position: absolute; z-index: 15;
-  bottom: clamp(16px, 3vh, 32px); left: clamp(16px, 3vw, 32px);
-  display: flex; flex-direction: column; gap: 4px;
+  top: clamp(24px, 4vh, 32px); right: clamp(24px, 3vw, 32px);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+  text-align: right;
   pointer-events: none;
 }
 .explorer-badge-div {
@@ -1145,14 +1148,13 @@ html, body {
 <div class="slide explorer-slide" id="ge-explorador">
   <button class="btn-back" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
 
+  <div class="explorer-badge">
+    <span class="explorer-badge-div">División Potencia</span>
+    <span class="explorer-badge-name">Grupo Electrógeno</span>
+  </div>
+
   <div class="explorer-wrap">
     <img class="explorer-img" src="./grupoelectrogenoabierto.jpeg" alt="Grupo Electrógeno">
-
-    <!-- Badge inferior izquierdo -->
-    <div class="explorer-badge">
-      <span class="explorer-badge-div">División Potencia</span>
-      <span class="explorer-badge-name">Grupo Electrógeno</span>
-    </div>
 
     <!-- Alternador — izquierda (cuerpo azul del alternador) -->
     <div class="hotspot" style="top:65%;left:22%;" onclick="openPanel('ge-alternador')">
@@ -1183,11 +1185,11 @@ html, body {
       <div class="hs-connector"></div>
       <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
     </div>
-
-    <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
-      <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
-    </button>
   </div>
+
+  <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
+    <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
+  </button>
 </div>
 
 <!-- ─────────────────────────────────────
@@ -1309,13 +1311,13 @@ html, body {
 <div class="slide explorer-slide" id="moto-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
 
+  <div class="explorer-badge">
+    <span class="explorer-badge-div">División Aire Comprimido</span>
+    <span class="explorer-badge-name">Motocompresor Diésel</span>
+  </div>
+
   <div class="explorer-wrap">
     <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor MAC3">
-
-    <div class="explorer-badge">
-      <span class="explorer-badge-div">División Aire Comprimido</span>
-      <span class="explorer-badge-name">Motocompresor Diésel</span>
-    </div>
 
     <!-- Motor Diésel — lado izquierdo del equipo -->
     <div class="hotspot" style="top:52%;left:16%;" onclick="openPanel('mc-motor')">
@@ -1346,11 +1348,11 @@ html, body {
       <div class="hs-connector"></div>
       <div class="hs-btn"><i class="fa-solid fa-sliders"></i></div>
     </div>
-
-    <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
-      <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
-    </button>
   </div>
+
+  <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
+    <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
+  </button>
 </div>
 
 <!-- ─────────────────────────────────────
@@ -1359,13 +1361,13 @@ html, body {
 <div class="slide explorer-slide" id="electro-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
 
+  <div class="explorer-badge">
+    <span class="explorer-badge-div">División Aire Comprimido</span>
+    <span class="explorer-badge-name">Electrocompresor</span>
+  </div>
+
   <div class="explorer-wrap">
     <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
-
-    <div class="explorer-badge">
-      <span class="explorer-badge-div">División Aire Comprimido</span>
-      <span class="explorer-badge-name">Electrocompresor</span>
-    </div>
 
     <!-- Motor Eléctrico — lado izquierdo (radiador/rejilla lateral) -->
     <div class="hotspot" style="top:70%;left:22%;" onclick="openPanel('ec-motor')">
@@ -1396,11 +1398,11 @@ html, body {
       <div class="hs-connector"></div>
       <div class="hs-btn"><i class="fa-solid fa-display"></i></div>
     </div>
-
-    <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
-      <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
-    </button>
   </div>
+
+  <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
+    <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
+  </button>
 </div>
 
 <!-- ─────────────────────────────────────
@@ -1517,7 +1519,7 @@ html, body {
     </div>
     <div class="qr-box">
       <!-- Reemplaza "QR_contacto.png" por el nombre exacto de la foto del código QR -->
-      <img src="QR_contacto.png" class="qr-image" alt="QR WhatsApp">
+      <img src="qrcode.png" class="qr-image" alt="QR WhatsApp">
       <div class="qr-label" style="font-size:12px;">Escanear para contactar</div>
     </div>
   </div>
