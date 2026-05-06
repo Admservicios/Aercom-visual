@@ -171,6 +171,14 @@ html, body {
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
+/* Logo principal */
+.home-logo {
+  width: clamp(240px, 45vw, 560px);
+  height: auto;
+  margin-bottom: 24px;
+  animation: titleReveal 0.9s var(--swift) 0.2s both;
+}
+
 /* Título principal */
 .home-title {
   font-family: 'Barlow Condensed', sans-serif;
@@ -1003,7 +1011,7 @@ html, body {
   <div id="home-bg-img"></div>
 
   <div class="home-content">
-    <h1 class="home-title">AERCOM</h1>
+    <img src="Aercom_Logo_color.png" class="home-logo" alt="Aercom Logo">
     <div class="home-rule">
       <div class="home-rule-line"></div>
       <span class="home-rule-text">Energía para todas las industrias</span>
