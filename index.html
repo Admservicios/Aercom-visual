@@ -6,72 +6,69 @@
 <title>AERCOM — Energía Industrial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 /* ════════════════════════════════════════════════════════════
-   VARIABLES GLOBALES
+   AERCOM — EXPO v6.0  ·  Estética: Blanco técnico industrial
+   Paleta clara tipo catálogo · Azul corporativo sobrio
 ════════════════════════════════════════════════════════════ */
 :root {
-  --blue:       #0066FF;
-  --blue-dark:  #0050CC;
-  --blue-glow:  rgba(0,102,255,0.35);
-  --bg:         #080808;
-  --surface:    #111111;
-  --surface2:   #181818;
-  --surface3:   #202020;
-  --border:     rgba(255,255,255,0.14);
-  --border-hi:  rgba(255,255,255,0.32);
-  --blue-border:rgba(0,102,255,0.60);
-  --text:       #FFFFFF;
-  --text-dim:   #aaa;
-  --text-muted: #666;
-  --danger:     #FF4444;
-  --danger-bg:  rgba(255,68,68,0.08);
-  --success:    #00DD66;
-  --info:       #44AAFF;
-  --info-bg:    rgba(0,102,255,0.10);
-  --ease:       cubic-bezier(0.25, 0.1, 0.25, 1);
-  --bounce:     cubic-bezier(0.34, 1.56, 0.64, 1);
-  --swift:      cubic-bezier(0.16, 1, 0.3, 1);
+  /* MARCA — azul corporativo sobrio (menos eléctrico, más confiable) */
+  --blue:        #1A4FA0;
+  --blue-dark:   #143F82;
+  --blue-bright: #2563C9;
+  --blue-soft:   #EAF1FB;
+  --blue-line:   #C9DBF2;
+
+  /* SUPERFICIES — blanco técnico */
+  --bg:          #F4F6F9;
+  --surface:     #FFFFFF;
+  --surface2:    #FAFBFC;
+  --ink:         #0F1B2D;   /* texto principal, casi negro azulado */
+  --ink-2:       #3D4B5C;   /* texto secundario */
+  --ink-3:       #7A8694;   /* texto terciario / hints */
+  --line:        #E2E7EE;   /* bordes suaves */
+  --line-2:      #CDD5E0;   /* bordes marcados */
+
+  /* ACENTOS FUNCIONALES */
+  --accent-amber:#C77800;
+  --success:     #1E874B;
+  --wa:          #25D366;
+
+  /* MOVIMIENTO */
+  --ease:   cubic-bezier(0.22, 0.61, 0.36, 1);
+  --swift:  cubic-bezier(0.16, 1, 0.3, 1);
+  --bounce: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  --shadow-sm: 0 1px 3px rgba(15,27,45,0.06), 0 1px 2px rgba(15,27,45,0.04);
+  --shadow-md: 0 6px 24px rgba(15,27,45,0.08), 0 2px 8px rgba(15,27,45,0.05);
+  --shadow-lg: 0 20px 60px rgba(15,27,45,0.12), 0 8px 24px rgba(15,27,45,0.07);
 }
 
-/* ════════════════════════════════════════════════════════════
-   RESET
-════════════════════════════════════════════════════════════ */
-*, *::before, *::after {
-  box-sizing: border-box; margin: 0; padding: 0;
-  -webkit-font-smoothing: antialiased;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+
 html, body {
   width: 100%; height: 100%;
   background: var(--bg);
-  color: var(--text);
-  font-family: 'Barlow', sans-serif;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
-  cursor: none;
+  touch-action: manipulation;
 }
-
-/* ════════════════════════════════════════════════════════════
-   CURSOR — punto simple, sin anillo (tablet de baja gama)
-════════════════════════════════════════════════════════════ */
-#cursor-dot {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 8px; height: 8px;
-  background: var(--blue);
-  border-radius: 50%;
-  transform: translate(-50%,-50%);
-}
-#cursor-ring { display: none; }
 
 /* ════════════════════════════════════════════════════════════
    APP SHELL
 ════════════════════════════════════════════════════════════ */
-#app {
-  position: relative;
-  width: 100vw; height: 100vh;
-  overflow: hidden;
+#app { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+/* Textura técnica MUY sutil de fondo (puntos) */
+#app::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: radial-gradient(var(--line-2) 0.6px, transparent 0.6px);
+  background-size: 26px 26px;
+  opacity: 0.45;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -83,923 +80,712 @@ html, body {
   align-items: center; justify-content: center;
   opacity: 0; visibility: hidden; pointer-events: none;
   will-change: opacity, transform;
-  transition: opacity 0.35s var(--ease), visibility 0.35s;
+  transition: opacity 0.4s var(--ease), visibility 0.4s;
+  padding: 0 20px;
 }
 .slide.active {
   opacity: 1; visibility: visible; pointer-events: all;
-  animation: slideIn 0.22s var(--swift) both;
+  animation: slideIn 0.45s var(--swift) both;
 }
 @keyframes slideIn {
-  from { opacity:0; transform: translateY(8px); }
-  to   { opacity:1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ════════════════════════════════════════════════════════════
-   BOTÓN VOLVER
+   BOTÓN VOLVER  ·  estilo catálogo limpio
 ════════════════════════════════════════════════════════════ */
 .btn-back {
-  position: absolute; top: 24px; left: 24px; z-index: 100;
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 10px 22px;
-  background: var(--surface2);
-  border: 1.5px solid var(--border-hi);
-  border-radius: 3px;
-  color: var(--text);
-  font-family: 'Barlow', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.15s var(--bounce);
+  position: absolute; top: 22px; left: 22px; z-index: 100;
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 11px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 10px;
+  color: var(--ink-2);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--bounce), border-color 0.2s, color 0.2s;
 }
-.btn-back:hover {
-  background: var(--surface3);
-  border-color: var(--blue-border);
-  transform: translateX(-3px);
-}
+.btn-back i { font-size: 11px; transition: transform 0.2s var(--ease); }
+.btn-back:active { transform: scale(0.95); border-color: var(--blue); color: var(--blue); }
+.btn-back:active i { transform: translateX(-3px); }
 
 /* ════════════════════════════════════════════════════════════
-   LOGO / WORDMARK
+   ─── SLIDE: HOME ─────────────────────────────────────────
 ════════════════════════════════════════════════════════════ */
-.logo-mark {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-weight: 800;
-  font-size: 11px;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
+#home { background: var(--bg); overflow: hidden; }
 
-/* ════════════════════════════════════════════════════════════
-   ─── SLIDE: HOME ────────────────────────────────────────
-════════════════════════════════════════════════════════════ */
-#home {
-  background: var(--bg);
-  overflow: hidden;
-}
-
-/* Foto de fondo */
+/* Imagen lateral de equipo (composición asimétrica tipo revista) */
 #home-bg-img {
-  position: absolute; inset: 0;
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 42%;
   background: url('./fondo.jpeg') center / cover no-repeat;
-  opacity: 0.32;
-  z-index: 0;
+  z-index: 1;
+  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
+}
+#home-bg-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(105deg, var(--bg) 0%, rgba(244,246,249,0.4) 28%, transparent 60%);
 }
 
 .home-content {
-  position: relative; z-index: 2;
-  text-align: center;
+  position: relative; z-index: 3;
+  width: 100%; max-width: 1240px;
   display: flex; flex-direction: column;
-  align-items: center;
+  align-items: flex-start; text-align: left;
+  padding-left: clamp(20px, 5vw, 90px);
+  margin-right: auto;
 }
 
-/* Etiqueta superior */
 .home-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
-  padding: 7px 18px;
-  border: 1.5px solid var(--blue-border);
-  border-radius: 2px;
-  background: rgba(0,102,255,0.08);
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
+  padding: 8px 16px;
+  border: 1px solid var(--blue-line);
+  border-radius: 100px;
+  background: var(--blue-soft);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--blue);
-  margin-bottom: 32px;
+  margin-bottom: 26px;
   animation: fadeUp 0.7s var(--swift) 0.1s both;
 }
-.home-eyebrow-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--blue);
-  animation: blink 2s infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.home-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
 
-/* Logo principal */
 .home-logo {
-  width: clamp(240px, 45vw, 560px);
-  height: auto;
-  margin-bottom: 24px;
-  animation: titleReveal 0.9s var(--swift) 0.2s both;
+  width: clamp(200px, 28vw, 360px);
+  height: auto; margin-bottom: 18px;
+  animation: fadeUp 0.8s var(--swift) 0.2s both;
 }
 
-/* Título principal */
 .home-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(80px, 14vw, 180px);
-  font-weight: 800;
-  line-height: 0.85;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: #fff;
-  animation: titleReveal 0.9s var(--swift) 0.2s both;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(52px, 9vw, 124px);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  animation: titleReveal 0.9s var(--swift) 0.28s both;
 }
+.home-title .accent { color: var(--blue); display: block; }
 @keyframes titleReveal {
-  from { opacity:0; transform: translateY(30px) scaleY(0.9); }
-  to   { opacity:1; transform: translateY(0) scaleY(1); }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Línea divisoria */
-.home-rule {
-  display: flex; align-items: center; gap: 16px;
-  width: 100%; max-width: 540px;
-  margin: 24px 0;
-  animation: fadeUp 0.7s var(--swift) 0.5s both;
-}
-.home-rule-line {
-  flex: 1; height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--blue), transparent);
-}
-.home-rule-text {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--text-muted);
-  white-space: nowrap;
-}
-
-/* Subtítulo */
 .home-sub {
-  font-size: clamp(13px, 1.6vw, 16px);
-  font-weight: 300;
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  margin-bottom: 48px;
-  animation: fadeUp 0.7s var(--swift) 0.65s both;
+  font-size: clamp(15px, 1.6vw, 19px);
+  font-weight: 400; color: var(--ink-2);
+  line-height: 1.6; max-width: 480px;
+  margin: 24px 0 38px;
+  animation: fadeUp 0.7s var(--swift) 0.55s both;
 }
 
-/* Botón primario */
 .btn-primary {
   display: inline-flex; align-items: center; gap: 14px;
-  padding: clamp(16px, 2.2vh, 22px) clamp(44px, 5.5vw, 72px);
+  padding: clamp(16px, 2vh, 20px) clamp(34px, 4vw, 48px);
   background: var(--blue);
-  border: 2px solid var(--blue);
-  border-radius: 3px;
+  border: none; border-radius: 12px;
   color: #fff;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(14px, 1.6vw, 18px);
-  font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s;
-  animation: fadeUp 0.7s var(--swift) 0.85s both;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 700; letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(26,79,160,0.28);
+  transition: transform 0.25s var(--bounce), box-shadow 0.25s, background 0.2s;
+  animation: fadeUp 0.7s var(--swift) 0.7s both;
 }
-.btn-primary:hover {
-  background: var(--blue-dark);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0,102,255,0.35);
-}
-.btn-primary:active { transform: scale(0.97); }
+.btn-primary:active { transform: scale(0.97); background: var(--blue-dark); }
 .btn-primary .btn-icon {
-  width: 20px; height: 20px;
-  background: rgba(255,255,255,0.2);
+  width: 26px; height: 26px;
+  background: rgba(255,255,255,0.18);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
+  font-size: 11px;
+  transition: transform 0.25s var(--ease);
 }
+.btn-primary:active .btn-icon { transform: translateX(4px); }
 
-/* Indicadores de stats */
+/* Stats abajo a la izquierda */
 .home-stats {
-  position: absolute; bottom: 48px;
-  display: flex; gap: clamp(28px, 5vw, 72px);
-  animation: fadeUp 0.7s var(--swift) 1.1s both;
-  z-index: 2;
+  position: absolute; bottom: clamp(28px, 5vh, 56px);
+  left: clamp(20px, 5vw, 90px);
+  display: flex; gap: clamp(24px, 4vw, 56px);
+  z-index: 3;
+  animation: fadeUp 0.7s var(--swift) 0.95s both;
 }
-.stat-item { text-align: center; }
+.stat-item { display: flex; flex-direction: column; gap: 4px; }
 .stat-num {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 800; color: #fff; line-height: 1;
-  display: block;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(30px, 3.6vw, 46px);
+  font-weight: 800; color: var(--ink); line-height: 1;
 }
 .stat-num span { color: var(--blue); }
 .stat-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--text-muted);
-  margin-top: 4px; display: block;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3);
 }
-.stat-sep {
-  width: 1.5px; background: var(--border-hi);
-  align-self: stretch; margin: 8px 0;
-}
+.stat-sep { width: 1px; background: var(--line-2); align-self: stretch; }
 
-@keyframes fadeUp {
-  from { opacity:0; transform: translateY(16px); }
-  to   { opacity:1; transform: translateY(0); }
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ════════════════════════════════════════════════════════════
-   ─── SLIDE: SELECTOR ────────────────────────────────────
+   ─── SLIDE: SELECTOR ─────────────────────────────────────
 ════════════════════════════════════════════════════════════ */
-#selector { padding: 0; }
+#selector { padding: 0; align-items: stretch; justify-content: stretch; }
+
+.sel-header {
+  position: absolute; top: 0; left: 0; right: 0;
+  padding: 20px clamp(20px, 3vw, 36px);
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 50;
+}
+.sel-header-title {
+  font-family: 'Archivo', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-3);
+}
+.sel-header-hint {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 100px;
+  background: var(--blue-soft); border: 1px solid var(--blue-line);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+  color: var(--blue);
+}
+.sel-header-hint i { font-size: 11px; }
+
 .selector-grid {
-  display: flex; width: 100%; height: 100%;
+  display: flex; gap: 18px;
+  width: 100%; height: 100%;
+  padding: 86px clamp(20px, 3vw, 36px) clamp(20px, 3vh, 36px);
 }
 
 .sel-col {
   flex: 1; position: relative; overflow: hidden;
-  cursor: none;
-  border-right: 1.5px solid rgba(255,255,255,0.08);
-  transition: flex 0.5s var(--swift);
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s var(--swift), box-shadow 0.35s, border-color 0.35s;
+  display: flex; flex-direction: column;
 }
-.sel-col:last-child { border-right: none; }
-.sel-col:hover { flex: 1.6; }
+.sel-col:active { transform: translateY(-4px) scale(0.99); }
 
-/* Imagen de fondo */
+/* Imagen superior de la columna */
 .sel-bg {
-  position: absolute; inset: 0;
+  position: relative; flex: 1;
   background-size: cover; background-position: center;
-  opacity: 0.85; /* más brillante, sin niebla */
+  min-height: 0;
+}
+.sel-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(15,27,45,0.55) 100%);
 }
 
-/* Gradiente — solo en la franja inferior para que se lea el título */
-.sel-col::before {
-  content: ''; position: absolute; inset: 0; z-index: 2;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 45%,
-    rgba(5,5,5,0.70) 75%,
-    rgba(5,5,5,0.92) 100%
-  );
-}
-
-/* Barra lateral activa */
-.sel-col::after {
-  content: ''; position: absolute;
-  top: 0; left: 0; width: 3px; height: 100%;
-  background: var(--blue);
-  transform: scaleY(0); transform-origin: bottom;
-  transition: transform 0.35s var(--swift);
-  z-index: 3;
-}
-.sel-col:hover::after { transform: scaleY(1); }
-
-/* Número de sección */
+/* Número de sección (chip arriba a la izquierda) */
 .sel-num {
-  position: absolute; top: 28px; left: 28px; z-index: 5;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--blue);
-  opacity: 0;
-  transition: opacity 0.25s;
+  position: absolute; top: 16px; left: 16px; z-index: 5;
+  padding: 6px 12px; border-radius: 8px;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(4px);
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  color: var(--blue);
 }
-.sel-col:hover .sel-num { opacity: 1; }
 
-/* Contenido inferior */
+/* Contenido inferior — barra blanca tipo ficha de catálogo */
 .sel-content {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  padding: clamp(24px,4vh,56px) clamp(20px,3vw,44px);
-  z-index: 4;
+  position: relative; z-index: 4;
+  background: var(--surface);
+  padding: clamp(18px, 2.4vw, 26px) clamp(18px, 2.4vw, 26px) clamp(20px, 2.6vw, 28px);
+  border-top: 3px solid var(--blue);
 }
-
-/* Etiqueta */
 .sel-tag {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.35em;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--blue);
   margin-bottom: 8px;
-  opacity: 0; transform: translateY(8px);
-  transition: opacity 0.25s, transform 0.25s var(--swift);
 }
-.sel-col:hover .sel-tag { opacity: 1; transform: translateY(0); }
-
-/* Título columna */
 .sel-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(26px, 3.5vw, 48px);
-  font-weight: 800; text-transform: uppercase;
-  letter-spacing: 0.04em; line-height: 1.05; color: #fff;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(22px, 2.8vw, 34px);
+  font-weight: 800; letter-spacing: -0.01em;
+  line-height: 1.05; color: var(--ink);
 }
-
-/* CTA flecha */
 .sel-cta {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 9px;
   margin-top: 14px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--blue);
-  opacity: 0; transform: translateX(-10px);
-  transition: opacity 0.25s 0.05s, transform 0.25s 0.05s var(--swift);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  color: var(--blue);
 }
-.sel-col:hover .sel-cta { opacity: 1; transform: translateX(0); }
-
-/* Header del selector */
-.sel-header {
-  position: absolute; top: 0; left: 0; right: 0;
-  padding: 22px 32px;
-  display: flex; align-items: center; justify-content: space-between;
-  z-index: 10;
-  background: linear-gradient(180deg, rgba(5,5,5,0.85) 0%, transparent 100%);
+.sel-cta .arrow {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--blue-soft);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px;
+  transition: transform 0.25s var(--ease), background 0.2s;
 }
-.sel-header-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; font-weight: 700; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.sel-header-hint {
-  font-size: 10px; font-weight: 500; letter-spacing: 0.25em;
-  text-transform: uppercase; color: var(--text-dim);
-  display: flex; align-items: center; gap: 8px;
-}
-.sel-header-hint i { color: var(--blue); font-size: 9px; }
+.sel-col:active .sel-cta .arrow { transform: translateX(4px); background: var(--blue); color: #fff; }
 
 /* ════════════════════════════════════════════════════════════
    ─── CARD CONTENEDOR ─────────────────────────────────────
 ════════════════════════════════════════════════════════════ */
 .card {
-  width: 92%; max-width: 900px;
-  max-height: calc(100vh - 80px);
+  width: 100%; max-width: 880px;
+  max-height: calc(100vh - 110px);
   overflow-y: auto;
   background: var(--surface);
-  border: 1.5px solid var(--border-hi);
-  border-radius: 4px;
-  padding: clamp(32px,4.5vh,60px) clamp(32px,4.5vw,64px);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: clamp(30px, 4.5vh, 56px) clamp(28px, 4.5vw, 60px);
   position: relative;
+  box-shadow: var(--shadow-lg);
+  -webkit-overflow-scrolling: touch;
 }
 .card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--blue);
-  border-radius: 4px 4px 0 0;
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px; background: var(--blue);
+  border-radius: 20px 20px 0 0;
 }
 
 /* ════════════════════════════════════════════════════════════
    TIPOGRAFÍA COMPARTIDA
 ════════════════════════════════════════════════════════════ */
 .eyebrow {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.45em;
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--blue);
-  margin-bottom: 10px;
-  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
 }
-.eyebrow::after {
-  content: ''; flex: 0 0 24px; height: 1.5px;
-  background: var(--blue-border);
+.eyebrow::before {
+  content: ''; width: 26px; height: 2px; background: var(--blue); border-radius: 2px;
 }
-
 .slide-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(38px, 6vw, 80px);
-  font-weight: 800; letter-spacing: 0.01em;
-  line-height: 0.9; text-transform: uppercase; color: #fff;
-  margin-bottom: 16px;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(34px, 5.5vw, 66px);
+  font-weight: 900; letter-spacing: -0.025em;
+  line-height: 0.95; color: var(--ink);
+  margin-bottom: 14px;
 }
-
 .slide-sub {
-  font-size: clamp(14px,1.8vw,18px);
-  font-weight: 300; color: var(--text-dim);
-  line-height: 1.6; max-width: 500px;
+  font-size: clamp(15px, 1.8vw, 19px);
+  font-weight: 400; color: var(--ink-2);
+  line-height: 1.6; max-width: 520px;
 }
 
 /* ════════════════════════════════════════════════════════════
-   BOTÓN FLECHA HACIA ABAJO
+   BOTÓN CONTINUAR
 ════════════════════════════════════════════════════════════ */
 .btn-continue {
-  display: inline-flex; flex-direction: column;
-  align-items: center; gap: 8px;
-  margin-top: clamp(28px,4vh,44px);
-  background: none; border: none;
-  cursor: none; color: var(--text-dim);
-}
-.btn-continue-label {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.35em;
-  text-transform: uppercase; color: var(--text-muted);
-}
-.btn-continue-icon {
-  width: 44px; height: 44px;
-  border: 1.5px solid var(--border-hi);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--text-dim); font-size: 13px;
-  animation: continueBounce 2.2s ease-in-out infinite;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-}
-.btn-continue:hover .btn-continue-icon {
-  border-color: var(--blue);
-  background: rgba(0,102,255,0.12);
+  display: inline-flex; align-items: center; gap: 12px;
+  margin-top: clamp(26px, 4vh, 40px);
+  padding: 13px 24px;
+  background: var(--blue-soft);
+  border: 1px solid var(--blue-line);
+  border-radius: 12px;
   color: var(--blue);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+  transition: transform 0.2s var(--bounce), background 0.2s;
 }
-@keyframes continueBounce {
-  0%,100%{ transform: translateY(0); }
-  50%    { transform: translateY(10px); }
+.btn-continue:active { transform: scale(0.96); background: var(--blue); color: #fff; }
+.btn-continue-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%; background: rgba(26,79,160,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px;
+  animation: continueBounce 2.4s ease-in-out infinite;
 }
+.btn-continue:active .btn-continue-icon { background: rgba(255,255,255,0.25); }
+@keyframes continueBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 
 /* ════════════════════════════════════════════════════════════
    LISTA DE DESAFÍOS
 ════════════════════════════════════════════════════════════ */
-.challenge-list { margin: 28px 0; }
+.challenge-list { margin: 24px 0 4px; }
 .challenge-item {
-  display: flex; align-items: center; gap: 20px;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  color: #fff;
-  font-size: clamp(14px,1.8vw,18px);
-  font-weight: 400;
-  opacity: 0;
-  animation: cItemIn 0.4s var(--swift) both;
+  display: flex; align-items: center; gap: 18px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink); font-size: clamp(14px, 1.7vw, 17px);
+  font-weight: 500; line-height: 1.45;
+  opacity: 0; animation: cItemIn 0.5s var(--swift) both;
 }
 .challenge-item:last-child { border-bottom: none; }
-.challenge-item:nth-child(1){ animation-delay: 0.05s; }
-.challenge-item:nth-child(2){ animation-delay: 0.12s; }
-.challenge-item:nth-child(3){ animation-delay: 0.19s; }
-.challenge-item:nth-child(4){ animation-delay: 0.26s; }
-@keyframes cItemIn {
-  from{ opacity:0; transform:translateX(-20px); }
-  to  { opacity:1; transform:translateX(0); }
-}
+.challenge-item:nth-child(1) { animation-delay: 0.1s; }
+.challenge-item:nth-child(2) { animation-delay: 0.18s; }
+.challenge-item:nth-child(3) { animation-delay: 0.26s; }
+.challenge-item:nth-child(4) { animation-delay: 0.34s; }
+@keyframes cItemIn { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: translateX(0); } }
 .challenge-icon {
-  width: 42px; height: 42px; flex-shrink: 0;
-  background: rgba(0,102,255,0.10);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 3px;
+  width: 46px; height: 46px; flex-shrink: 0;
+  background: var(--blue-soft);
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--blue); font-size: 16px;
+  color: var(--blue); font-size: 18px;
 }
 
 /* ════════════════════════════════════════════════════════════
-   ─── SLIDE: EXPLORADOR — Tarjeta que respeta el ratio de la foto
+   ─── SLIDE: EXPLORADOR ───────────────────────────────────
 ════════════════════════════════════════════════════════════ */
 .explorer-slide {
-  padding: 60px 16px 36px; /* top: btn-back | bottom: status bar */
+  padding: 78px 18px clamp(18px, 3vh, 32px);
   background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
-
-/* Tarjeta — se dimensiona según el ratio de la imagen */
 .explorer-wrap {
   position: relative;
-  /* Ancho máximo que entre en pantalla con sus márgenes */
-  max-width: min(96vw, 1360px);
-  /* Alto máximo disponible después del padding del slide */
-  max-height: calc(100vh - 100px);
-  width: auto;
-  height: auto;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid var(--border-hi);
-  background: #1a1a1a;
-  /* La imagen dicta el tamaño — display block para que el wrapper lo envuelva */
-  display: block;
-  line-height: 0;
+  max-width: min(94vw, 1300px);
+  max-height: calc(100vh - 120px);
+  width: auto; height: auto;
+  border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  display: block; line-height: 0;
 }
-
-/* Imagen — tamaño natural respetando el wrapper */
 .explorer-img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: calc(100vh - 100px);
+  display: block; width: 100%; height: auto;
+  max-height: calc(100vh - 120px);
   object-fit: contain;
-  opacity: 1;
 }
 
-/* Degradé solo en la franja inferior */
-.explorer-wrap::after {
-  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 52%,
-    rgba(5,5,5,0.55) 72%,
-    rgba(5,5,5,0.92) 100%
-  );
+/* Etiqueta superior — ficha de equipo */
+.explorer-badge {
+  position: absolute; z-index: 15;
+  top: 18px; left: 18px;
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 18px;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
 }
-
-/* Sin ::before en explorer-slide */
-.explorer-slide::before { display: none; }
+.explorer-badge-div {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--blue);
+}
+.explorer-badge-name {
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(18px, 2.4vw, 28px); font-weight: 800;
+  color: var(--ink); line-height: 1.05; letter-spacing: -0.01em;
+}
 
 /* ════════════════════════════════════════════════════════════
-   HOTSPOTS — Estilo tarjeta, siempre visible (tablet táctil)
+   HOTSPOTS
 ════════════════════════════════════════════════════════════ */
 .hotspot {
   position: absolute; z-index: 10;
   transform: translate(-50%, -50%);
-  cursor: none;
-  display: flex; flex-direction: column; align-items: center; gap: 0;
 }
-
-/* Tarjeta de etiqueta — siempre visible, encima del botón */
-.hs-card {
-  display: none !important;
-  background: rgba(8,8,8,0.92);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 4px;
-  padding: 8px 14px 7px;
-  text-align: center;
-  min-width: 120px;
-  pointer-events: none;
-  margin-bottom: 6px;
-}
-.hs-card-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: #fff; white-space: nowrap; display: block;
-  line-height: 1.2;
-}
-.hs-card-sub {
-  font-size: 11px; font-weight: 400;
-  color: var(--text-dim); letter-spacing: 0.06em;
-  display: block; margin-top: 2px;
-}
-
-/* Conector vertical entre tarjeta y botón */
-.hs-connector {
-  display: none !important;
-  width: 2px; height: 10px;
-  background: var(--blue-border);
-}
-
-/* Botón circular */
 .hs-btn {
-  width: 48px; height: 48px;
+  position: relative;
+  width: 50px; height: 50px;
   background: var(--blue);
-  border: 2.5px solid rgba(255,255,255,0.9);
+  border: 3px solid #fff;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; color: #fff;
-  animation: hsPulse 3.5s ease-in-out infinite;
-  will-change: box-shadow;
-  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(26,79,160,0.4);
+}
+/* Anillo de pulso con pseudo-elemento (no anima box-shadow → más fluido) */
+.hs-btn::before {
+  content: ''; position: absolute; inset: -3px;
+  border-radius: 50%; border: 2px solid var(--blue);
+  animation: hsPulse 2.6s var(--ease) infinite;
 }
 @keyframes hsPulse {
-  0%   { box-shadow: 0 0 0 0 rgba(0,102,255,0.7); }
-  60%  { box-shadow: 0 0 0 16px rgba(0,102,255,0); }
-  100% { box-shadow: 0 0 0 0 rgba(0,102,255,0); }
+  0%   { transform: scale(1); opacity: 0.7; }
+  70%  { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
 }
-
-/* Mantener compatibilidad con .hs-label antiguo (no se usa en nuevos exploradores) */
-.hs-label { display: none; }
-
-@media (max-width: 900px), (max-height: 800px) {
-  .hs-btn { width: 44px; height: 44px; font-size: 16px; }
-  .hs-card { min-width: 100px; padding: 6px 10px 5px; }
-  .hs-card-title { font-size: 11px; }
-  .hs-card-sub { font-size: 9px; }
-  @keyframes hsPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(0,102,255,0.7); }
-    60%  { box-shadow: 0 0 0 10px rgba(0,102,255,0); }
-    100% { box-shadow: 0 0 0 0 rgba(0,102,255,0); }
-  }
-}
+.hotspot:active .hs-btn { background: var(--blue-dark); }
+.hs-card, .hs-connector, .hs-label { display: none !important; }
 
 /* ════════════════════════════════════════════════════════════
-   CTA FLOTANTE — franja inferior derecha de la tarjeta
+   CTA FLOTANTE
 ════════════════════════════════════════════════════════════ */
 .cta-float {
   position: absolute; z-index: 200;
-  bottom: clamp(16px, 2vh, 32px); right: clamp(16px, 2vw, 32px);
-  display: inline-flex; align-items: center; gap: 12px;
-  padding: clamp(14px,2vh,20px) clamp(28px,3.5vw,48px);
-  background: var(--blue); color: #fff;
-  border: 2px solid var(--blue); border-radius: 3px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(14px,1.6vw,17px); font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, transform 0.2s var(--bounce), box-shadow 0.2s;
+  bottom: clamp(16px, 2vh, 28px); right: clamp(16px, 2vw, 28px);
+  display: inline-flex; align-items: center; gap: 11px;
+  padding: clamp(14px, 1.9vh, 18px) clamp(24px, 3vw, 36px);
+  background: var(--wa); color: #fff;
+  border: none; border-radius: 12px;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(14px, 1.5vw, 16px); font-weight: 700; letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.35);
+  transition: transform 0.25s var(--bounce);
 }
-.cta-float:hover {
-  background: var(--blue-dark);
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 48px rgba(0,102,255,0.40);
-}
-.cta-float:active { transform: scale(0.97); }
-
-/* Etiqueta superior derecha — fuera de la foto */
-.explorer-badge {
-  position: absolute; z-index: 15;
-  top: clamp(24px, 4vh, 32px); right: clamp(24px, 3vw, 32px);
-  display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
-  text-align: right;
-  pointer-events: none;
-}
-.explorer-badge-div {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
-  text-transform: uppercase; color: var(--blue);
-}
-.explorer-badge-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(28px,4vw,52px); font-weight: 800;
-  text-transform: uppercase; color: #fff; line-height: 1;
-}
+.cta-float i { font-size: 1.25em; }
+.cta-float:active { transform: scale(0.96); }
 
 /* ════════════════════════════════════════════════════════════
    ─── GRID DE CATEGORÍAS ──────────────────────────────────
 ════════════════════════════════════════════════════════════ */
-.cat-grid {
-  display: flex; gap: clamp(12px,1.8vw,24px);
-  margin-top: clamp(20px,3vh,40px); width: 100%;
-}
+.cat-grid { display: flex; gap: clamp(14px, 1.8vw, 22px); margin-top: clamp(22px, 3vh, 36px); width: 100%; }
 .cat-card {
-  flex: 1; position: relative; border-radius: 4px;
-  overflow: hidden;
-  height: clamp(320px,46vh,580px);
-  cursor: none;
-  border: 1.5px solid var(--border);
-  transition: transform 0.3s var(--swift), border-color 0.3s;
+  flex: 1; position: relative; border-radius: 16px; overflow: hidden;
+  height: clamp(300px, 44vh, 540px);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s var(--swift), box-shadow 0.3s, border-color 0.3s;
 }
-.cat-card img {
-  width: 100%; height: 100%; object-fit: cover;
-  opacity: 0.82;
-  display: block;
-  /* Sin transition en tablet */
-}
+.cat-card:active { transform: translateY(-5px) scale(0.99); box-shadow: var(--shadow-md); border-color: var(--blue-line); }
+.cat-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cat-card::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent 30%, rgba(5,5,5,0.82) 100%);
+  background: linear-gradient(180deg, transparent 38%, rgba(15,27,45,0.72) 100%);
 }
-.cat-card:hover {
-  transform: translateY(-8px);
-  border-color: var(--blue-border);
-}
-/* Sin hover en imagen — rendimiento tablet */
-
 .cat-label {
   position: absolute; bottom: 0; left: 0; right: 0;
-  padding: clamp(18px,2.8vw,32px) clamp(18px,2.8vw,28px);
+  padding: clamp(18px, 2.6vw, 28px);
   z-index: 5;
-  border-top: 2px solid transparent;
-  transition: border-color 0.2s, background 0.2s;
 }
-.cat-card:hover .cat-label { border-color: var(--blue); background: rgba(0,102,255,0.10); }
 .cat-label h4 {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(20px,2.6vw,32px);
-  text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(19px, 2.4vw, 28px);
+  font-weight: 800; letter-spacing: -0.01em;
   color: #fff; margin-bottom: 6px;
 }
-.cat-label p {
-  font-size: clamp(12px,1.2vw,14px); color: var(--text-dim); letter-spacing: 0.05em;
+.cat-label p { font-size: clamp(12px, 1.2vw, 14px); color: rgba(255,255,255,0.82); line-height: 1.4; }
+.cat-label .cat-arrow {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: #fff;
 }
+.cat-label .cat-arrow i { color: #fff; }
 
 /* ════════════════════════════════════════════════════════════
    FOTO INTERACTIVA (secadora / shelter)
 ════════════════════════════════════════════════════════════ */
 .iPhoto {
-  width: 100%; max-width: 840px;
-  height: clamp(200px,32vh,400px);
-  border-radius: 4px; overflow: hidden;
-  border: 1.5px solid var(--border);
-  cursor: none; position: relative; margin-top: 24px;
-  transition: border-color 0.2s, transform 0.2s var(--bounce);
+  width: 100%; max-width: 820px;
+  height: clamp(220px, 34vh, 420px);
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-md);
+  position: relative; margin-top: 22px;
+  transition: transform 0.25s var(--bounce);
 }
-.iPhoto:hover { border-color: var(--blue-border); transform: scale(1.008); }
+.iPhoto:active { transform: scale(0.992); }
 .iPhoto img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.iPhoto-cta {
-  position: absolute; bottom: 20px; left: 50%;
-  transform: translateX(-50%);
-  background: var(--blue); border: 2px solid rgba(255,255,255,0.3);
-  padding: 11px 28px; border-radius: 3px;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.22em;
-  text-transform: uppercase; white-space: nowrap; color: #fff;
-  display: flex; align-items: center; gap: 8px;
-  transition: transform 0.15s var(--bounce);
+.iPhoto::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(15,27,45,0.5) 100%);
 }
-.iPhoto:hover .iPhoto-cta { transform: translateX(-50%) translateY(-4px); }
+.iPhoto-cta {
+  position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 2;
+  background: var(--surface); color: var(--blue);
+  padding: 12px 26px; border-radius: 100px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 9px;
+  box-shadow: var(--shadow-md);
+}
 
 /* ════════════════════════════════════════════════════════════
    PANEL LATERAL
 ════════════════════════════════════════════════════════════ */
 .panel-overlay {
   position: fixed; inset: 0;
-  background: rgba(0,0,0,0.75);
+  background: rgba(15,27,45,0.45);
+  backdrop-filter: blur(2px);
   z-index: 199; opacity: 0; visibility: hidden;
-  transition: opacity 0.3s, visibility 0.3s;
-  cursor: none;
+  transition: opacity 0.35s, visibility 0.35s;
 }
 .panel-overlay.open { opacity: 1; visibility: visible; }
 
 .side-panel {
   position: fixed; top: 0; right: 0;
-  width: min(540px, 94vw); height: 100%;
-  background: #0a0a0a;
-  border-left: 2px solid var(--blue-border);
-  padding: clamp(24px,4vh,40px) clamp(24px,3vw,40px) 100px;
+  width: min(520px, 92vw); height: 100%;
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  box-shadow: -20px 0 60px rgba(15,27,45,0.12);
+  padding: clamp(28px, 4vh, 44px) clamp(26px, 3vw, 42px) 40px;
   transform: translateX(100%);
   transition: transform 0.5s var(--swift);
   z-index: 200; overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .side-panel.open { transform: translateX(0); }
 
-/* Panel: cabecera */
 .panel-head { margin-bottom: 28px; }
 .panel-div {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.4em;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
   text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
 }
 .panel-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(28px,4vw,44px); font-weight: 800;
-  text-transform: uppercase; line-height: 1; color: #fff;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(28px, 4vw, 42px); font-weight: 800;
+  letter-spacing: -0.02em; line-height: 1; color: var(--ink);
 }
-.panel-rule {
-  width: 36px; height: 2.5px; background: var(--blue);
-  margin-top: 14px; border-radius: 2px;
-}
+.panel-rule { width: 40px; height: 3px; background: var(--blue); margin-top: 16px; border-radius: 3px; }
 
-/* Panel: sección */
-.panel-section { margin-bottom: 22px; }
+.panel-section { margin-bottom: 24px; }
 .panel-section-label {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 14px;
-  border-radius: 2px;
-  font-size: 9px; font-weight: 700; letter-spacing: 0.35em;
-  text-transform: uppercase; margin-bottom: 2px;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 14px; border-radius: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 14px;
 }
-.panel-section-label.danger {
-  background: var(--danger-bg);
-  color: var(--danger);
-  border-left: 2px solid var(--danger);
-}
-.panel-section-label.info {
-  background: var(--info-bg);
-  color: var(--info);
-  border-left: 2px solid var(--info);
-}
+.panel-section-label.info { background: var(--blue-soft); color: var(--blue); }
 .panel-list { list-style: none; }
 .panel-list li {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  font-size: clamp(13px,1.5vw,15px); line-height: 1.55;
-  color: #ddd; font-weight: 400;
+  display: flex; align-items: flex-start; gap: 13px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(14px, 1.5vw, 16px); line-height: 1.55;
+  color: var(--ink-2); font-weight: 400;
 }
 .panel-list li:last-child { border-bottom: none; }
 .panel-list li .pdot {
-  flex-shrink: 0; margin-top: 7px;
-  width: 5px; height: 5px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 8px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--blue);
 }
-.panel-list.danger-list li .pdot { background: var(--danger); }
-.panel-list.info-list   li .pdot { background: var(--info); }
 
 .btn-close {
-  width: 100%; margin-top: 24px;
-  padding: clamp(13px,1.8vh,17px);
+  width: 100%; margin-top: 20px;
+  padding: 15px;
   background: var(--surface2);
-  border: 1.5px solid var(--border-hi);
-  border-radius: 3px; color: var(--text);
-  font-family: 'Barlow', sans-serif; font-weight: 600;
-  font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
-  cursor: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.2s var(--bounce);
+  border: 1px solid var(--line-2);
+  border-radius: 12px; color: var(--ink-2);
+  font-family: 'Inter', sans-serif; font-weight: 600;
+  font-size: 13px; letter-spacing: 0.04em;
+  transition: transform 0.2s var(--bounce), background 0.2s, color 0.2s;
 }
-.btn-close:hover {
-  background: var(--surface3);
-  border-color: var(--blue-border);
-  transform: translateY(-2px);
-}
+.btn-close:active { transform: scale(0.98); background: var(--blue); color: #fff; border-color: var(--blue); }
 
 /* ════════════════════════════════════════════════════════════
    ─── SLIDE: CONTACTO ─────────────────────────────────────
 ════════════════════════════════════════════════════════════ */
 #contacto { background: var(--bg); }
-#contacto::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 100%);
-  z-index: 0;
-}
 .contact-wrap {
   position: relative; z-index: 2;
   display: flex; align-items: center;
-  gap: clamp(48px,8vw,120px);
+  gap: clamp(40px, 7vw, 100px);
   flex-wrap: wrap; justify-content: center;
+  max-width: 1080px;
 }
-.contact-text {}
 .contact-eyebrow {
-  font-size: 10px; font-weight: 600; letter-spacing: 0.45em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
 }
 .contact-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(60px,10vw,130px);
-  font-weight: 800; line-height: 0.85; color: #fff;
-  text-transform: uppercase;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(54px, 9vw, 118px);
+  font-weight: 900; line-height: 0.9; color: var(--ink);
+  letter-spacing: -0.03em;
 }
 .contact-desc {
-  font-size: clamp(14px,1.6vw,17px);
-  color: var(--text-dim); font-weight: 300;
-  line-height: 1.7; margin-top: 20px; max-width: 340px;
+  font-size: clamp(15px, 1.6vw, 18px);
+  color: var(--ink-2); font-weight: 400;
+  line-height: 1.65; margin-top: 20px; max-width: 360px;
 }
-.contact-links {
-  margin-top: 28px;
-  display: flex; flex-direction: column; gap: 10px;
-}
+.contact-links { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
 .contact-link {
-  display: flex; align-items: center; gap: 12px;
-  font-size: 14px; color: #fff; font-weight: 500;
+  display: flex; align-items: center; gap: 14px;
+  font-size: 15px; color: var(--ink); font-weight: 500;
 }
 .contact-link i {
-  width: 32px; height: 32px;
-  background: rgba(0,102,255,0.12);
-  border: 1.5px solid var(--blue-border);
-  border-radius: 3px;
+  width: 38px; height: 38px;
+  background: var(--blue-soft);
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; color: var(--blue);
+  font-size: 15px; color: var(--blue);
 }
-
 .qr-box {
-  background: #fff;
-  padding: clamp(20px,3vw,36px);
-  border-radius: 4px;
-  border: 3px solid var(--blue);
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  background: var(--surface);
+  padding: clamp(22px, 3vw, 34px);
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-lg);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
 }
-.qr-image { width: clamp(160px, 35vw, 300px); height: auto; max-height: 40vh; object-fit: contain; border-radius: 4px; }
-.qr-label {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.3em;
-  text-transform: uppercase; color: #333;
-}
+.qr-image { width: clamp(170px, 32vw, 280px); height: auto; max-height: 38vh; object-fit: contain; border-radius: 12px; }
+.qr-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 
 .btn-reset {
-  position: absolute; bottom: 44px;
-  background: none; border: none; color: var(--text-muted);
-  cursor: none; font-size: 10px; font-weight: 600;
-  letter-spacing: 0.35em; text-transform: uppercase;
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Barlow', sans-serif;
-  transition: color 0.15s;
+  position: absolute; bottom: 32px;
+  background: var(--surface); border: 1px solid var(--line-2);
+  color: var(--ink-3); padding: 11px 20px; border-radius: 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: 'Inter', sans-serif;
+  box-shadow: var(--shadow-sm);
+  transition: color 0.2s, transform 0.2s var(--bounce);
   z-index: 2;
 }
-.btn-reset:hover { color: var(--text); }
+.btn-reset:active { color: var(--blue); transform: scale(0.96); }
 
 /* ════════════════════════════════════════════════════════════
-   STATUS BAR
+   PROGRESO SUPERIOR (reemplaza la status bar de "hacker")
 ════════════════════════════════════════════════════════════ */
-.status-bar {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  height: 32px;
-  background: rgba(5,5,5,0.97);
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center;
-  padding: 0 24px; gap: 28px; z-index: 500;
+.brand-tag {
+  position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+  z-index: 40;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  box-shadow: var(--shadow-sm);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--ink-3);
 }
-.s-item {
-  display: flex; align-items: center; gap: 7px;
-  font-family: 'Barlow', monospace;
-  font-size: 9px; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted);
-}
-.s-live {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--success);
-  animation: livePulse 2s ease-in-out infinite;
-}
-@keyframes livePulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
-.s-right { margin-left: auto; }
+.brand-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+.brand-tag strong { color: var(--ink-2); font-weight: 700; }
+
+/* Oculto la barra de marca en slides de exploración (no estorbar el CTA) */
+#ge-explorador.active ~ .brand-tag,
+#moto-explorador.active ~ .brand-tag,
+#electro-explorador.active ~ .brand-tag { display: none; }
 
 /* ════════════════════════════════════════════════════════════
    RESPONSIVE
 ════════════════════════════════════════════════════════════ */
-@media (max-width:1100px) {
-  .cat-card { height: clamp(280px,40vh,480px); }
-  .card { padding: 24px 26px; }
-  .slide-title { font-size: clamp(32px,5vw,60px); }
-  .sel-title { font-size: clamp(24px, 3.5vw, 36px); }
+@media (max-width: 1100px) {
+  .cat-card { height: clamp(260px, 40vh, 460px); }
 }
-@media (max-height:800px) {
-  .home-stats { bottom: 36px; }
-  .slide-title { font-size: clamp(30px,4.5vw,48px); margin-bottom: 8px; }
-  .card { padding: 24px 32px; max-height: calc(100vh - 50px); margin-top: 20px; }
-  .cat-card { height: clamp(200px,30vh,300px); }
-  .challenge-item { padding: 8px 0; font-size: 14px; }
-  .btn-continue { margin-top: 16px; }
-  .btn-back { top: 16px; left: 16px; padding: 8px 16px; }
-  .sel-content { padding: clamp(16px,2vh,32px) clamp(16px,2vw,32px); }
+@media (max-height: 800px) {
+  .home-stats { bottom: 24px; }
+  .card { padding: 26px 30px; max-height: calc(100vh - 70px); }
+  .cat-card { height: clamp(220px, 34vh, 320px); }
+  .challenge-item { padding: 11px 0; }
+  .selector-grid { padding-top: 78px; }
 }
-@media (max-height:640px) {
-  .home-title { font-size: 48px; }
+@media (max-height: 640px) {
   .home-stats { display: none; }
-  .cat-card { height: 180px; }
-  .card { padding: 16px 20px; margin-top: 24px; }
-  .challenge-item { font-size: 12px; padding: 6px 0; }
-  .status-bar { display: none; }
-  .btn-back { top: 10px; left: 10px; padding: 6px 12px; }
+  .brand-tag { display: none; }
+  .cat-card { height: 200px; }
 }
-@media (max-width:640px) {
+@media (max-width: 760px) {
+  #home-bg-img { width: 100%; clip-path: none; opacity: 0.16; }
+  .home-content { align-items: center; text-align: center; padding-left: 0; }
+  .home-sub { margin-left: auto; margin-right: auto; }
+  .home-stats { left: 50%; transform: translateX(-50%); }
+  .selector-grid { flex-direction: column; padding: 78px 18px 18px; overflow-y: auto; }
+  .sel-col { min-height: 200px; }
   .cat-grid { flex-direction: column; }
-  .cat-card { height: 180px; }
-  .selector-grid { flex-direction: column; }
+  .cat-card { height: 190px; }
   .contact-wrap { flex-direction: column; text-align: center; gap: 32px; }
-  .contact-desc { margin: 12px auto 0; }
-  .status-bar { display: none; }
-  .cta-float { bottom: 16px; right: 14px; padding: 12px 22px; }
-  .home-stats { display: none; }
-  .btn-back { top: 12px; left: 12px; }
+  .contact-desc { margin-left: auto; margin-right: auto; }
+  .contact-links { align-items: center; }
 }
-@media (min-width:2400px) {
-  .home-title { font-size: 220px; }
-  .slide-title { font-size: 100px; }
-  .cat-card { height: 520px; }
+@media (min-width: 2200px) {
+  .home-title { font-size: 150px; }
+  .slide-title { font-size: 84px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
 </style>
 </head>
 <body>
-
-<!-- Cursor -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
 <!-- Overlay panel -->
 <div class="panel-overlay" id="panelOverlay" onclick="closePanel()"></div>
@@ -1007,555 +793,304 @@ html, body {
 <!-- ══════════════════════════ APP ══════════════════════════ -->
 <div id="app">
 
-<!-- ─────────────────────────────────────
-     SLIDE: HOME
-───────────────────────────────────── -->
+<!-- ─── SLIDE: HOME ─── -->
 <div class="slide active" id="home">
   <div id="home-bg-img"></div>
-
   <div class="home-content">
-    <img src="Aercom_Logo_color.png" class="home-logo" alt="Aercom Logo">
-    <div class="home-rule">
-      <div class="home-rule-line"></div>
-      <span class="home-rule-text">Energía para todas las industrias</span>
-      <div class="home-rule-line"></div>
-    </div>
-    <p class="home-sub">Equipamiento industrial de primer nivel.<br>Grupos electrógenos, compresores y soluciones de campo.</p>
+    <div class="home-eyebrow"><span class="home-eyebrow-dot"></span> Energía para todas las industrias</div>
+    <img src="Aercom_Logo_color.png" class="home-logo" alt="Aercom Logo" onerror="this.style.display='none'">
+    <h1 class="home-title">Potencia<span class="accent">industrial.</span></h1>
+    <p class="home-sub">Grupos electrógenos, compresores de aire y soluciones de campo. Equipamiento de primer nivel con respaldo técnico 24/7.</p>
     <button class="btn-primary" onclick="nav('selector')">
-      <span class="btn-icon"><i class="fa-solid fa-arrow-right" style="font-size:8px;"></i></span>
-      Explorar Equipos
+      Explorar equipos
+      <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
     </button>
   </div>
-
   <div class="home-stats">
-    <div class="stat-item">
-      <span class="stat-num">+25<span>años</span></span>
-      <span class="stat-label">Experiencia</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">+25<span>años</span></span><span class="stat-label">Experiencia</span></div>
     <div class="stat-sep"></div>
-    <div class="stat-item">
-      <span class="stat-num">24<span>/7</span></span>
-      <span class="stat-label">Soporte Técnico</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">24<span>/7</span></span><span class="stat-label">Soporte técnico</span></div>
     <div class="stat-sep"></div>
-    <div class="stat-item">
-      <span class="stat-num">100<span>%</span></span>
-      <span class="stat-label">Stock Garantizado</span>
-    </div>
+    <div class="stat-item"><span class="stat-num">100<span>%</span></span><span class="stat-label">Stock garantizado</span></div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SLIDE: SELECTOR
-───────────────────────────────────── -->
-<div class="slide" id="selector" style="padding:0; align-items:stretch; justify-content:stretch;">
-  <!-- Header fijo -->
-  <div class="sel-header" style="position:absolute;top:0;left:0;right:0;">
+<!-- ─── SLIDE: SELECTOR ─── -->
+<div class="slide" id="selector">
+  <div class="sel-header">
     <button class="btn-back" style="position:relative;top:auto;left:auto;" onclick="nav('home')">
       <i class="fa-solid fa-arrow-left"></i> Volver
     </button>
-    <span class="sel-header-title">Aercom — Seleccioná tu área</span>
-    <span class="sel-header-hint">
-      <i class="fa-solid fa-hand-pointer"></i> Tocá para explorar
-    </span>
+    <span class="sel-header-title">Seleccioná tu área</span>
+    <span class="sel-header-hint"><i class="fa-solid fa-hand-pointer"></i> Tocá para explorar</span>
   </div>
-
   <div class="selector-grid">
-    <!-- Columna 1: GE -->
     <div class="sel-col" onclick="nav('ge-intro')">
-      <div class="sel-bg" style="background-image:url('./grupoelectrogeno.jpeg');"></div>
-      <span class="sel-num">01 — División Potencia</span>
+      <div class="sel-bg" style="background-image:url('./grupoelectrogeno.jpeg');">
+        <span class="sel-num">01 — Potencia</span>
+      </div>
       <div class="sel-content">
-        <div class="sel-tag">Grupos Electrógenos</div>
+        <div class="sel-tag">Grupos electrógenos</div>
         <h2 class="sel-title">Grupos<br>Electrógenos</h2>
-        <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
+        <div class="sel-cta">Explorar <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
     </div>
-    <!-- Columna 2: Compresores -->
     <div class="sel-col" onclick="nav('comp-intro')">
-      <div class="sel-bg" style="background-image:url('./electrocompresor.jpg');"></div>
-      <span class="sel-num">02 — Aire Comprimido</span>
+      <div class="sel-bg" style="background-image:url('./electrocompresor.jpg');">
+        <span class="sel-num">02 — Aire comprimido</span>
+      </div>
       <div class="sel-content">
-        <div class="sel-tag">Compresores de Aire</div>
+        <div class="sel-tag">Compresores de aire</div>
         <h2 class="sel-title">Compresores<br>de Aire</h2>
-        <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
+        <div class="sel-cta">Explorar <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
     </div>
-    <!-- Columna 3: Otros -->
     <div class="sel-col" onclick="nav('otros-intro')">
-      <div class="sel-bg" style="background-image:url('./todoslosequipo.jpg');"></div>
-      <span class="sel-num">03 — Equipamiento</span>
+      <div class="sel-bg" style="background-image:url('./todoslosequipo.jpg');">
+        <span class="sel-num">03 — Equipamiento</span>
+      </div>
       <div class="sel-content">
-        <div class="sel-tag">Equipamiento Especial</div>
+        <div class="sel-tag">Equipamiento especial</div>
         <h2 class="sel-title">Otros<br>Equipos</h2>
-        <div class="sel-cta"><i class="fa-solid fa-arrow-right"></i> Explorar</div>
+        <div class="sel-cta">Explorar <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — INTRO
-───────────────────────────────────── -->
-<div class="slide" id="ge-intro"
-     style="background: linear-gradient(rgba(5,5,5,.55),rgba(5,5,5,.88)), url('./grupoelectrogeno.jpeg') center/cover;">
+<!-- ─── GE — INTRO ─── -->
+<div class="slide" id="ge-intro">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+  <div class="card" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
     <div class="eyebrow" style="justify-content:center;">División Potencia</div>
-    <h2 class="slide-title" style="text-align:center;">Grupo<br>Electrógeno</h2>
-    <p class="slide-sub" style="text-align:center; margin-left:auto; margin-right:auto;">¿Su operación está preparada para evitar paradas críticas por falta de energía?</p>
-    <button class="btn-continue" onclick="nav('ge-diagnostico')">
-      <span class="btn-continue-label">Diagnóstico</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <h2 class="slide-title">Grupo<br>Electrógeno</h2>
+    <p class="slide-sub" style="margin-left:auto;margin-right:auto;">¿Su operación está preparada para evitar paradas críticas por falta de energía?</p>
+    <button class="btn-continue" onclick="nav('ge-diagnostico')">Ver diagnóstico <span class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></span></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — DESAFÍOS
-───────────────────────────────────── -->
-<div class="slide" id="ge-diagnostico"
-     style="background: linear-gradient(rgba(5,5,5,.88),rgba(5,5,5,.96)), url('./grupoelectrogeno.jpeg') center/cover;">
+<!-- ─── GE — DESAFÍOS ─── -->
+<div class="slide" id="ge-diagnostico">
   <button class="btn-back" onclick="nav('ge-intro')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
-    <div class="eyebrow">Diagnóstico Operativo</div>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3.5vw,42px);font-weight:800;text-transform:uppercase;margin-bottom:4px;">Desafíos en su operación</h2>
-    <p style="font-size:14px;color:var(--text-muted);margin-bottom:4px;">Identificamos los problemas que frenan su producción</p>
+    <div class="eyebrow">Diagnóstico operativo</div>
+    <h2 style="font-family:'Archivo',sans-serif;font-size:clamp(24px,3.5vw,40px);font-weight:800;letter-spacing:-0.02em;margin-bottom:6px;">Desafíos en su operación</h2>
+    <p style="font-size:14px;color:var(--ink-3);margin-bottom:6px;">Identificamos los problemas que frenan su producción</p>
     <div class="challenge-list">
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
-        Cortes de energía frecuentes e imprevistos que paralizan la producción
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-shield-virus"></i></div>
-        Ausencia de respaldo de potencia confiable ante fallos de red
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-gears"></i></div>
-        Necesidad de operación continua 24/7 sin interrupciones
-      </div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-bolt-lightning"></i></div>Cortes de energía frecuentes e imprevistos que paralizan la producción</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-shield-halved"></i></div>Ausencia de respaldo de potencia confiable ante fallos de red</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-gears"></i></div>Necesidad de operación continua 24/7 sin interrupciones</div>
     </div>
-    <button class="btn-continue" onclick="nav('ge-explorador')">
-      <span class="btn-continue-label">Ver el equipo</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <button class="btn-continue" onclick="nav('ge-explorador')">Ver el equipo <span class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></span></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     GRUPOS ELECTRÓGENOS — EXPLORADOR
-───────────────────────────────────── -->
+<!-- ─── GE — EXPLORADOR ─── -->
 <div class="slide explorer-slide" id="ge-explorador">
   <button class="btn-back" onclick="nav('ge-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-
-  <div class="explorer-badge">
-    <span class="explorer-badge-div">División Potencia</span>
-    <span class="explorer-badge-name">Grupo Electrógeno</span>
-  </div>
-
   <div class="explorer-wrap">
+    <div class="explorer-badge">
+      <span class="explorer-badge-div">División Potencia</span>
+      <span class="explorer-badge-name">Grupo Electrógeno</span>
+    </div>
     <img class="explorer-img" src="./grupoelectrogenoabierto.jpeg" alt="Grupo Electrógeno">
-
-    <!-- Alternador — izquierda (cuerpo azul del alternador) -->
-    <div class="hotspot" style="top:65%;left:22%;" onclick="openPanel('ge-alternador')">
-      <div class="hs-card">
-        <span class="hs-card-title">Alternador</span>
-        <span class="hs-card-sub">Leroy Somer · Sin escobillas</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
-    </div>
-
-    <!-- Motor — centro (motor Baudouin azul) -->
-    <div class="hotspot" style="top:40%;left:54%;" onclick="openPanel('ge-motor')">
-      <div class="hs-card">
-        <span class="hs-card-title">Motor</span>
-        <span class="hs-card-sub">Baudouin · Diésel / Gas</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
-    </div>
-
-    <!-- Cabina — derecha (panel/carcasa lateral) -->
-    <div class="hotspot" style="top:22%;left:82%;" onclick="openPanel('ge-cabina')">
-      <div class="hs-card">
-        <span class="hs-card-title">Cabina</span>
-        <span class="hs-card-sub">Insonorizada · Intemperie</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div>
-    </div>
+    <div class="hotspot" style="top:65%;left:22%;" onclick="openPanel('ge-alternador')"><div class="hs-btn"><i class="fa-solid fa-bolt"></i></div></div>
+    <div class="hotspot" style="top:40%;left:54%;" onclick="openPanel('ge-motor')"><div class="hs-btn"><i class="fa-solid fa-gear"></i></div></div>
+    <div class="hotspot" style="top:22%;left:82%;" onclick="openPanel('ge-cabina')"><div class="hs-btn"><i class="fa-solid fa-shield-halved"></i></div></div>
   </div>
-
-  <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
-    <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
-  </button>
+  <button class="cta-float" onclick="nav('contacto')"><i class="fa-brands fa-whatsapp"></i> Contactar Ventas</button>
 </div>
 
-<!-- ─────────────────────────────────────
-     COMPRESORES — INTRO
-───────────────────────────────────── -->
-<div class="slide" id="comp-intro"
-     style="background: linear-gradient(rgba(5,5,5,.55),rgba(5,5,5,.88)), url('./electrocompresor.jpg') center/cover;">
+<!-- ─── COMP — INTRO ─── -->
+<div class="slide" id="comp-intro">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+  <div class="card" style="text-align:center;display:flex;flex-direction:column;align-items:center;">
     <div class="eyebrow" style="justify-content:center;">División Aire Comprimido</div>
-    <h2 class="slide-title" style="text-align:center;">Compresores<br>de Aire</h2>
-    <p class="slide-sub" style="text-align:center; margin-left:auto; margin-right:auto;">¿Tu línea de aire está preparada para sostener la producción sin interrupciones?</p>
-    <button class="btn-continue" onclick="nav('comp-diagnostico')">
-      <span class="btn-continue-label">Continuar</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <h2 class="slide-title">Compresores<br>de Aire</h2>
+    <p class="slide-sub" style="margin-left:auto;margin-right:auto;">¿Tu línea de aire está preparada para sostener la producción sin interrupciones?</p>
+    <button class="btn-continue" onclick="nav('comp-diagnostico')">Continuar <span class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></span></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     COMPRESORES — DESAFÍOS
-───────────────────────────────────── -->
-<div class="slide" id="comp-diagnostico"
-     style="background: linear-gradient(rgba(5,5,5,.88),rgba(5,5,5,.96)), url('./electrocompresor.jpg') center/cover;">
+<!-- ─── COMP — DESAFÍOS ─── -->
+<div class="slide" id="comp-diagnostico">
   <button class="btn-back" onclick="nav('comp-intro')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
     <div class="eyebrow">Diagnóstico</div>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(24px,3.5vw,42px);font-weight:800;text-transform:uppercase;margin-bottom:4px;">¿Qué desafíos enfrentás hoy?</h2>
-    <p style="font-size:14px;color:var(--text-muted);margin-bottom:4px;">Conocemos cada problema de las líneas de aire comprimido</p>
+    <h2 style="font-family:'Archivo',sans-serif;font-size:clamp(24px,3.5vw,40px);font-weight:800;letter-spacing:-0.02em;margin-bottom:6px;">¿Qué desafíos enfrentás hoy?</h2>
+    <p style="font-size:14px;color:var(--ink-3);margin-bottom:6px;">Conocemos cada problema de las líneas de aire comprimido</p>
     <div class="challenge-list">
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-shield-halved"></i></div>
-        Falta de respaldo confiable de aire ante fallas del compresor principal
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-filter"></i></div>
-        Mala calidad de aire comprimido que afecta el proceso o los productos
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-bolt"></i></div>
-        Equipos poco eficientes que generan alto consumo eléctrico
-      </div>
-      <div class="challenge-item">
-        <div class="challenge-icon"><i class="fa-solid fa-droplet-slash"></i></div>
-        Agua en la línea que daña herramientas y detiene la producción
-      </div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-shield-halved"></i></div>Falta de respaldo confiable de aire ante fallas del compresor principal</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-filter"></i></div>Mala calidad de aire comprimido que afecta el proceso o los productos</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-bolt"></i></div>Equipos poco eficientes que generan alto consumo eléctrico</div>
+      <div class="challenge-item"><div class="challenge-icon"><i class="fa-solid fa-droplet-slash"></i></div>Agua en la línea que daña herramientas y detiene la producción</div>
     </div>
-    <button class="btn-continue" onclick="nav('comp-soluciones')">
-      <span class="btn-continue-label">Ver soluciones</span>
-      <div class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></div>
-    </button>
+    <button class="btn-continue" onclick="nav('comp-soluciones')">Ver soluciones <span class="btn-continue-icon"><i class="fa-solid fa-chevron-down"></i></span></button>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     COMPRESORES — SOLUCIONES
-───────────────────────────────────── -->
-<div class="slide" id="comp-soluciones" style="background:var(--bg);">
+<!-- ─── COMP — SOLUCIONES ─── -->
+<div class="slide" id="comp-soluciones">
   <button class="btn-back" onclick="nav('comp-diagnostico')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div style="width:92%;max-width:1080px;">
-    <div class="eyebrow">Soluciones a Medida</div>
-    <h2 class="slide-title">Infraestructura de<br>Aire Comprimido</h2>
+  <div style="width:100%;max-width:1080px;">
+    <div class="eyebrow">Soluciones a medida</div>
+    <h2 class="slide-title" style="margin-bottom:6px;">Infraestructura de<br>Aire Comprimido</h2>
     <div class="cat-grid">
       <div class="cat-card" onclick="nav('comp-subcat')">
         <img src="./electrocompresor.jpg" alt="Compresores">
-        <div class="cat-label">
-          <h4>Compresores</h4>
-          <p>Diésel y eléctrico — tornillo y pistón</p>
-        </div>
+        <div class="cat-label"><h4>Compresores</h4><p>Diésel y eléctrico — tornillo y pistón</p><span class="cat-arrow">Ver opciones <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
       <div class="cat-card" onclick="nav('view-secadora')">
         <img src="secadora.jpg" alt="Secadoras">
-        <div class="cat-label">
-          <h4>Tratamiento de Aire</h4>
-          <p>Secadoras frigoríficas y por adsorción</p>
-        </div>
+        <div class="cat-label"><h4>Tratamiento de Aire</h4><p>Secadoras frigoríficas y por adsorción</p><span class="cat-arrow">Ver opciones <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
       <div class="cat-card" onclick="nav('view-shelter')">
         <img src="sheltercerrado.jpg" alt="Shelter">
-        <div class="cat-label">
-          <h4>Shelter Industrial</h4>
-          <p>Infraestructura contenedorizada de campo</p>
-        </div>
+        <div class="cat-label"><h4>Shelter Industrial</h4><p>Infraestructura contenedorizada de campo</p><span class="cat-arrow">Ver opciones <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SELECCIÓN TIPO COMPRESOR
-───────────────────────────────────── -->
-<div class="slide" id="comp-subcat" style="background:var(--bg);">
+<!-- ─── COMP — SUBCAT ─── -->
+<div class="slide" id="comp-subcat">
   <button class="btn-back" onclick="nav('comp-soluciones')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
-    <div class="eyebrow">Tecnologías Disponibles</div>
-    <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(26px,3.5vw,44px);font-weight:800;text-transform:uppercase;margin-bottom:24px;">Seleccioná la tecnología</h2>
+    <div class="eyebrow">Tecnologías disponibles</div>
+    <h2 style="font-family:'Archivo',sans-serif;font-size:clamp(26px,3.5vw,42px);font-weight:800;letter-spacing:-0.02em;margin-bottom:22px;">Seleccioná la tecnología</h2>
     <div class="cat-grid" style="justify-content:center;">
-      <div class="cat-card" style="max-width:440px;" onclick="nav('moto-explorador')">
+      <div class="cat-card" style="max-width:420px;" onclick="nav('moto-explorador')">
         <img src="motocompresores.jpg" alt="Motocompresores">
-        <div class="cat-label">
-          <h4>Motocompresores Diésel</h4>
-          <p>Autonomía total · Sin red eléctrica</p>
-        </div>
+        <div class="cat-label"><h4>Motocompresores Diésel</h4><p>Autonomía total · Sin red eléctrica</p><span class="cat-arrow">Explorar <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
-      <div class="cat-card" style="max-width:440px;" onclick="nav('electro-explorador')">
+      <div class="cat-card" style="max-width:420px;" onclick="nav('electro-explorador')">
         <img src="./electrocompresor.jpg" alt="Electrocompresores">
-        <div class="cat-label">
-          <h4>Electrocompresores</h4>
-          <p>Eficiencia máxima · Tornillo alemán</p>
-        </div>
+        <div class="cat-label"><h4>Electrocompresores</h4><p>Eficiencia máxima · Tornillo alemán</p><span class="cat-arrow">Explorar <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     MOTOCOMPRESOR — EXPLORADOR
-───────────────────────────────────── -->
+<!-- ─── MOTOCOMPRESOR — EXPLORADOR ─── -->
 <div class="slide explorer-slide" id="moto-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-
-  <div class="explorer-badge">
-    <span class="explorer-badge-div">División Aire Comprimido</span>
-    <span class="explorer-badge-name">Motocompresor Diésel</span>
-  </div>
-
   <div class="explorer-wrap">
-    <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor MAC3">
-
-    <!-- Motor Diésel — lado izquierdo del equipo -->
-    <div class="hotspot" style="top:52%;left:16%;" onclick="openPanel('mc-motor')">
-      <div class="hs-card">
-        <span class="hs-card-title">Motor Diésel</span>
-        <span class="hs-card-sub">Kubota · Alta autonomía</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-gear"></i></div>
+    <div class="explorer-badge">
+      <span class="explorer-badge-div">División Aire Comprimido</span>
+      <span class="explorer-badge-name">Motocompresor Diésel</span>
     </div>
-
-    <!-- Unidad Compresora — zona central, filtro blanco alto -->
-    <div class="hotspot" style="top:25%;left:55%;" onclick="openPanel('mc-unidad')">
-      <div class="hs-card">
-        <span class="hs-card-title">Unidad Compresora</span>
-        <span class="hs-card-sub">Fabricación europea</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-wind"></i></div>
-    </div>
-
-    <!-- Panel de Control — frente inferior, instrumentos y válvulas -->
-    <div class="hotspot" style="top:75%;left:45%;" onclick="openPanel('mc-panel')">
-      <div class="hs-card">
-        <span class="hs-card-title">Panel de Control</span>
-        <span class="hs-card-sub">Presión · Temperatura</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-sliders"></i></div>
-    </div>
+    <img class="explorer-img" src="motocompresorabierto.jpg" alt="Motocompresor">
+    <div class="hotspot" style="top:52%;left:16%;" onclick="openPanel('mc-motor')"><div class="hs-btn"><i class="fa-solid fa-gear"></i></div></div>
+    <div class="hotspot" style="top:25%;left:55%;" onclick="openPanel('mc-unidad')"><div class="hs-btn"><i class="fa-solid fa-wind"></i></div></div>
+    <div class="hotspot" style="top:75%;left:45%;" onclick="openPanel('mc-panel')"><div class="hs-btn"><i class="fa-solid fa-sliders"></i></div></div>
   </div>
-
-  <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
-    <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
-  </button>
+  <button class="cta-float" onclick="nav('contacto')"><i class="fa-brands fa-whatsapp"></i> Contactar Ventas</button>
 </div>
 
-<!-- ─────────────────────────────────────
-     ELECTROCOMPRESOR — EXPLORADOR
-───────────────────────────────────── -->
+<!-- ─── ELECTROCOMPRESOR — EXPLORADOR ─── -->
 <div class="slide explorer-slide" id="electro-explorador">
   <button class="btn-back" onclick="nav('comp-subcat')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-
-  <div class="explorer-badge">
-    <span class="explorer-badge-div">División Aire Comprimido</span>
-    <span class="explorer-badge-name">Electrocompresor</span>
-  </div>
-
   <div class="explorer-wrap">
-    <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor HGS">
-
-    <!-- Motor Eléctrico — lado izquierdo (radiador/rejilla lateral) -->
-    <div class="hotspot" style="top:70%;left:22%;" onclick="openPanel('ec-motor')">
-      <div class="hs-card">
-        <span class="hs-card-title">Motor Eléctrico</span>
-        <span class="hs-card-sub">Fijo o VSD · Origen alemán</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-bolt"></i></div>
+    <div class="explorer-badge">
+      <span class="explorer-badge-div">División Aire Comprimido</span>
+      <span class="explorer-badge-name">Electrocompresor</span>
     </div>
-
-    <!-- Cabezal de Tornillo — centro (filtros blancos y tuberías azules) -->
-    <div class="hotspot" style="top:32%;left:52%;" onclick="openPanel('ec-tornillo')">
-      <div class="hs-card">
-        <span class="hs-card-title">Cabezal de Tornillo</span>
-        <span class="hs-card-sub">Oil free o lubricado</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-rotate"></i></div>
-    </div>
-
-    <!-- Panel de Control — derecha (display digital + botón rojo) -->
-    <div class="hotspot" style="top:22%;left:85%;" onclick="openPanel('ec-vsd')">
-      <div class="hs-card">
-        <span class="hs-card-title">Panel de Control</span>
-        <span class="hs-card-sub">Display · Sistema VSD</span>
-      </div>
-      <div class="hs-connector"></div>
-      <div class="hs-btn"><i class="fa-solid fa-display"></i></div>
-    </div>
+    <img class="explorer-img" src="electrocompresorabierto.jpg" alt="Electrocompresor">
+    <div class="hotspot" style="top:70%;left:22%;" onclick="openPanel('ec-motor')"><div class="hs-btn"><i class="fa-solid fa-bolt"></i></div></div>
+    <div class="hotspot" style="top:32%;left:52%;" onclick="openPanel('ec-tornillo')"><div class="hs-btn"><i class="fa-solid fa-rotate"></i></div></div>
+    <div class="hotspot" style="top:22%;left:85%;" onclick="openPanel('ec-vsd')"><div class="hs-btn"><i class="fa-solid fa-display"></i></div></div>
   </div>
-
-  <button class="cta-float" onclick="nav('contacto')" style="background:#25D366;border-color:#25D366;">
-    <i class="fa-brands fa-whatsapp" style="font-size: 1.2em;"></i> Contactar Ventas
-  </button>
+  <button class="cta-float" onclick="nav('contacto')"><i class="fa-brands fa-whatsapp"></i> Contactar Ventas</button>
 </div>
 
-<!-- ─────────────────────────────────────
-     SECADORA — VISTA
-───────────────────────────────────── -->
-<div class="slide" id="view-secadora" style="background:var(--bg);">
+<!-- ─── SECADORA — VISTA ─── -->
+<div class="slide" id="view-secadora">
   <button class="btn-back" onclick="nav('comp-soluciones')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
-    <div class="eyebrow">Tratamiento de Aire</div>
+    <div class="eyebrow">Tratamiento de aire</div>
     <h2 class="slide-title">Secadores<br>de Aire</h2>
     <div class="iPhoto" onclick="openPanel('secadora')">
       <img src="secadora.jpg" alt="Secadora de Aire">
-      <div class="iPhoto-cta">
-        <i class="fa-solid fa-file-lines"></i> Ver Especificaciones
-      </div>
+      <div class="iPhoto-cta"><i class="fa-solid fa-file-lines"></i> Ver especificaciones</div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     SHELTER — VISTA
-───────────────────────────────────── -->
-<div class="slide" id="view-shelter" style="background:var(--bg);">
+<!-- ─── SHELTER — VISTA ─── -->
+<div class="slide" id="view-shelter">
   <button class="btn-back" onclick="nav('comp-soluciones')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
   <div class="card">
-    <div class="eyebrow">Infraestructura de Campo</div>
+    <div class="eyebrow">Infraestructura de campo</div>
     <h2 class="slide-title">Shelter<br>Industrial</h2>
     <div class="iPhoto" onclick="openPanel('shelter')">
       <img src="shelterabierto.jpg" alt="Shelter Abierto">
-      <div class="iPhoto-cta">
-        <i class="fa-solid fa-file-lines"></i> Ver Especificaciones
-      </div>
+      <div class="iPhoto-cta"><i class="fa-solid fa-file-lines"></i> Ver especificaciones</div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     OTROS EQUIPOS
-───────────────────────────────────── -->
-<div class="slide" id="otros-intro" style="background:var(--bg);">
+<!-- ─── OTROS EQUIPOS ─── -->
+<div class="slide" id="otros-intro">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div style="width:92%;max-width:860px;">
-    <div class="eyebrow">Equipamiento Industrial Premium</div>
-    <h2 class="slide-title">Otros Equipos</h2>
+  <div style="width:100%;max-width:880px;">
+    <div class="eyebrow">Equipamiento industrial premium</div>
+    <h2 class="slide-title" style="margin-bottom:6px;">Otros Equipos</h2>
     <div class="cat-grid">
       <div class="cat-card" onclick="openPanel('torre')">
         <img src="torredeiluminacion.jpg" alt="Torre de Luz">
-        <div class="cat-label">
-          <h4>Torres de Iluminación</h4>
-          <p>Diésel · LED · 360° · Gran autonomía</p>
-        </div>
+        <div class="cat-label"><h4>Torres de Iluminación</h4><p>Diésel · LED · 360° · Gran autonomía</p><span class="cat-arrow">Ver detalle <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
       <div class="cat-card" onclick="openPanel('vru')">
         <img src="vru.JPG" alt="VRU">
-        <div class="cat-label">
-          <h4>Unidades VRU</h4>
-          <p>Vapor Recovery · Oil & Gas · A medida</p>
-        </div>
+        <div class="cat-label"><h4>Unidades VRU</h4><p>Vapor Recovery · Oil &amp; Gas · A medida</p><span class="cat-arrow">Ver detalle <i class="fa-solid fa-arrow-right"></i></span></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ─────────────────────────────────────
-     PANEL LATERAL
-───────────────────────────────────── -->
+<!-- ─── PANEL LATERAL ─── -->
 <div class="side-panel" id="sidePanel">
   <div class="panel-head">
     <div class="panel-div" id="panelDiv">—</div>
     <div class="panel-title" id="panelTitle">—</div>
     <div class="panel-rule"></div>
   </div>
-
-
-
   <div class="panel-section">
-    <div class="panel-section-label info">
-      <i class="fa-solid fa-circle-check"></i>
-      Ventaja Aercom
-    </div>
+    <div class="panel-section-label info"><i class="fa-solid fa-circle-check"></i> Ventaja Aercom</div>
     <ul class="panel-list info-list" id="panelSol"></ul>
   </div>
-
-  <button class="btn-close" onclick="closePanel()">
-    <i class="fa-solid fa-xmark" style="margin-right:8px;"></i>Cerrar panel
-  </button>
+  <button class="btn-close" onclick="closePanel()"><i class="fa-solid fa-xmark" style="margin-right:8px;"></i>Cerrar panel</button>
 </div>
 
-<!-- ─────────────────────────────────────
-     CONTACTO
-───────────────────────────────────── -->
+<!-- ─── CONTACTO ─── -->
 <div class="slide" id="contacto">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-
   <div class="contact-wrap">
     <div class="contact-text">
       <div class="contact-eyebrow">Contacto directo</div>
       <h2 class="contact-title">Hablemos.</h2>
       <p class="contact-desc">Nuestro departamento técnico está disponible para asesorarle en cada proyecto.</p>
       <div class="contact-links">
-        <div class="contact-link">
-          <i class="fa-solid fa-globe"></i>
-          aercom.com.ar
-        </div>
-        <div class="contact-link">
-          <i class="fa-solid fa-envelope"></i>
-          info@aercom.com.ar
-        </div>
-        <div class="contact-link">
-          <i class="fa-solid fa-phone"></i>
-          Consultar en stand
-        </div>
+        <div class="contact-link"><i class="fa-solid fa-globe"></i> aercom.com.ar</div>
+        <div class="contact-link"><i class="fa-solid fa-envelope"></i> info@aercom.com.ar</div>
+        <div class="contact-link"><i class="fa-solid fa-phone"></i> Consultar en stand</div>
       </div>
     </div>
     <div class="qr-box">
-      <!-- Reemplaza "QR_contacto.png" por el nombre exacto de la foto del código QR -->
-      <img src="qrcode.png" class="qr-image" alt="QR WhatsApp">
-      <div class="qr-label" style="font-size:12px;">Escanear para contactar</div>
+      <img src="qrcode.png" class="qr-image" alt="QR WhatsApp" onerror="this.style.display='none'">
+      <div class="qr-label">Escanear para contactar</div>
     </div>
   </div>
-
-  <button class="btn-reset" onclick="nav('home')">
-    <i class="fa-solid fa-rotate-right"></i> Reiniciar presentación
-  </button>
+  <button class="btn-reset" onclick="nav('home')"><i class="fa-solid fa-rotate-right"></i> Reiniciar presentación</button>
 </div>
 
 </div><!-- /app -->
 
-<!-- STATUS BAR -->
-<div class="status-bar">
-  <div class="s-item"><div class="s-live"></div> Sistema Activo</div>
-  <div class="s-item"><i class="fa-solid fa-server" style="font-size:8px;color:var(--blue);"></i>&nbsp; Aercom EXP v5.0</div>
-  <div class="s-item s-right" id="clock">--:--:--</div>
-</div>
+<!-- BARRA DE MARCA (reemplaza la status bar) -->
+<div class="brand-tag"><span class="dot"></span> <strong>AERCOM</strong> · Equipamiento industrial</div>
 
-<!-- ══════════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════════ -->
 <script>
-/* ════════════════════════════════════════════════════════════
-   CURSOR — solo dot, sin anillo (optimizado tablet)
-════════════════════════════════════════════════════════════ */
-const curDot = document.getElementById('cursor-dot');
-document.addEventListener('mousemove', e => {
-  curDot.style.left = e.clientX + 'px';
-  curDot.style.top  = e.clientY + 'px';
-}, { passive: true });
-document.addEventListener('mouseleave', () => { curDot.style.opacity = '0'; });
-document.addEventListener('mouseenter', () => { curDot.style.opacity = '1'; });
-
-/* ════════════════════════════════════════════════════════════
-   NAVEGACIÓN
-════════════════════════════════════════════════════════════ */
+/* ════════ NAVEGACIÓN ════════ */
 function nav(id) {
   const prev = document.querySelector('.slide.active');
   const next = document.getElementById(id);
@@ -1563,307 +1098,120 @@ function nav(id) {
   if (prev) prev.classList.remove('active');
   next.classList.add('active');
   closePanel();
+  const sp = next.querySelector('[id$="explorador"]') || next;
 }
 
-/* ════════════════════════════════════════════════════════════
-   ╔══════════════════════════════════════════════════════╗
-   ║  BASE DE DATOS DE CONTENIDO — EDITAR AQUÍ           ║
-   ║  Cada entrada tiene:                                 ║
-   ║    div  → subtítulo del panel (arriba del título)    ║
-   ║    t    → título principal del panel                 ║
-   ║    d[]  → lista ROJA: problemas / especificaciones   ║
-   ║    s[]  → lista AZUL: ventajas Aercom                ║
-   ╚══════════════════════════════════════════════════════╝
-════════════════════════════════════════════════════════════ */
+/* ════════ BASE DE DATOS DE CONTENIDO — EDITAR AQUÍ ════════
+   div → subtítulo del panel · t → título · s[] → ventajas Aercom */
 const panelData = {
+  'ge-alternador': { div:'Grupo Electrógeno', t:'Alternador', s:[
+    'Alternadores Leroy Somer / Weichai de alta fiabilidad industrial',
+    'Trifásico 3×380 V — 50 Hz con neutro para cargas monofásicas 220 V',
+    'Sin escobillas: excitación por diodos rotantes, mínimo mantenimiento',
+    'Regulación de tensión por placa AVR integrada',
+    'Preparados para paralelismo según modelo' ] },
+  'ge-motor': { div:'Grupo Electrógeno', t:'Motor', s:[
+    'Motores Baudouin / Weichai: Diésel, Gas Natural o GLP según necesidad',
+    'Línea industrial diseñada para uso estacionario y generación continua',
+    'Control electrónico de velocidad de alta precisión',
+    'Stock permanente de repuestos garantizado en Argentina' ] },
+  'ge-cabina': { div:'Grupo Electrógeno', t:'Cabina', s:[
+    'Cabina insonorizada apta para intemperie con batea antiderrame integrada',
+    'Tanque de combustible extraíble para limpieza sencilla',
+    'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente interior',
+    'Carga externa con reloj analógico de control de nivel',
+    'Cáncamos de izaje y guías para autoelevador según modelo' ] },
+  'mc-motor': { div:'Motocompresor Diésel', t:'Motor Kubota', s:[
+    'Motor Kubota de fiabilidad industrial reconocida mundialmente',
+    'Gran tanque de combustible para jornadas extendidas sin reposición',
+    'Ideal para minería, oil & gas, construcción y emergencias' ] },
+  'mc-unidad': { div:'Motocompresor Diésel', t:'Unidad Compresora', s:[
+    'Unidad compresora de fabricación europea: alta eficiencia y durabilidad',
+    'Modelos de diferentes caudales y presiones para cada requerimiento',
+    'Eje simple y lanza de altura regulable para fácil maniobra en campo' ] },
+  'mc-panel': { div:'Motocompresor Diésel', t:'Panel de Control', s:[
+    'Panel completo: presión, temperatura y horario de uso integrados',
+    'Protecciones automáticas ante sobrecalentamiento y baja presión de aceite',
+    'Cabina diseñada para intemperie con acceso seguro al panel de control' ] },
+  'ec-motor': { div:'Electrocompresor', t:'Motor Eléctrico', s:[
+    'Acople directo o a correas según el modelo y la aplicación',
+    'Velocidad fija o variable VSD para máxima eficiencia energética',
+    'Tecnología de origen alemán homologada en la Unión Europea' ] },
+  'ec-tornillo': { div:'Electrocompresor', t:'Cabezal de Tornillo', s:[
+    'Lubricados (Oil injected) o libres de aceite (Oil free) según proceso',
+    'Apto para industria general, alimentaria, farmacéutica y de alta precisión',
+    'Cabinas de bajo nivel sonoro para optimizar instalación en cualquier espacio',
+    'Modelos específicos para mesas de corte láser y procesos especiales' ] },
+  'ec-vsd': { div:'Electrocompresor', t:'Sistema y Tecnología', s:[
+    'Amplia gama de caudal y presión para cubrir todos los requerimientos',
+    'Modelos Compact con tanque y secador integrados en una sola unidad',
+    'Mayor eficiencia energética con diseño certificado y auditado',
+    'Stock permanente de repuestos garantizado en Argentina' ] },
+  'secadora': { div:'Tratamiento de Aire', t:'Secadores de Aire', s:[
+    'Frigoríficos (+3 °C) o por adsorción (−40 °C) según el proceso productivo',
+    'Calidad de aire certificable según norma ISO 8573-1',
+    'Adaptables a todos los procesos industriales o requerimientos especiales',
+    'Gama completa compatible con todos los modelos de compresores Aercom',
+    'Muy bajo mantenimiento, con filtros de línea integrados de serie' ] },
+  'shelter': { div:'Infraestructura de Campo', t:'Shelter Industrial', s:[
+    'Aplicaciones en minería, campos petroleros y gasíferos de todo tipo',
+    'Diseño completamente personalizado para cada cliente y cada proyecto',
+    'Contenedores normalizados con equipamiento adicional según el sitio',
+    'Equipado con máquinas y sistemas listos para el proceso de destino',
+    'Amplios accesos para operación cómoda y mantenimiento eficiente' ] },
+  'torre': { div:'Equipamiento Especial', t:'Torres de Iluminación', s:[
+    'Distintos modelos para diferentes necesidades operativas y de faena',
+    'Luminarias LED de largo alcance y gran poder lumínico certificado',
+    'Motor diésel con gran autonomía y consumo reducido',
+    'Alternador 220 V / 50 Hz con tomacorrientes para herramientas eléctricas',
+    'Mástil de gran altura, giro 360°, izaje manual o hidráulico',
+    'Lanza de remolque para fácil traslado y patas desplegables estabilizadoras' ] },
+  'vru': { div:'Equipamiento Especial', t:'Unidades VRU', s:[
+    'Recuperación eficiente de hidrocarburos livianos del proceso',
+    'Reducción de emisiones dentro de normativa ambiental vigente',
+    'Sistemas diseñados a medida para cada instalación y proceso' ] }
+};
 
-  /* ── GRUPOS ELECTRÓGENOS ─────────────────────────────────
-     Hotspot ALTERNADOR (izquierda — parte azul del equipo)  */
-  'ge-alternador': {
-    div: 'Grupo Electrógeno',
-    t: 'Alternador',
-    d: [
-      'Pérdida de aislamiento por partículas conductoras o humedad',
-      'Tensión inestable que daña equipos electrónicos sensibles',
-      'Incompatibilidad con cargas monofásicas en red trifásica',
-    ],
-    s: [
-      'Alternadores Leroy Somer / Weichai de alta fiabilidad industrial',
-      'Trifásico 3×380 V — 50 Hz con neutro para cargas monofásicas 220 V',
-      'Sin escobillas: excitación por diodos rotantes, mínimo mantenimiento',
-      'Regulación de tensión por placa AVR integrada',
-      'Preparados para paralelismo según modelo',
-    ]
-  },
-
-  /* Hotspot MOTOR (centro) */
-  'ge-motor': {
-    div: 'Grupo Electrógeno',
-    t: 'Motor',
-    d: [
-      'Fallas por uso de lubricantes o combustible fuera de especificación',
-      'Paradas inesperadas por falta de stock de repuestos críticos',
-      'Incompatibilidad con suministro de gas natural o GLP disponible en planta',
-    ],
-    s: [
-      'Motores Baudouin / Weichai: Diésel, Gas Natural o GLP según necesidad',
-      'Línea industrial diseñada para uso estacionario y generación continua',
-      'Control electrónico de velocidad de alta precisión',
-      'Stock permanente de repuestos garantizado en Argentina',
-    ]
-  },
-
-  /* Hotspot CABINA (derecha — panel/carcasa) */
-  'ge-cabina': {
-    div: 'Grupo Electrógeno',
-    t: 'Cabina',
-    d: [
-      'Exposición a intemperie, ingreso de agua y polvo fino',
-      'Alto nivel de ruido en entornos residenciales o sensibles',
-      'Dificultad de acceso para operación y mantenimiento en campo',
-    ],
-    s: [
-      'Cabina insonorizada apta para intemperie con batea antiderrame integrada',
-      'Tanque de combustible extraíble para limpieza sencilla',
-      'Puertas amplias con imanes antiviento y revestimiento fonoabsorbente interior',
-      'Carga externa con reloj analógico de control de nivel',
-      'Cáncamos de izaje y guías para autoelevador según modelo',
-    ]
-  },
-
-  /* ── MOTOCOMPRESORES DIÉSEL ──────────────────────────────
-     Hotspot MOTOR DIÉSEL (izquierda)                        */
-  'mc-motor': {
-    div: 'Motocompresor Diésel',
-    t: 'Motor Kubota',
-    d: [
-      'Dependencia de red eléctrica en zonas remotas u obras sin suministro',
-      'Alta demanda de potencia en trabajo continuo de larga jornada',
-    ],
-    s: [
-      'Motor Kubota de fiabilidad industrial reconocida mundialmente',
-      'Gran tanque de combustible para jornadas extendidas sin reposición',
-      'Ideal para minería, oil & gas, construcción y emergencias',
-    ]
-  },
-
-  /* Hotspot UNIDAD COMPRESORA (centro) */
-  'mc-unidad': {
-    div: 'Motocompresor Diésel',
-    t: 'Unidad Compresora',
-    d: [
-      'Diversidad de requerimientos de caudal y presión según la aplicación',
-      'Necesidad de portabilidad en terrenos irregulares o de difícil acceso',
-    ],
-    s: [
-      'Unidad compresora de fabricación europea: alta eficiencia y durabilidad',
-      'Modelos de diferentes caudales y presiones para cada requerimiento',
-      'Eje simple y lanza de altura regulable para fácil maniobra en campo',
-    ]
-  },
-
-  /* Hotspot PANEL DE CONTROL (derecha) */
-  'mc-panel': {
-    div: 'Motocompresor Diésel',
-    t: 'Panel de Control',
-    d: [
-      'Dificultad para monitorear parámetros de operación en campo',
-      'Sin protecciones que prevengan daños al equipo ante fallas',
-    ],
-    s: [
-      'Panel completo: presión, temperatura y horario de uso integrados',
-      'Protecciones automáticas ante sobrecalentamiento y baja presión de aceite',
-      'Cabina diseñada para intemperie con acceso seguro al panel de control',
-    ]
-  },
-
-  /* ── ELECTROCOMPRESORES ──────────────────────────────────
-     Hotspot MOTOR ELÉCTRICO (izquierda)                     */
-  'ec-motor': {
-    div: 'Electrocompresor',
-    t: 'Motor Eléctrico',
-    d: [
-      'Alto consumo energético en compresores de velocidad fija con ciclos variables',
-      'Desgaste acelerado por arranques directos frecuentes sin suavizado',
-    ],
-    s: [
-      'Acople directo o a correas según el modelo y la aplicación',
-      'Velocidad fija o variable VSD para máxima eficiencia energética',
-      'Tecnología de origen alemán homologada en la Unión Europea',
-    ]
-  },
-
-  /* Hotspot CABEZAL DE TORNILLO (centro) */
-  'ec-tornillo': {
-    div: 'Electrocompresor',
-    t: 'Cabezal de Tornillo',
-    d: [
-      'Contaminación del aire en procesos alimenticios o farmacéuticos',
-      'Ruido excesivo que limita la instalación en espacios confinados o urbanizados',
-    ],
-    s: [
-      'Lubricados (Oil injected) o libres de aceite (Oil free) según proceso',
-      'Apto para industria general, alimentaria, farmacéutica y de alta precisión',
-      'Cabinas de bajo nivel sonoro para optimizar instalación en cualquier espacio',
-      'Modelos específicos para mesas de corte láser y procesos especiales',
-    ]
-  },
-
-  /* Hotspot SISTEMA VSD (derecha) */
-  'ec-vsd': {
-    div: 'Electrocompresor',
-    t: 'Sistema y Tecnología',
-    d: [
-      'Rango limitado de caudal/presión que no cubre todos los requerimientos de planta',
-      'Stock de repuestos incierto que genera paradas prolongadas y costosas',
-    ],
-    s: [
-      'Amplia gama de caudal y presión para cubrir todos los requerimientos',
-      'Modelos Compact con tanque y secador integrados en una sola unidad',
-      'Mayor eficiencia energética con diseño certificado y auditado',
-      'Stock permanente de repuestos garantizado en Argentina',
-    ]
-  },
-
-  /* ── TRATAMIENTO DE AIRE ─────────────────────────────────
-     Panel de Secadoras (click en foto)                      */
-  'secadora': {
-    div: 'Tratamiento de Aire',
-    t: 'Secadores de Aire',
-    d: [
-      'Condensados que dañan herramientas neumáticas, válvulas y actuadores',
-      'Corrosión interna en tuberías por humedad sin tratamiento adecuado',
-      'Procesos que exigen calidad de aire certificada según ISO 8573-1',
-    ],
-    s: [
-      'Frigoríficos (+3 °C) o por adsorción (−40 °C) según el proceso productivo',
-      'Calidad de aire certificable según norma ISO 8573-1',
-      'Adaptables a todos los procesos industriales o requerimientos especiales',
-      'Gama completa compatible con todos los modelos de compresores Aercom',
-      'Muy bajo mantenimiento, con filtros de línea integrados de serie',
-    ]
-  },
-
-  /* ── SHELTER INDUSTRIAL ──────────────────────────────────
-     Panel de Shelter (click en foto)                        */
-  'shelter': {
-    div: 'Infraestructura de Campo',
-    t: 'Shelter Industrial',
-    d: [
-      'Altos costos de obra civil para alojar equipos en locaciones remotas',
-      'Exposición a condiciones ambientales adversas sin protección adecuada',
-      'Largos plazos de instalación que demoran el inicio operativo del proyecto',
-    ],
-    s: [
-      'Aplicaciones en minería, campos petroleros y gasíferos de todo tipo',
-      'Diseño completamente personalizado para cada cliente y cada proyecto',
-      'Contenedores normalizados con equipamiento adicional según el sitio',
-      'Equipado con máquinas y sistemas listos para el proceso de destino',
-      'Amplios accesos para operación cómoda y mantenimiento eficiente',
-    ]
-  },
-
-  /* ── OTROS EQUIPOS ───────────────────────────────────────
-     Panel Torres de Iluminación (click en tarjeta)          */
-  'torre': {
-    div: 'Equipamiento Especial',
-    t: 'Torres de Iluminación',
-    d: [
-      'Falta de visibilidad en turnos nocturnos o áreas de trabajo remotas',
-      'Riesgos laborales graves y baja productividad sin iluminación suficiente',
-    ],
-    s: [
-      'Distintos modelos para diferentes necesidades operativas y de faena',
-      'Luminarias LED de largo alcance y gran poder lumínico certificado',
-      'Motor diésel con gran autonomía y consumo reducido',
-      'Alternador 220 V / 50 Hz con tomacorrientes para herramientas eléctricas',
-      'Mástil de gran altura, giro 360°, izaje manual o hidráulico',
-      'Lanza de remolque para fácil traslado y patas desplegables estabilizadoras',
-    ]
-  },
-
-  /* Panel Unidades VRU (click en tarjeta) */
-  'vru': {
-    div: 'Equipamiento Especial',
-    t: 'Unidades VRU',
-    d: [
-      'Emisiones fugitivas de gases livianos desde tanques de almacenamiento',
-      'Pérdidas económicas y problemas de cumplimiento de normativa ambiental',
-    ],
-    s: [
-      'Recuperación eficiente de hidrocarburos livianos del proceso',
-      'Reducción de emisiones dentro de normativa ambiental vigente',
-      'Sistemas diseñados a medida para cada instalación y proceso',
-    ]
-  }
-
-}; /* ─── fin panelData ─── */
-
-/* ════════════════════════════════════════════════════════════
-   PANEL LATERAL
-════════════════════════════════════════════════════════════ */
+/* ════════ PANEL LATERAL ════════ */
 function buildItems(arr) {
   if (!arr || !arr.length) return '';
-  return arr.map(item =>
-    `<li><span class="pdot"></span><span>${item}</span></li>`
-  ).join('');
+  return arr.map(i => `<li><span class="pdot"></span><span>${i}</span></li>`).join('');
 }
-
 function openPanel(key) {
   const d = panelData[key];
   if (!d) return;
-  document.getElementById('panelDiv').textContent   = d.div || '';
+  document.getElementById('panelDiv').textContent = d.div || '';
   document.getElementById('panelTitle').textContent = d.t;
-
-  document.getElementById('panelSol').innerHTML     = buildItems(d.s);
+  document.getElementById('panelSol').innerHTML = buildItems(d.s);
   document.getElementById('sidePanel').classList.add('open');
   document.getElementById('panelOverlay').classList.add('open');
 }
-
 function closePanel() {
   document.getElementById('sidePanel').classList.remove('open');
   document.getElementById('panelOverlay').classList.remove('open');
 }
-
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
-/* ════════════════════════════════════════════════════════════
-   RELOJ
-════════════════════════════════════════════════════════════ */
-(function tick() {
-  const n = new Date(), p = v => String(v).padStart(2,'0');
-  const el = document.getElementById('clock');
-  if (el) el.textContent = `${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}`;
-  setTimeout(tick, 1000);
-})();
-
-/* ════════════════════════════════════════════════════════════
-   PRELOAD IMÁGENES (tablet: reduce tiempos de carga)
-════════════════════════════════════════════════════════════ */
-[
-  './fondo.jpeg', './grupoelectrogeno.jpeg', './grupoelectrogenoabierto.jpeg',
-  './electrocompresor.jpg', './motocompresores.jpg', 'sheltercerrado.jpg',
-  'shelterabierto.jpg', 'secadora.jpg', 'torredeiluminacion.jpg',
-  'vru.JPG', './todoslosequipo.jpg'
-].forEach(src => { const img = new Image(); img.src = src; });
-
-/* ════════════════════════════════════════════════════════════
-   SWIPE TÁCTIL — cerrar panel deslizando a la derecha
-════════════════════════════════════════════════════════════ */
+/* ════════ SWIPE PARA CERRAR PANEL ════════ */
 let _tx = 0;
 document.addEventListener('touchstart', e => { _tx = e.touches[0].clientX; }, { passive: true });
-document.addEventListener('touchend',   e => {
+document.addEventListener('touchend', e => {
   if (e.changedTouches[0].clientX - _tx > 70) closePanel();
 }, { passive: true });
 
-/* ════════════════════════════════════════════════════════════
-   A11Y (Accesibilidad) — Dynamic roles & tabindexes
-════════════════════════════════════════════════════════════ */
+/* ════════ PRELOAD IMÁGENES ════════ */
+[ './fondo.jpeg','./grupoelectrogeno.jpeg','./grupoelectrogenoabierto.jpeg',
+  './electrocompresor.jpg','./motocompresores.jpg','motocompresorabierto.jpg',
+  'electrocompresorabierto.jpg','sheltercerrado.jpg','shelterabierto.jpg',
+  'secadora.jpg','torredeiluminacion.jpg','vru.JPG','./todoslosequipo.jpg'
+].forEach(src => { const img = new Image(); img.src = src; });
+
+/* ════════ A11Y ════════ */
 document.querySelectorAll('[onclick]').forEach(el => {
   if (el.tagName !== 'BUTTON' && el.tagName !== 'A') {
     el.setAttribute('role', 'button');
     el.setAttribute('tabindex', '0');
-    el.addEventListener('keypress', e => { if(e.key === 'Enter') el.click(); });
+    el.addEventListener('keypress', e => { if (e.key === 'Enter') el.click(); });
   }
 });
 </script>
