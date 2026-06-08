@@ -77,12 +77,18 @@ html, body {
 .slide {
   position: absolute; inset: 0;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+  align-items: center; justify-content: flex-start;
   opacity: 0; visibility: hidden; pointer-events: none;
   will-change: opacity, transform;
   transition: opacity 0.4s var(--ease), visibility 0.4s;
-  padding: 0 20px;
+  padding: 20px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
+.slide.active > * { margin-top: auto; margin-bottom: auto; }
+#selector.active > *, .explorer-slide.active > * { margin-top: 0; margin-bottom: 0; }
+#selector { padding: 0 !important; }
+.explorer-slide { justify-content: center; }
 .slide.active {
   opacity: 1; visibility: visible; pointer-events: all;
   animation: slideIn 0.45s var(--swift) both;
@@ -117,6 +123,7 @@ html, body {
    ─── SLIDE: HOME ─────────────────────────────────────────
 ════════════════════════════════════════════════════════════ */
 #home { background: var(--bg); overflow: hidden; }
+#home.active { overflow-y: auto; }
 
 /* Imagen lateral de equipo (composición asimétrica tipo revista) */
 #home-bg-img {
@@ -137,8 +144,10 @@ html, body {
   display: flex; flex-direction: column;
   align-items: flex-start; text-align: left;
   padding-left: clamp(20px, 5vw, 90px);
+  padding-right: clamp(20px, 5vw, 90px);
   margin-right: auto;
 }
+.home-content > * { max-width: min(560px, 56vw); }
 
 .home-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
@@ -206,11 +215,10 @@ html, body {
 }
 .btn-primary:active .btn-icon { transform: translateX(4px); }
 
-/* Stats abajo a la izquierda */
+/* Stats dentro del flujo (debajo del botón) */
 .home-stats {
-  position: absolute; bottom: clamp(28px, 5vh, 56px);
-  left: clamp(20px, 5vw, 90px);
   display: flex; gap: clamp(24px, 4vw, 56px);
+  margin-top: clamp(36px, 5vh, 56px);
   z-index: 3;
   animation: fadeUp 0.7s var(--swift) 0.95s both;
 }
@@ -708,16 +716,19 @@ html, body {
 .qr-image { width: clamp(170px, 32vw, 280px); height: auto; max-height: 38vh; object-fit: contain; border-radius: 12px; }
 .qr-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 
+.contact-inner {
+  display: flex; flex-direction: column; align-items: center;
+  gap: clamp(28px, 5vh, 52px);
+  width: 100%;
+}
 .btn-reset {
-  position: absolute; bottom: 32px;
   background: var(--surface); border: 1px solid var(--line-2);
-  color: var(--ink-3); padding: 11px 20px; border-radius: 10px;
+  color: var(--ink-3); padding: 12px 22px; border-radius: 10px;
   font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
   display: inline-flex; align-items: center; gap: 9px;
   font-family: 'Inter', sans-serif;
   box-shadow: var(--shadow-sm);
   transition: color 0.2s, transform 0.2s var(--bounce);
-  z-index: 2;
 }
 .btn-reset:active { color: var(--blue); transform: scale(0.96); }
 
@@ -740,9 +751,7 @@ html, body {
 .brand-tag strong { color: var(--ink-2); font-weight: 700; }
 
 /* Oculto la barra de marca en slides de exploración (no estorbar el CTA) */
-#ge-explorador.active ~ .brand-tag,
-#moto-explorador.active ~ .brand-tag,
-#electro-explorador.active ~ .brand-tag { display: none; }
+/* La visibilidad de brand-tag se controla por JS según la slide activa */
 
 /* ════════════════════════════════════════════════════════════
    RESPONSIVE
@@ -751,22 +760,24 @@ html, body {
   .cat-card { height: clamp(260px, 40vh, 460px); }
 }
 @media (max-height: 800px) {
-  .home-stats { bottom: 24px; }
+  .home-stats { margin-top: clamp(24px, 3vh, 36px); }
   .card { padding: 26px 30px; max-height: calc(100vh - 70px); }
   .cat-card { height: clamp(220px, 34vh, 320px); }
   .challenge-item { padding: 11px 0; }
   .selector-grid { padding-top: 78px; }
 }
 @media (max-height: 640px) {
-  .home-stats { display: none; }
   .brand-tag { display: none; }
   .cat-card { height: 200px; }
+  .home-stats { gap: 20px; }
+  .stat-num { font-size: 26px; }
 }
 @media (max-width: 760px) {
   #home-bg-img { width: 100%; clip-path: none; opacity: 0.16; }
-  .home-content { align-items: center; text-align: center; padding-left: 0; }
+  .home-content { align-items: center; text-align: center; padding-left: 20px; padding-right: 20px; }
+  .home-content > * { max-width: 100%; }
   .home-sub { margin-left: auto; margin-right: auto; }
-  .home-stats { left: 50%; transform: translateX(-50%); }
+  .home-stats { justify-content: center; }
   .selector-grid { flex-direction: column; padding: 78px 18px 18px; overflow-y: auto; }
   .sel-col { min-height: 200px; }
   .cat-grid { flex-direction: column; }
@@ -1065,23 +1076,25 @@ html, body {
 <!-- ─── CONTACTO ─── -->
 <div class="slide" id="contacto">
   <button class="btn-back" onclick="nav('selector')"><i class="fa-solid fa-arrow-left"></i> Volver</button>
-  <div class="contact-wrap">
-    <div class="contact-text">
-      <div class="contact-eyebrow">Contacto directo</div>
-      <h2 class="contact-title">Hablemos.</h2>
-      <p class="contact-desc">Nuestro departamento técnico está disponible para asesorarle en cada proyecto.</p>
-      <div class="contact-links">
-        <div class="contact-link"><i class="fa-solid fa-globe"></i> aercom.com.ar</div>
-        <div class="contact-link"><i class="fa-solid fa-envelope"></i> info@aercom.com.ar</div>
-        <div class="contact-link"><i class="fa-solid fa-phone"></i> Consultar en stand</div>
+  <div class="contact-inner">
+    <div class="contact-wrap">
+      <div class="contact-text">
+        <div class="contact-eyebrow">Contacto directo</div>
+        <h2 class="contact-title">Hablemos.</h2>
+        <p class="contact-desc">Nuestro departamento técnico está disponible para asesorarle en cada proyecto.</p>
+        <div class="contact-links">
+          <div class="contact-link"><i class="fa-solid fa-globe"></i> aercom.com.ar</div>
+          <div class="contact-link"><i class="fa-solid fa-envelope"></i> info@aercom.com.ar</div>
+          <div class="contact-link"><i class="fa-solid fa-phone"></i> Consultar en stand</div>
+        </div>
+      </div>
+      <div class="qr-box">
+        <img src="qrcode.png" class="qr-image" alt="QR WhatsApp" onerror="this.style.display='none'">
+        <div class="qr-label">Escanear para contactar</div>
       </div>
     </div>
-    <div class="qr-box">
-      <img src="qrcode.png" class="qr-image" alt="QR WhatsApp" onerror="this.style.display='none'">
-      <div class="qr-label">Escanear para contactar</div>
-    </div>
+    <button class="btn-reset" onclick="nav('home')"><i class="fa-solid fa-rotate-right"></i> Reiniciar presentación</button>
   </div>
-  <button class="btn-reset" onclick="nav('home')"><i class="fa-solid fa-rotate-right"></i> Reiniciar presentación</button>
 </div>
 
 </div><!-- /app -->
@@ -1091,14 +1104,17 @@ html, body {
 
 <script>
 /* ════════ NAVEGACIÓN ════════ */
+const hideBrandOn = ['home','contacto','ge-explorador','moto-explorador','electro-explorador'];
 function nav(id) {
   const prev = document.querySelector('.slide.active');
   const next = document.getElementById(id);
   if (!next || prev === next) return;
   if (prev) prev.classList.remove('active');
   next.classList.add('active');
+  next.scrollTop = 0;
   closePanel();
-  const sp = next.querySelector('[id$="explorador"]') || next;
+  const brand = document.querySelector('.brand-tag');
+  if (brand) brand.style.display = hideBrandOn.includes(id) ? 'none' : 'flex';
 }
 
 /* ════════ BASE DE DATOS DE CONTENIDO — EDITAR AQUÍ ════════
@@ -1214,6 +1230,13 @@ document.querySelectorAll('[onclick]').forEach(el => {
     el.addEventListener('keypress', e => { if (e.key === 'Enter') el.click(); });
   }
 });
+
+/* Estado inicial: home arranca activo, ocultamos la barra de marca */
+(function initBrand() {
+  const active = document.querySelector('.slide.active');
+  const brand = document.querySelector('.brand-tag');
+  if (brand && active) brand.style.display = hideBrandOn.includes(active.id) ? 'none' : 'flex';
+})();
 </script>
 </body>
 </html>
